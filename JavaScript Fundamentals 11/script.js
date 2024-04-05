@@ -213,3 +213,471 @@ console.log(currenciesUnique); // Remember that set takes only unique values.
 currenciesUnique.forEach(function (value, key, whole) {
   console.log(`${key}: ${value}`); //This will print USD: USD, GDP: GDP, EUR: EUR. this is because a set has no key and its not ordered, so it equally has no index.
 });
+
+// ANOTHER VIDEO (VIDEO 138) A CHALLENGE
+
+/*
+Julia and kate are doing a study on dogs. so each of them asked 5 dog owners about theeir dog's age and stored the data into an array (one array for each) for now, they are just interested in knowing whether the dog is an adult or a puppy. A dog is an adult of it is at least 3 years old, and it is a puppy if it is less than 3 years old.
+
+Create a funcion 'checkDogs', which accept two arrays of dog's ages ('dogsJulia' and 'dogsKate'), and does the following things.
+
+1. Julia found out that the owners of the FIRST  and LAST TWO dogs actually have cats, not dogs! so create a shallow copy of julia's array, and remove the cat ages from that copied array (because it's is a bad practice to mutate function parameters.)
+
+2. Create an array with both Julia's (corrected) and Kate's data.
+
+3. For each remaining dog, log to the console whether it's adult ('Dog number 1 is an adult, and is 5 years old") or a puppy ("Dog number 2 is still a puppy 🐕‍🦺")
+
+4. Run the function for both test datasets.
+
+HINT: Use tools from all lectures in this section so far.😊
+
+TEST DATA 1: Julia's data [3,5,2,12,7], Kate's data [4,1,15,8,3]
+TEST DATA 2: Julia's data [9,16,6,8,3], Kate's data [10,5,6,1,4]
+
+GOOD LUCK 😊
+*/
+
+// NB: I DID THIS TASK WITH THREE TYPES OF FOR LOOP WHICH ARE FOREACH, FOR OF, AND THE NORMAL FOR LOOP.
+
+const checkDogs = function (dogsJulia, dogsKate) {
+  const correctedJuliaDogs = dogsJulia.slice(); //This creates a new copy of the dogsJulia
+
+  //Alternatively, you can use the spread operator. see below!
+  // const corectedJuliaDogs = [...dogsJulia];
+
+  //Remember that it was found out that the dogsJulia was wrong because the first and last 2 were cats. so let me correct it better. using the splice method. remember that it mutates the original array.
+
+  correctedJuliaDogs.splice(0, 1); // Here I am saying I want to remove element at position 0 and just only one element in total.
+  correctedJuliaDogs.splice(-2, 2); // Here I am saying I want to remove element at position -2 and just only tw0 elements in total.
+
+  // ALTERNATIVE.
+  // the whole splice process of creating a new correct dog age array of dogsJulia would have be done using slice method in one step and put into a new variable. see below!
+
+  // const correctJuliaDogs = dogsJulia.slice(1, -2) // this simply says I want to slice from the second element to the last two. remember that arrays are zero based and that the last value in a slice is not always selected.
+
+  //Joining the dogsJulia and dogsKate
+
+  const dogs = correctedJuliaDogs.concat(dogsKate);
+
+  // Alternatively, I can join all these with the spread operator. see below!
+
+  // const dogs = [...correctedJuliaDogs, ...dogsKate];
+
+  // LOOPING USING FOREACH METHOD.
+
+  console.log("---------WITH FOREACH-----------");
+
+  dogs.forEach(function (dog, index, wholeArray) {
+    dog >= 3
+      ? console.log(
+          `Dog number ${index + 1} is an adult, and is ${dog} years old`
+        )
+      : console.log(`Dog number ${index + 1} is still a puppy 🐕‍🦺`);
+  });
+
+  // ALTERNATIVE
+
+  console.log("---------WITH FOR OF-----------");
+
+  // LOOPING USING THE FOR OF LOOP
+
+  for (const [i, dog] of dogs.entries()) {
+    if (dog >= 3) {
+      console.log(`Dog number ${i + 1} is an adult, and is ${dog} years old`);
+    } else {
+      console.log(`Dog number ${i + 1} is still a puppy 🐕‍🦺`);
+    }
+  }
+  // ANOTHER ALTERNATIVE
+  // LOOPING WITH NORMAL FOR
+
+  console.log("---------WITH NORMAL FOR LOOP-----------");
+
+  for (let i = 0; i < dogs.length; i++) {
+    if (dogs[i] >= 3) {
+      console.log(
+        `Dog number ${i + 1} is an adult, and is ${dogs[i]} years old`
+      );
+    } else {
+      console.log(`Dog number ${i + 1} is still a puppy 🐕‍🦺`);
+    }
+  }
+};
+
+checkDogs([3, 5, 2, 12, 7], [4, 1, 15, 8, 3]);
+checkDogs([9, 16, 6, 8, 3], [10, 5, 6, 1, 4]);
+
+// SOME BIG ARRAY METHODS USED IN JAVASCRIPT. (THESE METHODS ARE VERY IMPORTANT.)
+// THEY ARE MAP FILTER AND REDUCE
+
+// MAP: Map is another method that can be used to loop over arrays. it is similar to the FOREACH Method but it creates a brand new array based on the original array. in other words, it takes an array, loops over it, apply a callback function specified in our code, and then return an array. A good example is multiplying each element by 2 and returning an array  of all the values.
+
+// FILTER: This is used to filter for elements in the original array which satisfy a particular condition eg, looking for elements greater than 2.
+
+// REDUCE: This is used to boil down all elemetns of the original array into one single value. an example of this is to add all elements of an array together. for the example of adding all numbers in an array, This requires specifying an operation that has an accumulator variable. so as the reduce method loop over the array, it keeps adding the current method onto the accumulator until the end of the loop, you have the total sum of the elements.
+
+// MAP METHOD IN PRACTICE. converting the movement data to dollars. we area assuming that it is in Euro and that 1 Euro = 1.1 dollars.
+// Remember that this will give a new array.
+
+const movementss = [200, 450, -400, 3000, -650, -130, 70, 1300];
+
+const euroToUsd = 1.1;
+
+const movementssUsd = movementss.map(function (movs) {
+  // once you understand the FOREACH method, both map, filter and reduce will be easier to uncerstand because all takes a callback function.
+  return movs * euroToUsd;
+});
+
+console.log(movementssUsd);
+
+// simplifying the Map method with Arrow function
+
+console.log(`------------With Arrow Function-------------`);
+
+const moveUsd = movementss.map((movs) => movs * euroToUsd); // removing the function keyword, the curly bracketas and the return keyword has gone a log way in reducing the code.
+
+console.log(movementssUsd);
+
+// ALTERNATIVELY, I CAN DO THE SAME JOB THE MAP DID, USING A FOR LOOP
+console.log(`------------With Normal For loop-------------`);
+
+let usdArr = [];
+
+for (const movs of movementss) {
+  usdArr.push(movs * euroToUsd);
+}
+
+console.log(usdArr);
+
+// JUST LIKE FOREACH METHOD, THE MAP METHOD CAN SHOW VALUES INDEX AND ARRAYS see below!
+// remember that with maps, you return an array and store it into a variable. it is completely accpetable to have two return statements in one function as long as only one is executed at a time
+
+const movesMapArray = movements.map((movs, index, array) => {
+  // THE ARRAY ARGUMENT IS NOT NECESSARY HERE SO I CAN EQUALLY REMOVE IT.
+  if (movs > 0) {
+    return `movement ${index + 1}: You deposited ${movs}`; // Here, we won't log to the console, we have to return the string so we can get an array of strings. remember maps, return array.
+  } else {
+    return `movement ${index + 1}: You withdrew ${Math.abs(movs)}`;
+  }
+});
+
+console.log(movesMapArray);
+
+// THE WHOLE IF STATEMENT WITHIN THE APOVE MAP FUNCTION CAN BE MAKDE SHORTER BECAUSE THE TWO IF STRING ARE SAME EXCEPT FOR FEW THIS, WHICH IS WITHDREW AND DEPOSITED. SEE ABOVE!
+
+console.log("----------- Making thing simpler-------------");
+
+const movesMapArr = movements.map((movs, index, array) => {
+  // THE ARRAY ARGUMENT IS NOT NECESSARY HERE SO I CAN EQUALLY REMOVE IT.
+  return `movement ${index + 1}: You ${
+    movs > 0 ? "deposit" : "withdrew"
+  } ${Math.abs(movs)}`; // The Math.abs() will remove any negative sign or positive sign (positive sign won't show anyway)
+});
+
+console.log(movesMapArr);
+
+// NEXT VIDEO FILTER METHOD.
+
+// FILTER METHOD. This selects elements based on specified conditions and return an array.
+
+console.log(`-------FILTER IN AN ARROW FUNCTION---------`);
+
+const deposit = movements.filter((mov) => mov > 0); // I am saying retrun only values that are greater than 0
+
+console.log(deposit);
+
+// PUTTING THE ABOVE FILTER IN A MORE EXPLICIT FUNCTION  see below!
+
+console.log("-------FILTER IN EXPLICIT FUNCTION---------");
+
+const depo = movements.filter(function (mov) {
+  return mov > 0;
+});
+
+console.log(depo);
+
+// FILTERING WITH FOR OF LOOP
+
+const deposs = function (movs) {
+  let depos = [];
+
+  for (const depo of movs) if (depo > 0) depos.push(depo);
+  console.log(depos);
+};
+
+deposs(movements);
+
+// CREATING AN ARRAY OF WITHDRAWALS.
+
+console.log(`---WITHDRAWAL WITH TRADITIONAL FOR LOOP-----`);
+
+const getWitdrawals = function (wtdl) {
+  let withdrawals = [];
+
+  for (let i = 0; i < wtdl.length; i++) {
+    if (wtdl[i] < 0) withdrawals.push(wtdl[i]);
+  }
+  console.log(withdrawals);
+};
+
+getWitdrawals(movements);
+
+// GETTING WITHDRAWAL WITH THE FILTER METHOD.
+
+console.log(`---WITHDRAWAL WITH FILTER-----`);
+
+const gettingWitdraws = movements.filter((mov) => mov < 0);
+
+console.log(gettingWitdraws);
+
+// GETTING WITHDRAWAL WITH FOR OF LOOP.
+
+console.log(`------WITHDRAWAL WITH FOR OF LOOP ------`);
+
+const arrWithdrawal = function (movs) {
+  const withdrawals = [];
+
+  for (const mov of movs) if (mov < 0) withdrawals.push(mov);
+  console.log(withdrawals);
+};
+
+arrWithdrawal(movements);
+
+// NEXT VIDEO.
+// REDUCE METHOD. Trying the reduce method with the movements array. You remember that reduce method reduce the content of an array to a single value. see below!
+
+console.log(`-----------REDUCE METHOD-------------`);
+
+console.log(movements);
+
+//NOTE it is important to note that the first argument of the reduce funtion is known as the accumulator. while as in the ForEach, Filter and Map, it is usually the current value or the individual value of the array. in other word, reduce function can have 4 arguments because of the accumulator while ForEach, Filter and Map can only have 3
+
+// here, the accumulator (acc) is the sum of previous values. which is the value we will keep adding the current (curr) value to. in other words, we will keep adding the current value to the accumulator.
+const balance = movements.reduce(function (acc, curr, i, arr) {
+  return acc + curr; // returning updataed accumulator plus the current value
+}, 0); // The Zero (0) here states that the accumulator should start from 0. in otherwords, the starting value of the accumulatot should be 0.
+
+console.log(balance);
+
+console.log(`--------REDUCE WITH ARROW FUNCTION-------`);
+
+const balan = movements.reduce((acc, curr, i, arr) => acc + curr, 0);
+
+console.log(balan);
+// REDUCE WITH THE TRADIIONAL FOR LOOP
+console.log(`-----REDUCE ALTERNATIVE WITH FOR LOOP----`);
+
+const totalBalance = function (movs) {
+  let bal = 0;
+
+  for (let i = 0; i < movs.length; i++) {
+    bal += movs[i];
+  }
+  console.log(bal);
+};
+
+totalBalance(movements);
+
+// REDUCE WITH NORMAL FOR OF LOOP
+
+console.log(`------REDUCE WITH FOR OF LOOP---------`);
+const total = function (movs) {
+  let bal = 0;
+
+  for (const mov of movs) {
+    bal += mov;
+  }
+  console.log(bal);
+};
+
+total(movements);
+
+// OTHER THINGS THAT CAN BE DONE WITH THE MOVEMENT METHOD.
+// GETTING MAXIMUM VALUE WITH REDUCE.
+console.log(`------MAXIMUM VALUE------`);
+
+console.log(movements);
+
+const maxMovement = movements.reduce((accm, curr) => {
+  if (accm > curr) {
+    return accm;
+  } else {
+    return curr;
+  }
+}, movements[0]); // remember that there must be an initial value which is the first value of the array.
+
+console.log(maxMovement);
+
+console.log(`------MINIMUM VALUE------`);
+
+const minMovement = movements.reduce((accm, curr) => {
+  if (accm < curr) {
+    return accm;
+  } else {
+    return curr;
+  }
+}, movements.at(0));
+
+console.log(minMovement); // remember that there must be an initial value which is the first value of the array.
+
+// MAGIC CHAINING.
+// LET US ASSUME THAT WE WANT TO TAKE ALL DEPOSIT MOVEMENT, CONVERT THEM FROM EURO TO DOLLARS, AND ADD THEM UP.
+// You can chain a these methods to the other if the first one returns an array.
+// to know if you are using the write array while chaining methods, you can log the array arugument to the console. you remember that array is one of the arguements when working with these methods.
+const convertToDollars = function () {
+  const eurToUsd = 1.1;
+  const dollarEqi = movements
+    .filter((mov) => mov > 0)
+    .map((depo) => depo * eurToUsd)
+    .reduce((acc, usdval) => acc + usdval, 0);
+  console.log(dollarEqi);
+};
+
+convertToDollars(movements);
+
+// NEXT VIDEO. FIND METHOD.
+// This takes a callback function returns the FIRST element of an array that meets a condition. see below!
+// Finding the first withdrawal
+const firstWithdrawal = movements.find((mov) => mov < 0);
+
+console.log(firstWithdrawal);
+
+// Please note that filter returns all the element that met a condition while find method retruns the first one. and that filter retruns an array while find returns an element
+
+// BETTER USE OF THE FIND METHOD
+// finding the contents of an array based on some properties of the object.
+// finding account with owner name as Jessica Davis
+// This is more like a situation when you just know only the name of a person and you want to see other properties of the person. you use the find method to loop over the array and print to the console only account that contains the matching name.
+const account = accounts.find((acc) => acc.owner === "Jessica Davis");
+console.log(account);
+
+// TRYING THE ABOVE PROCESS WITH FOR OF LOOP
+
+const firstwithdrl = function () {
+  for (const acc of accounts) {
+    if (acc.owner === "Jessica Davis") {
+      console.log(acc);
+    }
+  }
+};
+
+firstwithdrl(accounts);
+
+// NEXT VIDEO: FINDINDEX check the backist project that is where it was used.
+
+// NEXT VIDEO: SOME AND EVERY METHODS.
+
+// let us first look at the includes methos in the past.
+console.log(movements);
+console.log(movements.includes(-130)); // Here we can see that include returns  a bulean for exactly equal value.
+// You can rewrite the -130 condition above with some. see below!
+const movInc = movements.some((mov) => mov === -130);
+console.log(movInc);
+
+const anyDeposits = movements.some((mov) => mov > 0); // checkinig there are some deposits.
+console.log(anyDeposits); // in other words, some means any.
+
+// checking for deposites above 500
+const depoabove500 = movements.some((mov) => mov > 500);
+console.log(depoabove500);
+
+// THE EVERY METHOD. This returns a boolean when all values meet the specified conditon. see below.
+console.log(movements.every((mov) => mov > 0)); // This will return a false because all values in the movement array are not positive.
+
+// But there is an account that has only positive values. see below!
+console.log(account4.movements);
+
+// let me now use the every method on it.
+
+console.log(account4.movements.every((mov) => mov > 0)); //This is true.
+
+// NOTE: so far, we have written our callback functions directly. we could put them into a variable and they will call when needed. see below.
+const deposits = (mov) => mov > 0;
+console.log(movements.every(deposits));
+console.log(movements.filter(deposits));
+console.log(movements.some(deposits));
+
+// NEXT VIDEO (FLAT AND FLATMAP)
+// assuming we have an array with arrays in it and we want to make it just one array in the same level. this is where vlat comes to play. in other words nested array.
+
+const arrs = [[1, 2, 3], [4, 5, 6], 7, 8];
+console.log(arrs.flat()); // This makes the nested array, one single array without a callback function.
+
+// what if you have a deeper level array. see below!
+const arrDeep = [[[1, 2], 3], [4, [5, 6]], 7, 8]; // So here we have an array of 2 levels. thats an array inside an array, inside another array
+
+// Lets try to flat it
+console.log(arrDeep.flat()); // This only flattens for one level. This shows that flat method goes only deep for one level How do we solve this problem?
+// we need to specify depth arguement or how many level of flattening we want in the flat method to solve this problem. see below!
+
+console.log(arrDeep.flat(2));
+
+// How useful is the flat method? well, assuming the bank wants to calculate the overall balance of all the movement of all the whole account, and there is an array of acccount called accounts, which has a movement property representing transactions. how do wee use this info to get the total transaction by the bank? see below!
+
+// let me do this with a function
+
+const calcTotalTransaction = function (accs) {
+  // so basically all I am saying here is go into each account (loop) of the accounts array, get all its movement array into a single array (remember map creates an array) then flat it, ad reduce to give me the total balance by the bank.
+  const total = accs
+    .map((acc) => acc.movements)
+    .flat()
+    .reduce((acc, mov) => acc + mov, 0);
+  return total;
+};
+
+console.log(calcTotalTransaction(accounts));
+
+// USING THE FLATMAP METHOD TO CARRY OUT SAM TASK ABOVE
+// But these things can be done with a new method known as flatmap see beloq!
+const calcTotalMovement = function (accs) {
+  // so basically all I am saying here is go into each account (loop) of the accounts array, get all its movement array into a single array (remember map creates an array) then flat it, ad reduce to give me the total balance by the bank.
+  const total = accs
+    .flatMap((acc) => acc.movements) // please note that flatMap uses camel case which is the right case used in Javascript. not FLATMAP OR flatmap (uppercase or lowercase.) also note that flatmap does not go beyond one level of array. if you need to go beyond one level, use flat() method
+    .reduce((acc, mov) => acc + mov, 0);
+  return total;
+};
+
+calcTotalMovement(accounts);
+// NEXT VIDEO: The sort Method. This is used to sort values in an array. it equally mutate the original array.
+
+const owners = ["Jonas", "Zach", "Adam", "Martha"];
+console.log(owners.sort()); // The sort method perfectly works on strings.
+console.log(owners); // This shows that the original array was mutated so we have to be very careful this method.
+
+// Here is the problem with numbers.
+
+console.log(movements);
+console.log(movements.sort()); // the sort method does not sort numbers with ease like in the case of string. what happened here is that the method converted the numbers to string and ordered them like the ones that start with 1 will be before the ones that start with two and the one that starts with 2 will be before the one that starts with 3. so this is how it works by default.
+
+// LET US TACKLE THIS.
+
+// Think about A and be arguements in the below sort method as two consecutive numbers.
+// return < 0, A, B. here, I am saying if a value < 0 is returned, then A will be sorted before B
+// return > 0,  B,A. here I am saying if a value > 0 is returned, then B will be sorted befor A
+// so in gerneral, we are sorting in acending order see below
+// in general, all we are doing is to switch orders.
+
+// ASSCENDING ORDER.
+movements.sort((a, b) => {
+  if (a > b) return 1; // code implimentation of if a is greater that b return a first. mind you, the 1 can be any positive number.
+  if (a < b) return -1; // if a is less than b, return b first. mind you, the -1 can be any negative number
+});
+
+console.log(movements);
+
+// ALTERNATIVELY
+movements.sort((a, b) => a - b); // Here is the trick. we know that if a is greater than b, we will return a positive number. remember the positive number does not need to be 1. it can be any number. just something greater than b
+
+//SORTING IN DECENDING ORDER.
+// This is just abount changing what should be returned in each case.
+movements.sort((a, b) => {
+  if (a > b) return -1;
+  if (a < b) return 1;
+});
+
+console.log(movements);
+
+// DECENDING ALTERNATIVE.
+
+movements.sort((a, b) => b - a);
+console.log(movements);
