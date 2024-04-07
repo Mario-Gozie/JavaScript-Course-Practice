@@ -681,3 +681,42 @@ console.log(movements);
 
 movements.sort((a, b) => b - a);
 console.log(movements);
+
+// NEXT VIDEO
+// WORKING WITH ARRAYS
+// Previous ways we created arrays
+
+const arrsr = [1, 2, 3, 4, 5, 6, 7];
+console.log(new Array(1, 2, 3, 4, 5, 6, 7));
+
+const x = new Array(7); // this will create a new array with 7 empty spaces. This shows that when we use the new Array function with only one value inside, it creates spaces of that value that could be filled later. this can be done with the fill method
+console.log(x);
+
+// x.fill(1); //  This fills the x arry with 1 seven times
+// You can also specify where you want the fill method to start filling. i could be from index 3 see below.
+
+// x.fill(1, 3); // here 3 is the begin parameter
+
+// You can also specify the end parameter but know that just like in slice, there wont be value for that positon of the end parameter. lets use index 5 as an example
+x.fill(1, 3, 5);
+
+console.log(x);
+
+// the fill method mutates the original array
+
+arrsr.fill(23, 4, 6); // here I am saying, put 23 at position 4 - 6. remember that position 6 wont be filled.
+console.log(arrsr);
+
+// What if we want to create this array [1, 2, 3, 4, 5, 6, 7] Progamatically? we use the Array.from. The Array.from() takes a callback function
+const y = Array.from({ length: 7 }, () => 1); // so here, I a saying create an array of length 7 and then, using an arrow function, I said put only 1 into the indexes.
+console.log(y); // This shows the arry of 1
+
+const z = Array.from({ length: 7 }, (curr, i) => i + 1); //Remember that the Array.from takes a callback function. and it is just like that in map funtion. here I am simply saying, take the current and index, then return index + 1
+
+// You can still remove that "curr" argument because it is not need here. in such case, you replace it with an underscore. "_" see below!
+// const z = Array.from({ length: 7 }, (_, i) => i + 1);
+console.log(z);
+
+// MORE USE CASES OF THE ARRAY.FROM() FUNCTION.
+// array.from is very valuable when creating arrays from other things. eg, maps and sets. Provided they are iterable.
+// see the App code file for very good examples.
