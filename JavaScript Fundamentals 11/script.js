@@ -720,3 +720,102 @@ console.log(z);
 // MORE USE CASES OF THE ARRAY.FROM() FUNCTION.
 // array.from is very valuable when creating arrays from other things. eg, maps and sets. Provided they are iterable.
 // see the App code file for very good examples.
+
+// LETS PRACTICE WITH ARRAY METHODS A BIT FIRST.
+
+// Exercise 1 We want to calculate how much deposited in all the accounts in the bank
+
+const bankDepositSum = accounts
+  .map((acc) => acc.movements)
+  .flat()
+  .filter((deposit) => deposit > 0)
+  .reduce((acc, deposit) => acc + deposit, 0);
+console.log(bankDepositSum);
+
+// The above can be done alternatively with flatmap
+
+const AllBankDeposit = accounts
+  .flatMap((acc) => acc.movements)
+  .filter((deposit) => deposit > 0)
+  .reduce((acc, deposit) => acc + deposit, 0);
+
+console.log(AllBankDeposit);
+
+// Execise 2: How many deposit of atleast 1000 dollars
+
+const NumDeposits1000 = accounts
+  .flatMap((acc) => acc.movements)
+  .filter((deposit) => deposit >= 1000)
+  .reduce((acc, curr, i, arr) => i + 1, 0); // Here, I am basically increasing the index to get the total transactions that were up to 1000. remember that the index starts at 0 for arrays. and that reduce method takes an index as an arguement.
+
+console.log(NumDeposits1000);
+
+// Alternative
+
+const NumDepo1000 = accounts
+  .flatMap((acc) => acc.movements)
+  .filter((deposit) => deposit >= 1000).length;
+
+console.log(NumDepo1000);
+
+// Another Alternative
+
+const NumDep1000 = accounts
+  .flatMap((acc) => acc.movements)
+  .reduce((count, curr) => (curr >= 1000 ? count + 1 : count), 0); // Here, I am saying if the count is greater than 1000, add 1 to the count. if not return count. Remember count is starting at 0
+
+console.log(NumDep1000);
+
+// EXERCISE 3: Creating a new object with the reduce method.
+// create an object that contains all deposit and all withdrawal.
+
+const sums = accounts
+  .flatMap((acc) => acc.movements)
+  .reduce(
+    (sum, curr) => {
+      curr > 0 ? (sum.deposits += curr) : (sum.withdrawals += curr); //here I am saying if the current value is > than 0, add it to the deposits property of the sum arguement. if it is not, add it to the withdrawal property of the sum arguement.
+      return sum; // when working with a function that has curly braces, you must explicitly use the return statement. but when you are not like in the tasks above, using an arrow function, it will be done automatically.
+    },
+    { deposits: 0, withdrawals: 0 }
+  );
+
+// in the above code, we can see that the object created is sum. whicih is the sums as a reduce argument. that is why we have sum.deposits and  sum.withdrawal.
+
+console.log(sums);
+
+// YOU CAN EVEN DISTRUCTURE THEM SEE BELOW.
+
+const { depositss, withdrawalss } = accounts
+  .flatMap((acc) => acc.movements)
+  .reduce(
+    (sum, curr) => {
+      curr > 0 ? (sum.depositss += curr) : (sum.withdrawalss += curr); //here I am saying if the current value is > than 0, add it to the deposits property of the sum arguement. if it is not, add it to the withdrawal property of the sum arguement.
+      return sum; // when working with a function that has curly braces, you must explicitly use the return statement. but when you are not like in the tasks above, using an arrow function, it will be done automatically.
+    },
+    { depositss: 0, withdrawalss: 0 }
+  );
+
+console.log(depositss, withdrawalss);
+
+// EXECISE 4: CREATING A FUNCTION THAT WOULD CAPITALIZE THE FIRST LETTER OF EVERY WORD, EXCEPT FOR SOME EXEPTIONS. see below!
+
+// this is a nice title => This Is a Nice title.
+
+const convertTitleCase = function (title) {
+  const exceptions = [`a`, `an`, `the`, `and`, `but`, `or`, `on`, `in`, `with`];
+
+  const titleCase = title
+    .toLowerCase()
+    .split(" ")
+    .map(
+      (word) =>
+        exceptions.includes(word) ? word : word[0].toUpperCase() + word.slice(1) //Here I am simply saying. while looping over each word, if the word is included in the exception (remember the include method returns a boolean), dont capitalize else. capitalize the first letter and join others which starts from index 1.
+    )
+    .join(" "); // Here I am joining the array back with the space.
+
+  return titleCase;
+};
+
+console.log(convertTitleCase(`this is a nice title`));
+console.log(convertTitleCase(`this is a LONG title but not too long`));
+console.log(convertTitleCase(`and here is another title with an EXAMPLE`));
