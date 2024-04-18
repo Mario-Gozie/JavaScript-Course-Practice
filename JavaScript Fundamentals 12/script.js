@@ -359,3 +359,23 @@ console.log(Date.now());
 future.setFullYear(2040);
 
 console.log(future); // with this, we can see that the year is changed to 2040
+
+// OPERATIONS WITH DATES USING TIME STAMP
+// Here, I would want to know days difference with time stamp.
+
+const nextDate = new Date(2017, 10, 19, 15, 23);
+// To convert the date above to timestamps (remember timestamp is in miliseconds and that 1000 miliseconds makes a second),  I can use the number function or the plus sign instead of getTime function. see below!
+
+console.log(Number(nextDate));
+console.log(+nextDate);
+
+// Getting days passed alredy
+const calcDaysPassed = (date1, date2) =>
+  Math.abs((date2 - date1) / (1000 * 60 * 60 * 24)); // Here, the 1000 converts to seconds, the 60 to minutes, the other 60 to hours and the 24hour to days. The absolute value there is to always give a positive value.
+
+const day1 = calcDaysPassed(new Date(2017, 3, 14), new Date(2017, 3, 24));
+
+console.log(day1);
+
+// INTERNATIONALIZATION.
+// This is a situation where the an app supports different languages. Lets apply this in dates and numbers formating
