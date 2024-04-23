@@ -379,3 +379,72 @@ console.log(day1);
 
 // INTERNATIONALIZATION.
 // This is a situation where the an app supports different languages. Lets apply this in dates and numbers formating
+// To see that of dates, we can see it in the bank app project.
+
+// INTERNATIONALIZATION OF NUMBERS
+const nums = 3884764.23;
+
+console.log(`US: `, new Intl.NumberFormat(`en-US`).format(nums)); // If you check the console, You will see that the nums value is wel formatted with commas within the numbers.
+
+// it can also have an option object which is optional
+// const option = {
+//   style: "unit",
+//   unit: "mile-per-hour",
+// };
+
+// const option = {
+//   style: "percent",
+// };
+
+const option = {
+  style: "currency",
+  currency: "EUR",
+  useGrouping: false, // This will make the seperator comma go away when it is set to false.
+};
+
+// Lets see the number for other countries
+console.log(`GERMANY: `, new Intl.NumberFormat(`de-DE`, option).format(nums));
+console.log(`SYRIA: `, new Intl.NumberFormat(`ar-SY`, option).format(nums));
+console.log(
+  `BROWSER: `,
+  new Intl.NumberFormat(navigator.language, option).format(nums)
+);
+
+// TIMERS
+// There are two main timeers, SetTimeout which runs after a particular time and then SetTimeinterval which runs forever each time it gets to that time.
+
+// SETTIMEOUT: This takes a callback funtion and time You want the code to run. see below!
+
+setTimeout(() => console.log("Here is your pizza 🍕"), 3000); //Here I am saying that something should be logged to the console after 3 seconds
+console.log(`waiting...`); // This run without waiting for the timeout calback function. The calback function does not affect it at all.
+
+// You can pass in an argument into a setTimeout function but the argument hass to be after the timmer. see below!
+// Let us assume we want to add two ingridients
+
+setTimeout(
+  (ing1, ing2) => console.log(`Here is your pizza with ${ing1} and ${ing2} 🍕`),
+  3000,
+  `olives`,
+  `spinach`
+);
+
+// WE CAN CANCEL THE TIMER BEFORE IT REACHES. IN THIS CASE, CANCELLING THE TIMER BEFORE 3 SECONDS.
+// LET ME FIRST PUT THESE INGRIDIENTS INTO AN ARRAY
+
+const ingridients = ["olives", "spinach"];
+const pizzaTimer = setTimeout(
+  (ing1, ing2) => console.log(`Here is your pizza with ${ing1} and ${ing2} 🍕`),
+  3000,
+  ...ingridients
+);
+
+// This is the point I am clearing/ stopping the timmer from working. to do so, the timer has to be in a variable
+if (ingridients.includes("spinach")) clearTimeout(pizzaTimer); // Here, I am saying ig the pizza contains or includes spinach, clear the timer
+
+// THE DIFFERENCE BETWWEN setInteval and setTimeout is that setTimeout schedules a time for a function to run while setinterval schedules a function to run over and over and over again ager a certain time.
+
+// SetInterval
+setInterval(function () {
+  const now = new Date();
+  console.log(now);
+}, 1000);
