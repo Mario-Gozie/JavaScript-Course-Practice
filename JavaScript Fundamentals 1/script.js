@@ -6,7 +6,6 @@
 //     let firstName = "Jonas";
 //     console.log(firstName);
 
-
 //let javascriptIsFun = true;
 //console.log(javascriptIsFun);
 
@@ -21,9 +20,9 @@
 
 // Undefined data types is seen when a variable is created without a value.
 
-//let year;
-//console.log(year);
-//console.log(typeof year);
+// let year;
+// console.log(year);
+// console.log(typeof year);
 
 // changing the content of the year variable from undefined to number.
 
@@ -47,23 +46,22 @@
 
 // An empty value can't be declared using const.
 
-//const job;
+// const job;
 
 // USING VAR Never use var
 
-//var me = 'programmer';
-//me = 'teacher';
-
+// var me = "programmer";
+// me = "teacher";
 
 // OPERATORS IN JAVASCRIPT. operators basically allows us transform values or combine values and do all kinds of works with values.
 // There are many categories of operators. mathematical operators, comparison operators, logical operators assignment operators.
 
 // Mathematical Operators
 
-//const now = 2037;
-//const ageJonas = now - 1991;
-//const ageSarah = now - 2018;
-//console.log(ageJonas, ageSarah);
+// const now = 2037;
+// const ageJonas = now - 1991;
+// const ageSarah = now - 2018;
+// console.log(ageJonas, ageSarah);
 
 //console.log(ageJonas * 2, ageJonas / 10 ,2**3);
 
@@ -127,9 +125,6 @@
 
 // console.log(markFirstBmi, johnFirstBmi, markHigherBMI);
 
-
-
-
 // const marksSecondMass = 95;
 // const marksSecondHeight = 1.88;
 
@@ -140,9 +135,7 @@
 
 // const johnSecondBmi = johnSecondMass/(johnSecondHeight * johnSecondHeight);
 
-
 // const marksecondHigherBMI = markSecondBmi > johnSecondBmi
-
 
 // console.log (markSecondBmi, johnSecondBmi, marksecondHigherBMI)
 
@@ -166,9 +159,11 @@
 
 // // Using Template literals to write multi-line strings
 
-// console.log('string with \n\
+// console.log(
+//   "string with \n\
 // multiple \n\
-// lines') // Before template literals
+// lines"
+// ); // Before template literals
 
 // // with template literals
 
@@ -176,14 +171,12 @@
 // multiple
 // lines`)
 
-
 // TALING DECISIONS: IF/ELSE STATEMENTS.
 
-// writing a program to check if someone has gotten to the age of having a drivers liscence or not if the person is, it will print that to the console and if the person is not, it will print how many years left.
+// writing a program to check if someone has gotten to the age of having a drivers liscence or not if the person is, it will print that to the console and if the person is not, nit will print how many years left.
 
 // const age = 19;
 // const isOldEnough = age >= 18;
-
 
 // // below you are saying if isOldEnough is true, run the code, else, it shouldnt run.
 // if(isOldEnough) {
@@ -193,7 +186,6 @@
 // // WITH ELSE STATEMENT
 
 // const newAge = 15;
-
 
 // if(newAge >= 18) {
 //     console.log(`sarah can start driving 🚗`)
@@ -227,9 +219,7 @@
 
 //  const johnFirstBmi = johnFirstMass/(johnFirstHeight * johnFirstHeight);
 
-
 //  console.log(markFirstBmi, johnFirstBmi);
-
 
 //  if (markFirstBmi > johnFirstBmi){
 //     console.log(`Mark's BMI (${markFirstBmi}) is higher than John's!`)
@@ -271,13 +261,13 @@
 
 // // Type coercion
 
-// console.log('I am ' + 23 + ' years old'); //here 23 is automatically converted to a string.
-// console.log('23' - '10' - 3) //Here because we have minus sign, the 23 and 10 strings are converted to numbers.
-// console.log('23' + '10' + 3) //Here the 23 and 10 are seen as string because of the plus sign.
-// console.log('23' * '2'); //Here it will be converted to a number.
-// console.log('23' / '2'); //Here these strings will be converted to Numbers.
+// console.log("I am " + 23 + " years old"); //here 23 is automatically converted to a string.
+// console.log("23" - "10" - 3); //Here because we have minus sign, the 23 and 10 strings are converted to numbers.
+// console.log("23" + "10" + 3); //Here the 23 and 10 are seen as string because of the plus sign.
+// console.log("23" * "2"); //Here it will be converted to a number.
+// console.log("23" / "2"); //Here these strings will be converted to Numbers.
 
-// let n = '1' + 1; // here when you sum 1 string adds the number 1, you have 11 string;
+// let n = "1" + 1; // here when you sum 1 string adds the number 1, you have 11 string;
 // n = n - 1; // here, the 11 strings is converted to a number because of the negative sign;
 // console.log(n);
 
@@ -316,10 +306,10 @@
 
 // let height;
 
-// if(height){
-//     console.log('YAY! Height is defined');
-// } else{
-//     console.log('Height is UNDEFINED');
+// if (height) {
+//   console.log("YAY! Height is defined");
+// } else {
+//   console.log("Height is UNDEFINED");
 // } // The else statement got executed because undefined variables are falsy values.
 
 //EQUALITY OPERATORS
@@ -330,10 +320,9 @@
 
 // if(age === 18) console.log('You just became an adult! (strict)'); // You dont need to have curly brackets whrn working with only one condition.
 
+// const ages = "18";
 
-// const ages = '18';
-
-// if(ages == 18) console.log('You just became an adult! (loose)');
+// if (ages == 18) console.log("You just became an adult! (loose)");
 
 // const favorite = prompt("what's your favorite number?"); //This gave a prompt in a browser and I imputed a value which was stored in the favorite variable. remember inputed values are usually strings unless converted.
 // console.log(favorite);
@@ -343,7 +332,7 @@
 
 // // USING THE STRICT EQUALITY SIGN
 
-// const favoriteday = prompt("what's your favorite day?"); 
+// const favoriteday = prompt("what's your favorite day?");
 // console.log(favoriteday);
 // console.log(typeof favoriteday); //Here I was checking type for the number I chose.
 
@@ -363,12 +352,12 @@
 // console.log(favoritePosition);
 // console.log(typeof favoritePosition); //Here I was checking type for the number I chose.
 
-// if(favoritePosition === 1) 
+// if(favoritePosition === 1)
 // {console.log(`Cool ${favoritePosition} is an amazing Position`)}
 // else if(favoritePosition === 2){
 //     console.log(`${favoritePosition} is also a good position`)
 // }else if(favoritePosition === 3){
-//     console.log(`${favoritePosition} is also not a bad one`)} 
+//     console.log(`${favoritePosition} is also not a bad one`)}
 // else{
 //     console.log(`The position is neither 1 or 2`)
 // };
@@ -383,7 +372,6 @@
 // // IN SUMMARY ALWAYS USE STRICT OPERATORS.
 
 // // BOOLEAN LOGIC: AND, OR & NOT OPERATORS
-
 
 // HOW LOGICAL OPERATORS WORK IN JAVASCRIPT
 
@@ -426,7 +414,6 @@
 
 // // Creating a condition to know if sarah can drive
 
-
 // CODING CHALLENGE
 
 // 1) Calculate the average score for each team, using the test data below.
@@ -442,12 +429,9 @@
 
 // GOOD LUCK.
 
-
-
 // const dolphinsTestData1Average = (96 + 108 + 89)/3;
 // const koalasTestData1Average = (88 + 91 + 110)/3;
 // console.log(dolphinsTestData1Average,koalasTestData1Average)
-
 
 // if(dolphinsTestData1Average > koalasTestData1Average){
 //     console.log(`The Dolphins won! 🏆`)
@@ -462,7 +446,6 @@
 // const koalasTestData2Average = (109 + 95 + 123)/3;
 // console.log(dolphinsTestData2Average,koalasTestData2Average)
 
-
 // if(dolphinsTestData2Average > koalasTestData2Average && (dolphinsTestData2Average >= 100)){
 //     console.log(`The Dolphins won! 🏆`)
 // }else if(koalasTestData2Average > dolphinsTestData2Average && (koalasTestData2Average >= 100)){
@@ -471,14 +454,11 @@
 //     console.log(`Both won the trophy!`)
 // }
 
-
-
 // //BONUS 2
 
 // const dolphinsTestData3Average = (97 + 112 + 101)/3;
 // const koalasTestData3Average = (109 + 95 + 106)/3;
 // console.log(dolphinsTestData3Average,koalasTestData3Average)
-
 
 // if(dolphinsTestData3Average > koalasTestData3Average && (dolphinsTestData3Average >= 100)){
 //     console.log(`The Dolphins won! 🏆`)
@@ -489,7 +469,6 @@
 // } else{
 //     console.log(`No one won the trophy! 😒`)
 // }
-
 
 // SWITCH STATEMENT (ALTERNATIVE TO IF ELSE STATEMENT)
 // const day = 'Thursday';
@@ -548,8 +527,9 @@
 
 // const age = 23;
 
-// age >= 18 ? console.log('I like to drink wine 🍷') : // the question mark there is simply saying if the statement is true, run the code after it and the semicolon means, if not it, run the other.
-//         console.log('I like to drink water 💧');
+// age >= 18
+//   ? console.log("I like to drink wine 🍷") // the question mark there is simply saying if the statement is true, run the code after it and the semicolon means, if not it, run the other.
+//   : console.log("I like to drink water 💧");
 
 // // This is an operator which gives a value, this simply means that this is an expression and we can assign the value into a variable
 // // Lets see below.
@@ -562,10 +542,10 @@
 
 // let drink2;
 
-// if(age >= 18){
-//     drink2 = 'wine 🍷';
-// } else{
-//     drink2 = 'water 💧';
+// if (age >= 18) {
+//   drink2 = "wine 🍷";
+// } else {
+//   drink2 = "water 💧";
 // }
 
 // console.log(drink2);
@@ -580,35 +560,21 @@
 
 // Steven wants to build a very simple tip calculator for whenever he goes eating in a resturant. in his country, it's usual to tip 15% if the bill value is between 50 to 300. if the value is different, the tip is 20%.
 
-
 //1.) Your task is to calculate the tip, depending on the bill value. create a variable called tip for this. it's not allowed to use an if/else statemen. (if it's easier for you, you can start with an if /else statement and then try convert it to a tenary operator!)
 
 //2.) Print a string to the console containing the bill value, the tip and the final value (bill + tip). Example: 'The bill was 275, the tip was 41.25, and the total value 316.25'
 
-
 //TEST DATA: Test for bill value is 275, 40 and 430;
-
 
 // MY SOLUTION.
 
 // let bill = 430;
 // let tip = bill <=300 && bill >= 50 ? bill * 0.15 : bill * 0.2;
 
-
 // console.log(`The bill was ${bill}, the tip was ${tip} and the total value is ${bill + tip} 😍😊! `);
-
 
 // VERSIONS OF JAVASCRIPTS
 
 // The very first Java script was in the done in 10 days (1995), the second was in the year 1996 and it was called LiveScrpt and later called Java Script to attract Java developers because Java was trending then. JavaScript was standardized in 1997 and was called ECMAScript 1 (ES1), later ES5 was relaeased in 2009 and then ES6 which is also known as ES2015 or ECMAScript 2015 was released in 2015. since then they have be a new release every year.
 
-// java script is backward compactible which means, old javascript works on old browsers and new browsers. This is because old features are not removed when making new features, it's just an incremental update. on the other hand it is not forward compactible. which means that new javascript dont work on old browsers. to takle this, we convert all new Javascript to ES5 using Babel this is called transpiling and polyfilling your code. This is because ES5 is supported on all browsers.  Another way is to use the latest browser while developing to know if its compactible. From ES6 or ES 2015 to ES 2020 are not supported by old browses so we use transpilling and polyfilling process to get it working but the release from 2021 i.e ES2021 can already use some features in production with transpiling and polyfiling. 
-
-
-
-
-
-
-
-
-
+// java script is backward compactible which means, old javascript works on old browsers and new browsers. This is because old features are not removed when making new features, it's just an incremental update. on the other hand it is not forward compactible. which means that new javascript dont work on old browsers. to takle this, we convert all new Javascript to ES5 using Babel this is called transpiling and polyfilling your code. This is because ES5 is supported on all browsers.  Another way is to use the latest browser while developing to know if its compactible. From ES6 or ES 2015 to ES 2020 are not supported by old browses so we use transpilling and polyfilling process to get it working but the release from 2021 i.e ES2021 can already use some features in production with transpiling and polyfiling.

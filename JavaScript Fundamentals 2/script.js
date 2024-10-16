@@ -1,38 +1,37 @@
 // Activating strict mode. This helps to have a more secured code and avoid errors. it forbids us to do certain things and it creates visible errors instead of failing silently. strict also lets you know when you are using reserved Javascript words as variable or value. This is to avoid using them as variables.
 
-'use strict';
+"use strict";
 
 // let hasDriversLicense = false;
 // const passTest = true;
 
-// if(passTest)hasDriversLicense = true;
-// if(hasDriversLicense)console.log(`I can drive`)
+// if (passTest) hasDriversLicense = true;
+// if (hasDriversLicense) console.log(`I can drive`);
 
 // FUNCTIONS
 // A function is a piece of code that can be reused over and over again in our code. its like variable but variable hold values but function holds chunks of codes.
 
-// function logger(){
-//     console.log(`My name is Jonas`);
+// function logger() {
+//   console.log(`My name is Jonas`);
 // }
 // // calling/ running /invoking the function
 // logger();
 // logger();
 // logger();
 
-// function fruitProcessor(apples, oranges){
-//     const juice = `Juice with ${apples} apples and ${oranges} oranges.`
-//     return juice;
+// function fruitProcessor(apples, oranges) {
+//   const juice = `Juice with ${apples} apples and ${oranges} oranges.`;
+//   return juice;
 // }
 
 // const appleJuice = fruitProcessor(5, 0);
 
-// console.log(appleJuice)
+// console.log(appleJuice);
 
 // // calling the fruitProcessor agind
 
 // const appleOrangeJuice = fruitProcessor(2, 4);
 // console.log(appleOrangeJuice);
-
 
 // // There are two ways of creating a function which are by DECLARATION and by EXPRESSION.
 // // BY DECLARATION
@@ -62,7 +61,7 @@
 
 // // ARROW FUNCTION (This was introdused in ES6)
 
-// const calcAge3 = birthYear => 2037 - birthYear; // The arrow (=>) is simply why this is called an arrow function. what we want to return is before the arrow which is the birthYear and we are putting it into a variable called calcAge3. This is quite easier to write and understand. 
+// const calcAge3 = birthYear => 2037 - birthYear; // The arrow (=>) is simply why this is called an arrow function. what we want to return is before the arrow which is the birthYear and we are putting it into a variable called calcAge3. This is quite easier to write and understand.
 
 // // calling the arrow function
 
@@ -91,7 +90,6 @@
 
 // console.log(yearsUntilRetirementName(1996, 'Chigozirim'));
 
-
 // // CALLING A FUNCTION FROM ANOTHER FUNCTION
 
 // // imagine a situation you are making a juice and there is need for a machine to cut the fruits into chuncks before processing it. Thats the senero we want to create using the previous function we created for food processor.
@@ -117,8 +115,7 @@
 //     return 2037 - birthYear;
 // }
 
-
-// const yearsUntilRetirementName = function (birthYear, firstName) { // Practicing calling a function inside a function. please know that the birthYear parameter in the calcAge function is seen to be different from the one in yearsUntilRetirement in JavaScript. they are seen like in the case of local variables.  
+// const yearsUntilRetirementName = function (birthYear, firstName) { // Practicing calling a function inside a function. please know that the birthYear parameter in the calcAge function is seen to be different from the one in yearsUntilRetirement in JavaScript. they are seen like in the case of local variables.
 //         const age = calcAge(birthYear)
 //          const retirement = 65 - age;
 //          return `${firstName} retires in ${retirement} years`;
@@ -128,27 +125,24 @@
 
 // Making the function more complicated using if statement within.
 
-
 // const calcAge = function(birthYear){
 //     return 2037 - birthYear;
 // }
 
-
-// const yearsUntilRetirementName = function (birthYear, firstName) { 
+// const yearsUntilRetirementName = function (birthYear, firstName) {
 //         const age = calcAge(birthYear)
 //          const retirement = 65 - age;
 //          if(retirement > 0){return `${firstName} retires in ${retirement} years`;
 //         }else{
 //             return `${firstName} is no longer with us` // Note that the return statement ends the action of a function. in other words, whatever that comes after the return statement cannot be executed.
 //         }
-         
+
 //      }
 
 // console.log(yearsUntilRetirementName(1996, "Chigozirim"))
 // console.log(yearsUntilRetirementName(1962, "Joe"))
 
 // CODING CHALLENGE
-
 
 // Back to the two gymnastics teams, the Dolphins and the Koalas! There is a new gymnastics discipline which works differently.
 
@@ -165,25 +159,25 @@
 
 //TEST DATA 2: Dolphins score 85, 54 and 41. Koalas score 23, 34 and 27;
 
-
 // GOOD LUCK.
 
-// SOLUTION
+// SOLUTION;
 
-// const calcAverage = (a,b,c) => (a + b + c)/3;
-// console.log(calcAverage(44,23,71));
+// const calcAverage = (a, b, c) => (a + b + c) / 3;
+// console.log(calcAverage(44, 23, 71));
 
-// let scoreDolphins = calcAverage(44,23,71);
-// let scoreKoalas = calcAverage(65,54,49);
+// let scoreDolphins = calcAverage(44, 23, 71);
+// let scoreKoalas = calcAverage(65, 54, 49);
 // console.log(scoreDolphins, scoreKoalas);
 
-// function checkWinner(avgDolphins, avgKoalas){
-//     if(avgDolphins >= 2 * avgKoalas){console.log(`Dolphins win 🏆! (${avgDolphins} vs ${avgKoalas})`)} 
-//     else if(avgKoalas >= 2 * avgDolphins){
-//         console.log(`Koalas wins 🏆! (${avgKoalas} vs ${avgDolphins})`)
-//     } else{
-//         console.log(`No one wins .....`)
-//     }
+// function checkWinner(avgDolphins, avgKoalas) {
+//   if (avgDolphins >= 2 * avgKoalas) {
+//     console.log(`Dolphins win 🏆! (${avgDolphins} vs ${avgKoalas})`);
+//   } else if (avgKoalas >= 2 * avgDolphins) {
+//     console.log(`Koalas wins 🏆! (${avgKoalas} vs ${avgDolphins})`);
+//   } else {
+//     console.log(`No one wins .....`);
+//   }
 // }
 
 // // CALLING THE FUNCTION
@@ -202,12 +196,11 @@
 
 // checkWinner(scoreDolphins,scoreKoalas);
 
-
 // ARRAYS DATA STRUCTURE
 
 // Assuming you want to store names of your friends, you will store them in one variable each which doesn't really make sence and wastes time. that's why we have data structures like arrays. which is more like a big container that stores data.
 
-// so instead of 
+// so instead of
 
 // const friend1 = 'Micheal';
 // const friend2 = 'Steven';
@@ -260,7 +253,6 @@
 // const calcAge = function(birthYear){
 //          return 2037 - birthYear;
 //      }
-
 
 // const years = [1990, 1967, 2002, 2010, 2018]; // here I am trying to calculate age for people having this ages in an array. but if I use the variable name for the array which is years, it won't work. I will get NaN which means not a number. but I could calculate for individual contents of the array. see below.
 
@@ -331,11 +323,9 @@
 //     console.log(`There is no number 23 here maybe you should try the string value if you feel it is here`);
 // }
 
-// CODE CHALLENGE 
-
+// CODE CHALLENGE
 
 // Steven is still building his tip calculator, using the same rules as before: Tip 15% of the bill value is between 50 to 300. and if the value is different, the tip is 20%.
-
 
 //1.) write a function 'calcTip' that takes any bill value as an input and retrns the corresponding tip, calculated based on the rules above (you can check out the code from first tip calculator challenge if you need to). Use the funtion type you like the most. Test the function using a bill value of 100.
 
@@ -345,7 +335,21 @@
 
 //4) BONUS: Create an array 'total' containing the total values, so the bill + tip.
 
+//////////////////// THIS IS A PERSONAL CREATIVE WORK///////////////////
+//////////////////// HERE I JUST CREATED A FUNCTION THAT WILL ACTIVATE THE PROMPT, TAKE A VALUE AND CALCULATE THE TIP/////
+//////////////// IT IS DIFFERENT FROM THE MAIN TASK/////////////////////////////////////////////
+// function calt() {
+//   let bi = Number(prompt(`Enter your bill let's help calculate a tip: `));
+//   const calctip = (bb) =>
+//     bb > 50 || bb <= 300
+//       ? console.log(`your tip is ${bb * 0.15} dollars`)
+//       : console.log(`your tip is ${bb * 0.2}`);
+//   calctip(bi);
+// }
 
+// calt();
+
+/////////////////////////// THE PERSSONAL CREATIVE WORK ENDS HERE////////////////////////////////
 
 //TEST DATA: Test for bill value is 125, 555 and 44;
 
@@ -353,7 +357,7 @@
 
 // const calcTip = function(bill){
 //     return bill >= 50 && bill <= 300 ? bill * 0.15 :
-//     bill * 0.2 
+//     bill * 0.2
 // }
 // An alternative to the function above.
 
@@ -367,7 +371,6 @@
 
 // console.log(calcTip(100));
 
-
 // const bills = new Array(125, 555, 44);
 
 // const tips = [calcTip(bills[0]), calcTip(bills[1]),calcTip(bills[2])];
@@ -378,9 +381,7 @@
 
 // console.log(total);
 
-
 // OBJECTS (Another type of Data structure) The main difference between an array and an object is that you can't give elements in an array name. in other words, you can't reference those elements by name. This is a problem that the data structure called objects solve. in Objects, there is key value pairs.
-
 
 // Example of an Object.
 // To name create an object, you use curly braces instead of hard brackets like in arrays.
@@ -478,10 +479,10 @@
 //     friends: ['Micheal','Peter','Steven'],
 //     hasDriversLicense: true,
 // // In the commented method, we passed a parameter which represent a value in the same object. we could avoid this with the 'this' method. This refers to the object calling the function, it prevents using the parameter which is a property of the same object over and over again within a functin in the object. lets see below.
-//     // calcAge: function(birthYear){ 
+//     // calcAge: function(birthYear){
 //     //     return 2037 - birthYear;
 //     // }
-//     calcAge: function(){ 
+//     calcAge: function(){
 //         console.log(this) //This is just to make it clearer that this refers to the object. so it will display all content of the object
 //         return 2037 - this.birthYear;
 //         //You might wonder why use this.birthYear instead jonas.birthYear when it is that this refers to jonas well, if you use jonas.birthYear instead of this.birthYear, and you later decide to change the objects name from jonas to fred, it means you will also come inside the function to change the jonas.birthYear to fred.birthYear.
@@ -490,25 +491,25 @@
 
 // //To now calculate age, using the calc age function, I dont need to use the jonas['birthYear'] expression I used within the jonas object function just like the commented one directly below because I have used this method. all I need to do is just call the funciton.
 
-// //console.log(jonas.calcAge(jonas['birthYear'])); 
+// //console.log(jonas.calcAge(jonas['birthYear']));
 
 // console.log(jonas.calcAge());
 
-// CREATING A NEW PROPERTY FOR AN OBJECT WITHIN A FUNCTION IN AN OBJECT 
+// CREATING A NEW PROPERTY FOR AN OBJECT WITHIN A FUNCTION IN AN OBJECT
 // In other words, let me put the calculated age into an age property in jonas object, using the calcAge function within the object. this is to make reference to it as jonas.age in subsequent times after calling it up with the calcAge function for the first time.
 // const jonas = {
-//     firstName: 'Jonas',
-//     lastName: 'Shmedtmann',
-//     birthYear:1991,
-//     job:'Teacher',
-//     friends: ['Micheal','Peter','Steven'],
-//     hasDriversLicense: true,
+//   firstName: "Jonas",
+//   lastName: "Shmedtmann",
+//   birthYear: 1991,
+//   job: "Teacher",
+//   friends: ["Micheal", "Peter", "Steven"],
+//   hasDriversLicense: true,
 
-//     calcAge: function(){ 
-//         this.age = 2037 - this.birthYear
-//         return this.age;
-//     }
-// }
+//   calcAge: function () {
+//     this.age = 2037 - this.birthYear;
+//     return this.age;
+//   },
+// };
 
 // console.log(jonas.calcAge());
 // console.log(jonas.age);
@@ -539,7 +540,6 @@
 
 // }
 
-
 // console.log(James.details());
 // console.log(James.detailsWithTenaryOperator());
 
@@ -551,9 +551,8 @@
 
 // 2. Create a 'calcBMI' method on each object to calculate the BMI (the same method on both objects). store the BMI value to a property and also return it from the method.
 
-// 3. Log to the console who has the higher BMI, together with the respective BMI. 
+// 3. Log to the console who has the higher BMI, together with the respective BMI.
 // Example: "John's BMI (28.3) is higher than Mark's (23.9)!"
-
 
 // TEST DATA: Mark's weights 78kg and 1.69 m tall. John weights 92kg and is 1.95 m tall.
 
@@ -572,7 +571,6 @@
 //         return this.BMI;
 //     }
 // }
-
 
 // // FOR JOHN
 // const john = {
@@ -597,7 +595,6 @@
 // //     `John's BMI (${johnBMI}) is higher than Mark's ${markBMI}!`
 // // }
 
-
 //     if (mark.BMI > john.BMI){console.log(`Mark's BMI (${mark.BMI}) is higher than John's (${john.BMI})!`)
 //     } else{
 //     console.log(`John's BMI (${john.BMI}) is higher than Mark's (${mark.BMI})!`)
@@ -608,7 +605,7 @@
 
 // FOR LOOP
 // Here I initially declared the rep variable and its initial value as 1(let rep=1(I used let coz the rep value will definitely change at different points)), then said provided rep is < or equal to 10 (rep <= 10), the loop should run. then I also said that the rep should be increased by 1 each time the condition is met (rep++)
-// for(let rep = 1; rep <= 10; rep++){ //remember that rep++ means add 1 to rep. 
+// for(let rep = 1; rep <= 10; rep++){ //remember that rep++ means add 1 to rep.
 //     console.log(`Lifting weight repetation ${rep} 🏋️‍♀️`)
 // }
 
@@ -657,9 +654,9 @@
 // MORE PRACTICAL EXAMPLES
 // calculating the ages for years in an Array.
 
-// const years = [1991,2007,1969,2020];
+// const years = [1991, 2007, 1969, 2020];
 // let currentYear = 2037;
-// const ages = new Array()
+// const ages = new Array();
 
 // for(let i = 0; i < years.length ; i++){
 //     ages[i] = currentYear - years[i];
@@ -669,7 +666,7 @@
 
 // Alternatively with push
 
-// const years = [1991,2007,1969,2020];
+// const years = [1991, 2007, 1969, 2020];
 // let currentYear = 2037;
 // const ages = new Array()
 
@@ -691,7 +688,6 @@
 //     ['Micheal','Peter','Steven']
 // ]
 
-
 // console.log('--ONLY STRINGS--')
 
 // for (let i = 0; i < jonas.length; i++){
@@ -700,7 +696,6 @@
 
 //      }
 
-
 // BREAK. (This completely stops the process)
 // So what we will do now is to stop the process immidiately we find a number.
 
@@ -708,7 +703,7 @@
 
 // for (let i = 0; i < jonas.length; i++){
 //     if(typeof jonas[i] === 'number') break; //This stops the process immidiately ti founds a number. it won't even print the number.
-//          console.log(jonas[i], typeof jonas[i]) 
+//          console.log(jonas[i], typeof jonas[i])
 
 //      }
 
@@ -744,10 +739,9 @@
 // The main difference between a while loop, and a for loop is that a for loop need, an initial value, a condition and an increaser or decreaser as the case may be within its bracket while a while loop needs only a condition inside its bracket and its first value outside with its increaser or decreaser within the loop.
 // let rep = 1;
 
-
-// while(rep <= 10){
-//     console.log(`WHILE: lifting weights repeatation ${rep}`);
-//     rep++
+// while (rep <= 10) {
+//   console.log(`WHILE: lifting weights repeatation ${rep}`);
+//   rep++;
 // }
 
 // Please note that a while loop is not dependent on an counter(A number increasing or decreasing). sometimes, that is what we need to solve a problem. lets look at a scenero below of rolling a dice.
@@ -765,9 +759,7 @@
 //     }
 // }
 
-
-// CODE CHALLENGE 
-
+// CODE CHALLENGE
 
 // Let's improve Stephen's tip calculator even more. this time using loop!
 
@@ -783,12 +775,12 @@
 
 // 4 BONUS: Write a function 'calcAverage' which takes an array called 'arr' as an arguement. This function calculates the average of all numbers in the given array. This is a DIFFICULT challenge (we haven't done this before)! Here is how to solve it:
 
-function calcTip(bill){
-    if(bill >= 50 && bill <= 300){
-        return bill * 0.15;
-    } else{
-        return bill * 0.20;
-    }
+function calcTip(bill) {
+  if (bill >= 50 && bill <= 300) {
+    return bill * 0.15;
+  } else {
+    return bill * 0.2;
+  }
 }
 
 const bills = new Array(22, 295, 176, 440, 37, 105, 10, 1100, 86, 52);
@@ -796,38 +788,25 @@ const tips = new Array();
 const total = [];
 console.log(bills);
 
-
-    for(let i = 0; i < bills.length ; i++){
-        const tip = calcTip(bills[i]);
-            tips.push(tip);
-            total.push(tip + bills[i]);
-    }
-
-console.log(bills, tips, total)
-
-const calcAverage = function(arr){
-    let sum = 0;
-    for(let i = 0; i < arr.length; i++){
-        sum += arr[i];
-    }
-    return sum/arr.length
+for (let i = 0; i < bills.length; i++) {
+  const tip = calcTip(bills[i]);
+  tips.push(tip);
+  total.push(tip + bills[i]);
 }
+
+console.log(bills, tips, total);
+
+const calcAverage = function (arr) {
+  let sum = 0;
+  for (let i = 0; i < arr.length; i++) {
+    sum += arr[i];
+  }
+  return sum / arr.length;
+};
 
 // console.log(calcAverage([2,3,7])); //testing the function
 
-console.log(calcAverage(total))
-console.log(calcAverage(tips))
+console.log(calcAverage(total));
+console.log(calcAverage(tips));
 
-console.log(`write the question for the task above`)
-
-
-
-
-
-
-
-
-
-
-
-
+console.log(`write the question for the task above`);
