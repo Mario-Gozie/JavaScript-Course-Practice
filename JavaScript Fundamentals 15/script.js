@@ -18,3 +18,15 @@
 // ENCAPSULATION: Encapsulation simply means keeping properties and methods private inside the class so they are not accessible from outside the class. Some methods can be opposed as a public interface (API)
 // INHERITANCE: In OOP when there are two classes that are closely related, we can have one class inherit some methods or properties from the other. so we will have on parent lass and one child class. The child class then extends the parents class. in other words, the child class may have more features than the parent class.
 // POLYMORPHISIM: Polymorphism means a child element can overwrite a method it inherited from its parent. assuming in a company, there staff are in three groups, Employee, Admin and Authurs, These three group of individuals are all employees, so in OOP there will be three classes, one for Employees, another for Admin and Another for Authors, Both Admin and Author will inherit some properties from the Employee class which include name, username, password (which should be encapsulated), and maybe login method. now, if the admin needs maybe an extra feature to login, which is different from the one he inherited from the employee class, the Admin method is usually created to modify automatically the login method for the Admin during object creation with the Admin Class.
+
+// HOW TO IMPLEMENT OOP IN JAVASCRIPT
+// The process of creating an instances (object) is known as instantiation.
+// In javascript, there is what is called prototype which contains methods. all objects are linked to this prototype. Hence, these objects can use methods in that prototype this is called prototypal inheritance. This is different from the inheritance we talked about initially which is class inheriting from a class. this is a case of an instance (object) inheriting from inheriting from a class. Object delgate behaviour(method) to linked prototype object which is another way of saying prototype inheritance.
+
+// THERE ARE THREE WAYS OF DOING OBJECT ORIENTED PROGRAMING IN JAVASCRIPT WHICH ARE:
+
+// a) Constructor Functions: In this Technique, objects are created from function;              This is how built-in objects like Arrays, Maps or Sets are actually implemented.
+
+// b) ES6 Classes: Modern alternative to constructor function syntax; "Syntactic sugar". behind the scenes, it works exactly as the constructor functions. ES6 class do not behave like classes in "classical OOP" (last lecture). it is more like a layer over the constructor function classes.
+
+// c) Object.create()  This is the easiest and the most straight forward way of linking an objet to a prototype object. however, it is rarely used unlike the two others.
