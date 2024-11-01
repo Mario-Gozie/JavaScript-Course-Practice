@@ -203,4 +203,43 @@ logo.classList.rempve(c, t);
 
 // You can also use className to set a value see below!
 // Jowever, Dont use because it will overwrite all existing classes
-logo.className = "Jonas"; 
+logo.className = "Jonas";
+
+// CHANGING CUSTOM PROPERTIES IN CSS These are more like Variables in programming language.
+
+//document.documentElement.style.setProperty("--color-primary", "orangered");
+
+// Attributes
+
+const logo = document.querySelector(".nav__logo");
+
+console.log(logo.src);
+console.log(logo.src);
+
+// Setting Attribute
+
+logo.setAttribute("company", "Bankist");
+
+// Usuing set attributes gives you the link as it is written in Html (Absilute) while getting link attributes and source directly gives you the reference values, or relative values as one may call it.
+
+// Getting attributes with getAttribute method. The interesting thing about this is that you can even get attributes that are not standard attributes. Eg I can create an attribute within Designer within an element which is not a standard attribute like class, ID and src and I will still get the attribute into JavaScript with the help of the get attribute method without any issue.
+
+console.log(logo.getAttribute("Designer"));
+
+// Another Difference between getAttributes and getting attributes directly.
+
+console.log(link.getAttribute("href"));
+console.log(link.href);
+
+// DATA ATTRIBUTES These attributes must start with Data, and then what ever we want
+console.log(logo.dataset.versionNumber); // if you look at the original HTML file. the dataset attribute was written in small letter and seperated by hyphens. here in Javascript, it is written in Camel case.
+
+// CLASSES
+
+logo.classList.add("c", "j"); // adding a class
+logo.classList.add("c", "j"); // removing a class
+logo.classList.add("c"); // toggling a class
+logo.classList.contains("c");
+
+// dont use this below, it will overwrite all existing classes and use only one class, which is the one you chose
+logo.className = "jonas"; // setting a class name
