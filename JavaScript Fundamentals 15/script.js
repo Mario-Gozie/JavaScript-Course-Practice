@@ -30,3 +30,28 @@
 // b) ES6 Classes: Modern alternative to constructor function syntax; "Syntactic sugar". behind the scenes, it works exactly as the constructor functions. ES6 class do not behave like classes in "classical OOP" (last lecture). it is more like a layer over the constructor function classes.
 
 // c) Object.create()  This is the easiest and the most straight forward way of linking an objet to a prototype object. however, it is rarely used unlike the two others.
+
+// OOP BEGINS WITH CONSTRUCTOR FUCTION
+// A constructor function is the same thing as the normal function just that in the constructor function we call the function with the new operator.
+
+// it is usually advisable to start constructor function with a capital letter and other built in constructors like array and map also start with a capital letter.
+
+// Also note that function declaration and fuction expression (what I am using right now) works for constructor function but arrow function does not work and that is because it doesnt have its own this keyword.
+
+// The function below will create an object which in this will be for a person
+const Person = function (firstName, birthYear) {
+  //   console.log(this);
+  this.firstName = firstName;
+  this.birthYear = birthYear;
+};
+
+// constructor function is called with the new keyword, next to it.
+
+const Jonas = new Person("Jonas", 1991);
+console.log(Jonas);
+
+// behind the scenes, the "new" added to the constructor function does Four (4) things
+// 1. A new {} is created
+// 2. The function is called, the this keyword will now be set to the newly created object. so the this keyword will be the empty object. this = {}
+// 3. {} linked to prtotype (I will explain int the next lecture.)
+// 4. Object created from the begining is now automatically returned from the constructor function.
