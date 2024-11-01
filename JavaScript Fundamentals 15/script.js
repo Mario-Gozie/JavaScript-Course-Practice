@@ -41,8 +41,19 @@
 // The function below will create an object which in this will be for a person
 const Person = function (firstName, birthYear) {
   //   console.log(this);
+
+  // instance Properties
   this.firstName = firstName;
   this.birthYear = birthYear;
+
+  // CREATING METHOD WITHIN CONSTRUCTOR FUNCTION.
+
+  // This is wrong and you should never do this. I mean creating a method in a constructor function. this is because if we do so, in a situation that we are supposed to create thousands of persons, it means we will have thousands of the calcAge function created this will really be terrible for the performance of our code.
+
+  // This problem can be solved with prototype and prototype inheritance.
+  this.calcAge = function () {
+    2037 - this.birthYear;
+  };
 };
 
 // constructor function is called with the new keyword, next to it.
@@ -55,3 +66,15 @@ console.log(Jonas);
 // 2. The function is called, the this keyword will now be set to the newly created object. so the this keyword will be the empty object. this = {}
 // 3. {} linked to prtotype (I will explain int the next lecture.)
 // 4. Object created from the begining is now automatically returned from the constructor function.
+
+const Matilda = new Person("Matilda", 2017);
+const Jack = new Person("Jack", 1975);
+console.log(Matilda, Jack);
+
+// You remember that instances are objects created from a class constructor function are not classes actually like in other programing language like python. constructor function has been in existence since the creation of JavaScript. with the constructor function, we can say that Jonas Matilda and Jack are instances of the Person constructor function
+
+// THRE IS AN OPERATOR FOR CHECKING IF AN OBJECT IS AN INSTANCE OF A CONSTRUCTOR FUNCTION, it returns a boolean. see below.
+
+console.log(Jonas instanceof Person);
+
+// NEXT IS PROTOTYPE INHERITANCE.
