@@ -51,9 +51,10 @@ const Person = function (firstName, birthYear) {
   // This is wrong and you should never do this. I mean creating a method in a constructor function. this is because if we do so, in a situation that we are supposed to create thousands of persons, it means we will have thousands of the calcAge function created this will really be terrible for the performance of our code.
 
   // This problem can be solved with prototype and prototype inheritance.
-  this.calcAge = function () {
-    2037 - this.birthYear;
-  };
+
+  //   this.calcAge = function () {
+  //     2037 - this.birthYear;
+  //   };
 };
 
 // constructor function is called with the new keyword, next to it.
@@ -78,3 +79,53 @@ console.log(Matilda, Jack);
 console.log(Jonas instanceof Person);
 
 // NEXT IS PROTOTYPE INHERITANCE.
+// PROTOTYPE
+// Every Function in JavaScript has a property called prototype including constructor functions.
+// Every object created by a constructor funtion will get access to all the methods and properties defined on the constructor prototype property.
+
+// To Visualize prototype
+
+console.log(Person.prototype);
+Person.prototype.calcAge = function () {
+  console.log(2037 - this.birthYear);
+};
+
+// so now, All object of the constructor function will have access to functions declared in the prototype of that function.
+
+// Lets use an object in the Person constructor function on its calcAge Prototype
+
+Jonas.calcAge(); //So here, the CalcAge function/method was not created inside the Jonas object but it had access to the CalcAge function because of Prototype inheritance
+
+// This same method will work for other objects like mathilda and Jack.
+// This simply means that the this keyword is set to the object that is calling the method.
+
+Matilda.calcAge();
+Jack.calcAge();
+
+// Objects will always have acess to the methods in its prototype and the prototype of the of all objects created by the person constructor function is known as "Person.prototype"
+
+// To confirm prototype for objects created by Person constructor function, we use the code below.
+
+// "__proto__" is the proto a property of the Person constructor function. it it is being set to the proto property object that is created by the Person constructor function.
+console.log(Jonas.__proto__);
+console.log(Jonas.__proto__ === Person.prototype); // This will give the boolean True. This also shows that the __proto__ property is a propety of the Person constructor function while the Person.prototype is the prototype of the objects created by the person constructor function.
+
+// Another way for checking the Prototype of Jonas
+console.log(Person.prototype.isPrototypeOf(Jonas));
+console.log(Person.prototype.isPrototypeOf(Matilda));
+
+// Just to show that Person.prototype is not a prototype of person but objects created by it.
+console.log(Person.prototype.isPrototypeOf(Person));
+
+// PROPERTIES CAN ALSO BE SET ON PROTOTYPES NOT JUST ONLY METHODS.
+
+Person.prototype.species = "Homo Sapiens";
+console.log(Jonas, Matilda); //This will be see in the prototype of these objects
+
+console.log(Jonas.species, Matilda.species); // This will show it clearer
+
+// Remember that species is not a direct property of Objects created by Person constructor function.
+// ANOTHER WAY TO KNOW IF A PROPERTY IS A DIRECT PROPERTY OF AN OBJECT OR NOT.
+
+console.log(Jonas.hasOwnProperty("firstName")); // Direct property will print the boolean true
+console.log(Jonas.hasOwnProperty("species")); // Indirect property will print the boolean false.
