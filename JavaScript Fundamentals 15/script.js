@@ -129,3 +129,63 @@ console.log(Jonas.species, Matilda.species); // This will show it clearer
 
 console.log(Jonas.hasOwnProperty("firstName")); // Direct property will print the boolean true
 console.log(Jonas.hasOwnProperty("species")); // Indirect property will print the boolean false.
+
+// NEXT LECTURE: PROTOTYPE CHAIN.
+
+// NOW YOU KNOW THAT THE PROTOTYPE OF PERSON CONSTRUCTOR IS __proto__
+// You also know that the prototype for objects created by the Person constructor function is Person.prototype.
+// There is another inner level of Prototype inside the Objects created by person which is known as "Object.prototype"
+
+// lets see theses things in practice
+
+console.log(Jonas.__proto__); // This will show us that the deeper level of Objects created by the Person constructor function has a prototype of Object.prototype
+console.log(Jonas.__proto__.__proto__); // This will show us the "hasOwnProperty" and all other properties within the deeper level of Jonas Prototype. This is why we can call the hasOwnProperty on Jonas.
+
+// All these steps above explain the prototype chaining
+
+// What if we decide to go deeper?
+
+console.log(Jonas.__proto__.__proto__.__proto__); // This will give null becuse after getting to the object.prototype level, there is no other prototype
+
+// Person.prototype itself has a constructor property, which will still point back to the Peron constructor function.
+// we can use console.dir to inspect the function
+console.dir(Person.prototype.constructor);
+
+// EVERY OBJECT INCLUDING FUNCTION HAS A PROTOTYPE.
+// So we now know that functions too has a prototype.
+// Let us look at the Prototype of an Array.
+
+const arr = [3, 6, 6, 4, 5, 6, 9, 3, 9]; // Creating a new Array. Remember that new Array() === []
+console.log(arr.__proto__); //This contains all the methods that we have been using in Javascript on arrays. This is the reason why all array get access to this method. Every array does not have this method. but every array will inherit this from its prototype.
+
+// CHECKING IF THE PROTOTYPE FOR OBJECTS CREATED BY ARRAY CONSTRUCTOR FUNCTION IS ARRAY.PROTOTYPE
+
+console.log(arr.__proto__ === Array.prototype); // This will print true
+
+// we can also go deeper where we can see the Object.prototype. which is in a deeper level i.e after Array.prototype
+
+console.log(arr.__proto__.__proto__); // This is the prototype affter Array.prototype. it is also accessible by all arrays created. This simply works as a Chain.
+
+// Now Let us use the Knowledge we have already.
+// Since we know that all arrays inherit Methods in its prototype, let us try to create a method in the Array.prototype and use it.
+
+// Let us create a method that will return all unique methods of an array.
+
+Array.prototype.unique = function () {
+  return [...new Set(this)]; //so here, I am saying, get the unique values of an array (That is why I used set) then put it in an an array and return it (that is why I useed the spread operator). Remember that the This keword is the object it is attached to
+};
+
+// Using the new method we created
+console.log(arr.unique()); // Now all arrays will inherit this method, so we can call this method on any array
+
+// HOWEVER, IT IS NOT NICE TO EXTEND THE PROTOTYPE OF A BUILT IN OBJECT. YOU CAN ALWAY DO THIS ON YOUR OWN TO SUIT THE PROJECT YOU WANT TO CARRY OUT. IT IS GENERALLY NOT A GOOD IDEA.
+
+// Why do I say so? The reason is that subsequent versions of Javascript may add methods that have the same name as we used, which might work in a different way and that may break your code. The second reason is that when you work with a team of developers, this will be a bad idea.
+
+// JUST FOR FUN, LETS DO LITTLE OOP ON OUR DOM DOCUMENT.
+const h1 = document.querySelector("h1");
+console.dir(h1); // this will give us the h1 element object. including the prototype which is the HTMLHeadingElement, which contains a lot of diffent things.
+
+// let us show tha a function is an object and would have a prototype. see below, I will use a random function
+
+console.dir((x) => x + 1); //this will show the prototype of fuctions that could be inherited by all function. Do you remember the call, bind and apply we learnt back then, they all can be found in prototype of functions.
