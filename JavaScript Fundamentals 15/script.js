@@ -189,3 +189,38 @@ console.dir(h1); // this will give us the h1 element object. including the proto
 // let us show tha a function is an object and would have a prototype. see below, I will use a random function
 
 console.dir((x) => x + 1); //this will show the prototype of fuctions that could be inherited by all function. Do you remember the call, bind and apply we learnt back then, they all can be found in prototype of functions.
+
+// CODDING CHALLENGE ON CONSTRUCTOR FUNCTION.
+
+/*
+1. Use a constructor function to implement a Car. A car has a make and a speed property. The speed property is the current speed of the car in Km/h;
+2. Implement an 'accelerate' method that will increase the car's speed by 10, and log the new speed to the console.
+3. Implement a 'brake' method that will decrease the car's speed by 5, and log the speed to the console;
+4. Create 2 car objects and experiment with calling 'accelerate' and 'brake' multiple time on each of them.
+*/
+
+const Car = function (make, speed) {
+  this.make = make;
+  this.speed = speed;
+};
+
+// Creating the accelerate method on the car prototype which should be accessible by all objects created by the Car constructor function.
+Car.prototype.accelerate = function () {
+  this.speed += 10;
+  console.log(`${this.make} is going at ${this.speed}Km/hr`);
+};
+
+// Creating the accelerate method on the car prototype which should be accessible by all objects created by the Car constructor function.
+Car.prototype.brake = function () {
+  this.speed -= 5;
+  console.log(`${this.make} is going at ${this.speed}Km/hr`);
+};
+
+const bmw = new Car("BMW", 120);
+const mercedes = new Car("Mercedes", 95);
+
+// Calling the acceleration mathod and brake method on bmw. we can see the speed increasing with acceleration and decelaration happening with brakes.
+bmw.accelerate();
+bmw.accelerate();
+bmw.brake();
+bmw.accelerate();
