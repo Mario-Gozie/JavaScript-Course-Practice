@@ -444,3 +444,52 @@ const sarah = Object.create(PersonProto);
 // Even though this function creates the object, it does not use the 'new' keyword like when using  constructor function. This is an important thing to note.
 sarah.init("Sarah", 1979);
 sarah.calcAge();
+
+// CODDING CHALLENGE
+
+/*
+1. Re-create challenge 1, but this time, using ES6 class;
+2. Add a getter called 'speedUs' which returns the current speed in mi/h (divide by 1.6);
+3. Add a setter called 'speedUs' which sets the current speed in mi/h (but converts it to km/h before storing the value, by multiplying the imput by 1.6);
+4. Create a new car and experiment with the accelerate and brake methods, and with the getter and setter. 
+
+DATA CAR 1: 'Ford' going at 120 km/h
+*/
+
+class CarCl {
+  constructor(make, speed) {
+    this.make = make;
+    this.speed = speed;
+  }
+
+  accelerate() {
+    this.speed += 10;
+    console.log(`${this.make} is going at ${this.speed}Km/hr`);
+  }
+
+  // Creating the accelerate method on the car prototype which should be accessible by all objects created by the Car constructor function.
+  brake() {
+    this.speed -= 5;
+    console.log(`${this.make} is going at ${this.speed}Km/hr`);
+  }
+
+  get speedUs() {
+    // so basically getters transform a method to a property and return a value when this is used when you want to perform some calculation before provideing a value.
+    return this.speed / 1.6; // converting kilometers to miles
+  }
+
+  set speedUs(speed) {
+    //This set sets the speed to m
+    this.speed = speed * 1.6;
+  }
+}
+
+const ford = new CarCl("Ford", 120);
+console.log(ford.speedUs);
+ford.accelerate();
+ford.accelerate();
+ford.brake();
+// setting the speed value
+ford.speedUs = 50; // this setter converts 50mile/hr to Km/h and sets it to the speed value.
+
+console.log(ford); // This will print the new ford features which will contain the converted 50km to 80miles/hr and set as the new value for the speed property.
