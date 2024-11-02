@@ -397,3 +397,50 @@ PersonClGS.hey();
 // static methods are methods attached to the constructor. they dont work on objects created on the prototype. so they are functions attached to the constructor. it only woek on the constructor function. an example is Array.from. it only works on the Array constructor but does not work on arrays.
 
 // Let us now implement it for our constructor function and class functions above
+
+// OOP WITH OBJECT CREATE
+// there is a third way of implementing prototyping or prototype inheritance which is object.create. and it works in a bit different way.
+
+// this does not require constructor function and it also does not require the new keyword.
+
+// so we basically use object.create to set prototype of an object to any other function we want.
+
+//let us recreate the person class from earlier.
+
+// creating the prototype
+const PersonProto = {
+  // so basically, this is more like creating a prototype
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  },
+
+  // This function or method, will be the method that will create new objects that will have name and birthyear as properties
+  init(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  },
+};
+
+// creating the object
+
+const steven = Object.create(PersonProto); // Here, steven is an object and it will inherit the PersonProto prototype. in otherwords, it will be linked to PersonProto
+
+// Just to see the steven object if it has the PersonProto prototype
+
+console.log(steven);
+
+// Creating properties for the steven Object.
+
+steven.name = "Steven";
+steven.birthYear = 2002;
+steven.calcAge();
+
+console.log(steven.__proto__ === PersonProto); // this will definitely give a boolean which would be true
+
+// Let us create another person
+
+const sarah = Object.create(PersonProto);
+
+// Even though this function creates the object, it does not use the 'new' keyword like when using  constructor function. This is an important thing to note.
+sarah.init("Sarah", 1979);
+sarah.calcAge();
