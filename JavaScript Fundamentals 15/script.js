@@ -252,7 +252,6 @@ class PersonCl {
     console.log(`Hey ${this.firstName}`);
   }
 }
-
 const Jessica = new PersonCl("Jessica", 1996); //creating a new object. Just like while using a constructor function in earlier lesson, we use new while calling a constructor function to create a new object.
 
 // so basically, when we create a new instance, it is the constructor that is called which will return a new object. which will be stored into Jessica in this case
@@ -285,3 +284,87 @@ Jessica.greet();
 
 // WHICH SHOULD ONE USE BETWEEN CONSTRUCTOR FUNCTION AND CLASSES?
 // I would say it all depends on preference.
+
+// SETTERS AND GETTERS
+// This is a feature common in all objects in JavaScript
+// Every objet in JavaScrip has a property called getter and another called setter. These are properties that get and set a value.
+const account = {
+  owner: "Jonas",
+  movements: [200, 530, 120, 300],
+
+  // getting the last value of the movement array of the account object. the slice(-1) returns an array of the last value. using pop() brings it out of the array
+  get latest() {
+    return this.movements.slice(-1).pop();
+  },
+
+  // Creating a setter. a setter must take in a parameter
+
+  set latest(mov) {
+    this.movements.push(mov);
+  },
+};
+
+console.log(account.latest); //getters are not called with brackets. thats the difference between it an normal methods. This is very usesful when you want to read something as a property, but you want to do some calculations before returning the value.
+
+// USING SETTERS
+
+account.latest = 50; // if it was a normal method, we would have done account.latest(5) but here, as a setter, it is seen as a property so we had to equate it to a value which in this case is 5
+
+console.log(account.movements);
+
+// CLASSES DO HAVE GETTERS AND SETTERS, AND THEY ALL WORK IN THE SAME WAY. LET US SEE BELOW.
+// Please go up to the PersonCL class to see getters and setters.
+
+// calling the age getter in the PersonCl class
+
+// class declaration
+class PersonClGS {
+  // add a constructor method. this acts like the construction function, but infact, it is a method of a class.
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
+    this.birthYear = birthYear;
+  }
+
+  // Methods will be added to .prototype property
+
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  }
+
+  greet() {
+    console.log(`Hey ${this.firstName}`);
+  }
+  get age() {
+    return 2037 - this.birthYear;
+  }
+
+  // This setter is used to check if a fullname value given is a full name. in the sence that it will fist confirm if there is a space between the name given and if there is a space it will set the name parameter to the fullname. if not, it will pop up an alert
+
+  // so Each time we fill in a try creating an objet with this class, after inputing the name, the full name setter will be called.
+  set fullName(name) {
+    if (name.includes(" ")) this._fullName = name;
+    //here, I am trying to set the fullname to name if there is a space. I added an underscore, so that the fullName property in the constructor function will be different from the one in the setter. if they are the same, there will be conflict, the code will run multiple times and produce an error.
+    else alert(`${name} is not a full name!`);
+  }
+
+  // To fix The fullName issue after working comparing with the setter, we have to use a getter, to get/return the value from the setter.
+
+  // in all, we will have two properties for full name, 1 will be _fullName from the setter, the other will be fullName returned by the getter below.
+
+  //the full name returned by the getter will make it easy to run a code like Jessica.fullname instead of Jessica._fullname.
+
+  // This pattern is important when we try to set a property that already exist.
+  get fullName() {
+    return this._fullName;
+  }
+}
+
+// Testing getters and setters
+const JessicaDav = new PersonClGS("Jessica Davis", 1996);
+console.log(JessicaDav.age);
+
+// trying to create an object without full name. in other words, withous space between two names.
+
+const walter = new PersonClGS("Walter", 1965); // This will Pop up an alert on the window.
+
+// NEXT VIDEO WILL BE ON STATIC METHODS
