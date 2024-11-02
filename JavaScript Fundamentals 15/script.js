@@ -224,3 +224,64 @@ bmw.accelerate();
 bmw.accelerate();
 bmw.brake();
 bmw.accelerate();
+
+// NEXT VIDEO OF ANOTHER METHOD OF DOING OBJECT ORIENTED PROGRAMMING
+// OBJECT ORIENTED PROGRAMMING WITH ES6
+// This method of object oriented programming is just a way of sugar coating what we already know before in function constructor method of Object oriented programming. in this method, Classes are used so that OOP will look more like what we have in other programming languages like Javascript.
+
+// There are two methods of creating classes/ class expression and class declaration. This is because classes are still functions. that is why we have class Expression and class declaration.
+
+// Class Expression
+// const PersonCl = class {};
+
+// class declaration
+class PersonCl {
+  // add a constructor method. this acts like the construction function, but infact, it is a method of a class.
+  constructor(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  }
+
+  // Methods will be added to .prototype property
+
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  }
+
+  greet() {
+    console.log(`Hey ${this.firstName}`);
+  }
+}
+
+const Jessica = new PersonCl("Jessica", 1996); //creating a new object. Just like while using a constructor function in earlier lesson, we use new while calling a constructor function to create a new object.
+
+// so basically, when we create a new instance, it is the constructor that is called which will return a new object. which will be stored into Jessica in this case
+
+console.log(Jessica);
+
+// We can see that the method is created below, which is the prototype of the object. so all the objects created by the constructor will have access or can use the methods in the prototype. This is just prototype inheritance.
+
+Jessica.calcAge();
+
+// checking if Personcl.prototype is the prototype of Jessica. which is a method created by PersonCL
+console.log(Jessica.__proto__ === PersonCl.prototype);
+
+// CREATING A METHOD OUTSIDE THE CLASS.
+// You can still add Methods manually to a prototype and it will still work fine. see below!
+
+//////////////////////////////////////
+// PersonCl.prototype.greet = function () {
+//   console.log(`Hey ${this.firstName}`);
+// };
+
+Jessica.greet();
+///////////////////////////////////////////
+
+// SOME THINGS TO KNOW ABOUT CLASSES
+
+// 1. Classes are not Hoisted which means You cant use them before they are created, unlike in function Declaration.
+// 2. Just like functions, Classes are first-class citizens which means, you can pass them into functions and return them into functions. remember I told you that classes are special type of functions behind the scenes.
+// Body of classess are always executed in strict mode.
+
+// WHICH SHOULD ONE USE BETWEEN CONSTRUCTOR FUNCTION AND CLASSES?
+// I would say it all depends on preference.
