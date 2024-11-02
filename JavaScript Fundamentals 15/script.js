@@ -78,6 +78,20 @@ console.log(Matilda, Jack);
 
 console.log(Jonas instanceof Person);
 
+// CREATING STATIC METHODS IN CONSTRUCTIVE FUNCTIONS
+// Methods created inside the constructors. objects created by the constructor do not inherit it.
+
+Person.hey = function () {
+  console.log("Hey there ✋");
+  console.log(this); // the this keyword here is the whole Person constructor method which shows that it is the one calling the hey function and since the hey function is not in its prototype, objects created by it cant inherit it. hence, it is static.
+};
+
+Person.hey(); //Calling static methods
+
+// Trying the static Method on object created by the Peron constructor function
+
+// Jonas.hey(); //This will give an error because objects created by a constructor function do not inherit static function. only functions in the prototype can be inherited by objects.
+
 // NEXT IS PROTOTYPE INHERITANCE.
 // PROTOTYPE
 // Every Function in JavaScript has a property called prototype including constructor functions.
@@ -357,6 +371,14 @@ class PersonClGS {
   get fullName() {
     return this._fullName;
   }
+
+  // CREATING STATIC METHOD
+  // In creating static function in ES6, you use the word static.
+  // remember that this method is not accessible by objects created by this class because it is not added to the class prototype
+  static hey() {
+    console.log("Hey there ✋");
+    console.log(this);
+  }
 }
 
 // Testing getters and setters
@@ -367,4 +389,11 @@ console.log(JessicaDav.age);
 
 const walter = new PersonClGS("Walter", 1965); // This will Pop up an alert on the window.
 
+// Calling the static function
+
+PersonClGS.hey();
+
 // NEXT VIDEO WILL BE ON STATIC METHODS
+// static methods are methods attached to the constructor. they dont work on objects created on the prototype. so they are functions attached to the constructor. it only woek on the constructor function. an example is Array.from. it only works on the Array constructor but does not work on arrays.
+
+// Let us now implement it for our constructor function and class functions above
