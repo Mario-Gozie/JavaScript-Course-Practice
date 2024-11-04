@@ -515,6 +515,12 @@ const Student = function (firstName, birthYear, course) {
   this.course = course;
 };
 
+// we have been able to linke the constructor function of the student with the constructor function of the person. BUT WE NEED TO LINK THEIR PROTOTYPES, SO THAT THE PERSON CLASS CAN INHERIT THE STUDENT CLASS METHODS. This can be done using the object.create() method. This is because the main function of object. create is to link prototypes.
+
+// LINKING PROTOTYPES. This must be done because you before adding creating methods in secondary classes. and in this case, the secondary class is Student. if you do this below after creating method in the secondary class, the linking process will overwrite the method you have created already.
+
+Student.prototype = Object.create(Person.prototype);
+
 Student.prototype.introduce = function () {
   console.log(`My name is ${this.firstName} and I study ${this.course}`);
 };
@@ -523,3 +529,18 @@ Student.prototype.introduce = function () {
 
 const mike = new Student("Mike", 2020, "Computer Science");
 mike.introduce();
+
+mike.calcAge();
+
+console.log(mike.__proto__);
+console.log(mike.__proto__.__proto__);
+
+// setting the constructor part of student to student.
+
+Student.prototype.constructor = Student;
+
+// checking to see that constructors are set right. Because of the above code both mike which is created with the student constructor function will be an instance of both student and Object constructor. HOWEVER, THE CODE ABOVE IS NOT MANDATORY BUT MAY BE IMPORTANT SOMETIME.
+
+console.log(mike instanceof Student);
+console.log(mike instanceof PErson);
+console.dir(Student.prototype.constructor); //
