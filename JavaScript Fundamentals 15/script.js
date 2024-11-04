@@ -493,3 +493,33 @@ ford.brake();
 ford.speedUs = 50; // this setter converts 50mile/hr to Km/h and sets it to the speed value.
 
 console.log(ford); // This will print the new ford features which will contain the converted 50km to 80miles/hr and set as the new value for the speed property.
+
+// INHERITANCE BETWEEN CLASSES
+
+const PErson = function (firstName, birthYear) {
+  this.firstName = firstName;
+  this.birthYear = birthYear;
+};
+
+PErson.prototype.calcAge = function () {
+  console.log(2037 - this.birthYear);
+};
+
+// LINKING THE PERSON (PRIMARY FUNCTIONM) CONSTRUCTOR FUNTION TO THE STUDENT FUNCTION (SECONDARY FUNCTION). T
+const Student = function (firstName, birthYear, course) {
+  // this.firstName = firstName;
+  // this.birthYear = birthYear;
+
+  // Instead of writing the above. call the person method here, we can set the "this" and set the this statement using call. So I am literally saying that let the this keyword in the PErson constructor be the this keyword in student constructor function. see below
+  PErson.call(this, firstName, birthYear);
+  this.course = course;
+};
+
+Student.prototype.introduce = function () {
+  console.log(`My name is ${this.firstName} and I study ${this.course}`);
+};
+
+// CREATING A NEW OBJECT.
+
+const mike = new Student("Mike", 2020, "Computer Science");
+mike.introduce();
