@@ -722,9 +722,9 @@ StudentProto.introduce = function () {
   console.log(`My name is ${this.firstName} and I study ${this.course}`);
 };
 
-const jay = Object.create(StudentProto);
+const jay = Object.create(StudentProto); //creating the jay Object
 
-jay.init("Jay", 2010, "Computer Science");
+jay.init("Jay", 2010, "Computer Science"); // calling the initializer to input values into the jay object.
 jay.introduce(); //calling introduce from the StudentPrototype.
 
 jay.calcAge(); // calling the calcAge from the person prototype
