@@ -603,3 +603,89 @@ console.log(tesla);
 
 tesla.brake();
 tesla.accelerate();
+
+// OOP AND CREATION OF SECONDARY CLASSES WITH ES6 FUNCTIONS.
+
+class PersonClGSuPDATED {
+  // add a constructor method. this acts like the construction function, but infact, it is a method of a class.
+  constructor(fullName, birthYear) {
+    this.fullName = fullName;
+    this.birthYear = birthYear;
+  }
+
+  // Methods will be added to .prototype property
+
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  }
+
+  greet() {
+    console.log(`Hey ${this.firstName}`);
+  }
+  get age() {
+    return 2037 - this.birthYear;
+  }
+
+  // This setter is used to check if a fullname value given is a full name. in the sence that it will fist confirm if there is a space between the name given and if there is a space it will set the name parameter to the fullname. if not, it will pop up an alert
+
+  // so Each time we fill in a try creating an objet with this class, after inputing the name, the full name setter will be called.
+  set fullName(name) {
+    if (name.includes(" ")) this._fullName = name;
+    //here, I am trying to set the fullname to name if there is a space. I added an underscore, so that the fullName property in the constructor function will be different from the one in the setter. if they are the same, there will be conflict, the code will run multiple times and produce an error.
+    else alert(`${name} is not a full name!`);
+  }
+
+  // To fix The fullName issue after working comparing with the setter, we have to use a getter, to get/return the value from the setter.
+
+  // in all, we will have two properties for full name, 1 will be _fullName from the setter, the other will be fullName returned by the getter below.
+
+  //the full name returned by the getter will make it easy to run a code like Jessica.fullname instead of Jessica._fullname.
+
+  // This pattern is important when we try to set a property that already exist.
+  get fullName() {
+    return this._fullName;
+  }
+
+  // CREATING STATIC METHOD
+  // In creating static function in ES6, you use the word static.
+  // remember that this method is not accessible by objects created by this class because it is not added to the class prototype
+  static hey() {
+    console.log("Hey there ✋");
+    console.log(this);
+  }
+}
+
+// Student class to make student object inherit functions of the PersonCIGSUPDATED we need the extends keyword and use the word super() which will call the constructor function. so instead of using call, we use super.
+
+// The extends keyword links the prototype chain.
+
+// In summary Extends and Super is very important
+
+class StudentUpdated extends PersonClGSuPDATED {
+  constructor(fullName, birthYear, course) {
+    // This super need to happen first!
+    super(fullName, birthYear);
+    this.course = course;
+  }
+
+  introduce = function () {
+    console.log(`My name is ${this.fullName} and I study ${this.course}`);
+  };
+
+  // Overwriting the calcAge method in the parent class. this shows polymorphism
+  calcAge() {
+    console.log(
+      `I'm ${
+        2037 - this.birthYear
+      } years old, but as a student I feel more like I am ${
+        2037 - this.birthYear + 10
+      }`
+    );
+  }
+}
+
+const martha = new StudentUpdated("Marth Jones", 2012, "Computer Science");
+
+martha.introduce();
+
+martha.calcAge();
