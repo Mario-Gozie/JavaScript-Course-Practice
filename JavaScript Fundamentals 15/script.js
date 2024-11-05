@@ -689,3 +689,42 @@ const martha = new StudentUpdated("Marth Jones", 2012, "Computer Science");
 martha.introduce();
 
 martha.calcAge();
+
+// USING OBJECT.CREATE TO IMPLEMENT CLASS INHERITANCE.
+
+// Creating the Person Proto
+const PersonProto1 = {
+  // so basically, this is more like creating a prototype
+  calcAge() {
+    console.log(2037 - this.birthYear);
+  },
+
+  // This function or method, will be the method that will create new objects that will have name and birthyear as properties
+  init(firstName, birthYear) {
+    this.firstName = firstName;
+    this.birthYear = birthYear;
+  },
+};
+
+const Stephen = Object.create(PersonProto1); //Creating Stephen object and linking it to personProto Prototype
+
+const StudentProto = Object.create(PersonProto); //creating another a student proto and linking it to peron proto, so that students can inherit the person proto.
+
+//  Creating an initializer for the student proto, which is different from person proto by only course.
+StudentProto.init = function (firstName, birthYear, course) {
+  PersonProto.init.call(this, firstName, birthYear);
+  this.course = course;
+};
+
+// Introduce method for only students liked to the student prototype only.
+
+StudentProto.introduce = function () {
+  console.log(`My name is ${this.firstName} and I study ${this.course}`);
+};
+
+const jay = Object.create(StudentProto);
+
+jay.init("Jay", 2010, "Computer Science");
+jay.introduce(); //calling introduce from the StudentPrototype.
+
+jay.calcAge(); // calling the calcAge from the person prototype
