@@ -543,4 +543,63 @@ Student.prototype.constructor = Student;
 
 console.log(mike instanceof Student);
 console.log(mike instanceof PErson);
-console.dir(Student.prototype.constructor); //
+console.dir(Student.prototype.constructor);
+
+/*
+1. Use a constructor function to implement an Electric Car (called EV) as a CHILD "class" of Car Besides a make and current speed, the EV also has current battery charge in % ('charge' property);
+
+2. Implement a 'chargeBattery' method which takes an argument 'chargeTo' and sets the battery charge to 'chargeTo'
+
+3. Implement an 'accelerate' method that will increase the car's speed by 20, and decrease the charge by 1%. Then log a message like this: ;Tesla going at 140km/h, with a charge of 22%;
+
+4. Create an electric car object and experiment with calling 'accelerate', 'brake' and 'chargeBattery' (charge to 90%). Notice what happens when you 'accelerate'! HINt: Review the definition of polymorphism 😊
+
+DATA CAR 1: 'Tesla' going at 120 km/h, with a charge of 23%
+*/
+
+const Cars = function (make, speed) {
+  this.make = make;
+  this.speed = speed;
+};
+
+Cars.prototype.accelerate = function () {
+  this.speed += 10;
+  console.log(`${this.make} is going at ${this.speed}Km/hr`);
+};
+
+Cars.prototype.brake = function () {
+  this.speed -= 5;
+  console.log(`${this.make} is going at ${this.speed}Km/hr`);
+};
+
+const Ev = function (make, speed, charge) {
+  Cars.call(this, make, speed);
+  this.charge = charge;
+};
+
+Ev.prototype = Object.create(Cars.prototype); //linking prototypes
+
+//creating the chargeTo method
+
+Ev.prototype.chargeBattery = function (chargeTo) {
+  return (this.charge = chargeTo);
+};
+
+// creating another accelerate method for electric cars.
+// A child class can overwrite element it inherited from the parent class.
+// THE CODE BELOW HELPS TO EXPLAIN POLYMORPHISM SO WELL.
+
+Ev.prototype.accelerate = function () {
+  this.speed += 20;
+  this.charge--;
+  console.log(
+    `${this.make} going at ${this.speed}km/h, with a charge of ${this.charge}%`
+  );
+};
+
+const tesla = new Ev("Tesla", 120, 23);
+tesla.chargeBattery(90);
+console.log(tesla);
+
+tesla.brake();
+tesla.accelerate();
