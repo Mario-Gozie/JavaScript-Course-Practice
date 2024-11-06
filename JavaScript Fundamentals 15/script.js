@@ -791,8 +791,8 @@ class AccountX {
 
   // since you now have the movement array encapsulated, we can create a method to access it.
 
-  getMovement() {
-    this._movements;
+  getMovements() {
+    return this._movements;
   }
 
   deposit(val) {
@@ -810,14 +810,14 @@ class AccountX {
   }
 
   requestLoan(val) {
-    if (this.approveLoan(val)) {
+    if (this._approveLoan(val)) {
       this.deposit(val);
       console.log(`Loan Approved`);
     }
   }
 }
 
-const accX = new Account("Gozie", "EUR", 2222);
+const accX = new AccountX("Gozie", "EUR", 2222);
 console.log(acc1);
 
 // acc1._movements.push(250);
@@ -826,7 +826,103 @@ console.log(acc1);
 accX.deposit(250);
 accX.withdrawal(150);
 accX.requestLoan(1000);
-accX.approveLoan(1000); // This type of Data should not be accessible. This is why we will look at data Encapsulation soon.
+// accX._approveLoan(1000); // This type of Data should not be accessible. This is why we will look at data Encapsulation soon.
 
 console.log(accX);
-console.log(this.getMovement()); // with this, the movement can be accessed, but they can't be set. unless they use _movement to access the property to change values. but atleast, developers will know it is not supposed to be accessed.
+console.log(accX.getMovements()); // with this, the movement can be accessed, but they can't be set. unless they use _movement to access the property to change values. but atleast, developers will know it is not supposed to be accessed.
+
+// THE NEW CLASS WAY OF IMPLEMENTING ENCAPSULATION
+
+// There are four fields for doing this
+
+// (1) Public fields
+// (2) Private fields
+// (3) Public methods
+// (4) Private methods
+// (there is also static version)
+
+class AccountY {
+  // 1( Public field (instances) They sitll make reference to the this keyword
+
+  locale = navigator.language;
+
+  // 2( Private field. this is done with the #
+  #movements = [];
+  #pin; // I just initialized the pin variable here, because it needs to be in the private field. its more like defining a variable and not giving it a value yet.
+
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    this.#pin = pin; // I reassigned the pin variable here becuase a value needs to be collected by the constructor function.
+
+    // private property ADDING _ in front it doesn't really make it private, it is just something agreed on by developers. there is a better way.
+    this._pin = pin;
+    // this._movements = [];
+    // this.locale = navigator.language;
+
+    console.log(`Thanks for opening an acount, ${owner}`);
+  }
+
+  // (3) pUBLIC METHODS
+
+  // since you now have the movement array encapsulated, we can create a method to access it.
+
+  getMovements() {
+    return this.#movements;
+  }
+
+  deposit(val) {
+    this.#movements.push(val);
+  }
+
+  withdrawal(val) {
+    // this.movements.push(-val)
+    this.deposit(-val);
+  }
+
+  requestLoan(val) {
+    if (this.#approveLoan(val)) {
+      this.deposit(val);
+      console.log(`Loan Approved`);
+    }
+  }
+
+  // (4) PRIVATE METHODS
+
+  // _approveLoan(val) {
+  //   return true;
+  // }
+
+  #approveLoan(val) {
+    return true;
+  }
+
+  // (there is also static version)
+  // remember static functions only work on the class. it doesn't extend to its instances or objects.
+
+  static helper() {
+    console.log(`Helper`);
+  }
+}
+
+const accY = new AccountY("Seyi", "EUR", 2222);
+console.log(accY);
+
+// After puting a "#" before the movement, if you want to access it, you can't which shows that it is well protected.
+
+// TRYING TO ACCESS PRIVATE FIELDS
+// console.log(accY.#movements);
+// console.log(accY.#pin);
+// console.log(accY.#approveLoan());
+// console.log(accY._approveLoan());
+
+accY.deposit(250);
+accY.withdrawal(150);
+accY.requestLoan(1000);
+
+console.log(accY);
+console.log(accY.getMovements());
+
+// Remember static functions only work on the class not on instances or objects.
+
+AccountY.helper();
