@@ -728,3 +728,47 @@ jay.init("Jay", 2010, "Computer Science"); // calling the initializer to input v
 jay.introduce(); //calling introduce from the StudentPrototype.
 
 jay.calcAge(); // calling the calcAge from the person prototype
+
+class Account {
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    this.pin = pin;
+    this.movements = [];
+    this.locale = navigator.language;
+    console.log(`Thanks for opening an acount, ${owner}`);
+  }
+
+  deposit(val) {
+    this.movements.push(val);
+  }
+
+  withdrawal(val) {
+    // this.movements.push(-val)
+    this.deposit(-val);
+  }
+
+  approveLoan(val) {
+    return true;
+  }
+
+  requestLoan(val) {
+    if (this.approveLoan(val)) {
+      this.deposit(val);
+      console.log(`Loan Approved`);
+    }
+  }
+}
+
+const acc1 = new Account("Jonas", "EUR", 1111);
+console.log(acc1);
+
+// acc1.movements.push(250);
+// acc1.movements.push(-150);
+
+acc1.deposit(250);
+acc1.withdrawal(150);
+acc1.requestLoan(1000);
+acc1.approveLoan(1000); // This type of Data should not be accessible. This is why we will look at data Encapsulation soon.
+
+console.log(acc1);
