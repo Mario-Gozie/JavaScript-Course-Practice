@@ -772,3 +772,61 @@ acc1.requestLoan(1000);
 acc1.approveLoan(1000); // This type of Data should not be accessible. This is why we will look at data Encapsulation soon.
 
 console.log(acc1);
+
+// NEXT VIDEO IS ON DATA PRIVACY AND ENCAPSULATION
+// Encapsulation simply means keeping some data or functions private, such that they are not accessible outside the object. in otherwords, they are supposed to be private API and not public API
+
+class AccountX {
+  constructor(owner, currency, pin) {
+    this.owner = owner;
+    this.currency = currency;
+    this.pin = pin;
+
+    // private property ADDING _ in front it doesn't really make it private, it is just something agreed on by developers. there is a better way.
+    this._pin = pin;
+    this._movements = [];
+    this.locale = navigator.language;
+    console.log(`Thanks for opening an acount, ${owner}`);
+  }
+
+  // since you now have the movement array encapsulated, we can create a method to access it.
+
+  getMovement() {
+    this._movements;
+  }
+
+  deposit(val) {
+    this._movements.push(val);
+  }
+
+  withdrawal(val) {
+    // this.movements.push(-val)
+    this.deposit(-val);
+  }
+
+  // Encapsulated or protected approved loan method
+  _approveLoan(val) {
+    return true;
+  }
+
+  requestLoan(val) {
+    if (this.approveLoan(val)) {
+      this.deposit(val);
+      console.log(`Loan Approved`);
+    }
+  }
+}
+
+const accX = new Account("Gozie", "EUR", 2222);
+console.log(acc1);
+
+// acc1._movements.push(250);
+// acc1._movements.push(-150);
+
+accX.deposit(250);
+accX.withdrawal(150);
+accX.requestLoan(1000);
+accX.approveLoan(1000); // This type of Data should not be accessible. This is why we will look at data Encapsulation soon.
+
+console.log(accX);
+console.log(this.getMovement()); // with this, the movement can be accessed, but they can't be set. unless they use _movement to access the property to change values. but atleast, developers will know it is not supposed to be accessed.
