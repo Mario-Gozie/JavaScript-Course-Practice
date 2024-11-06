@@ -873,11 +873,13 @@ class AccountY {
 
   deposit(val) {
     this.#movements.push(val);
+    return this;
   }
 
   withdrawal(val) {
     // this.movements.push(-val)
     this.deposit(-val);
+    return this;
   }
 
   requestLoan(val) {
@@ -885,6 +887,7 @@ class AccountY {
       this.deposit(val);
       console.log(`Loan Approved`);
     }
+    return this;
   }
 
   // (4) PRIVATE METHODS
@@ -926,3 +929,99 @@ console.log(accY.getMovements());
 // Remember static functions only work on the class not on instances or objects.
 
 AccountY.helper();
+
+// CHAINING METHODS Do you remember when we chained array methods, like filter, map, reduce. This can also be done in OOP. see below!
+
+// The code below can only work when the this keyword is returned in the deposit method. if we don do so, the deposit account will will not return anything. it needs to return the object (which is this), so that the other methods like deposit withdrawal can bbe called on the object. infactt, the whole methods need to retun an object. so for the whole methods in the class, we need to write a return this in all of them.
+accY
+  .deposit(300)
+  .deposit(500)
+  .withdrawal(35)
+  .requestLoan(25000)
+  .withdrawal(4000);
+
+console.log(accY.getMovements());
+
+/*
+1. Re-create challenge #3, but this time using ES6 classes: create an 'EVCl' child class of the 'CarCl' class
+
+2. Make the 'charge' property private;
+
+3. Implement the ability to chain the 'accelerate' and 'chargeBattery' method of this class, and also update the 'brake method in the car class. Thy expriment with chaining!
+
+DATA CAR 1: 'Rivian' going at 120 km/h, with a charge of 23%
+
+GOOD LUCK 😊
+*/
+
+class CarClX {
+  constructor(make, speed) {
+    this.make = make;
+    this.speed = speed;
+  }
+
+  accelerate() {
+    this.speed += 10;
+    console.log(`${this.make} is going at ${this.speed}Km/hr`);
+  }
+
+  // Creating the accelerate method on the car prototype which should be accessible by all objects created by the Car constructor function.
+  brake() {
+    this.speed -= 5;
+    console.log(`${this.make} is going at ${this.speed}Km/hr`);
+    return this;
+  }
+
+  get speedUs() {
+    // so basically getters transform a method to a property and return a value when this is used when you want to perform some calculation before provideing a value.
+    return this.speed / 1.6; // converting kilometers to miles
+  }
+
+  set speedUs(speed) {
+    //This set sets the speed to m
+    this.speed = speed * 1.6;
+  }
+}
+
+// Electric Class
+
+class EvCl extends CarClX {
+  #charge;
+  constructor(make, speed, charge) {
+    super(make, speed);
+    this.#charge = charge;
+  }
+
+  chargeBattery(chargeTo) {
+    this.#charge = chargeTo;
+    return this;
+  }
+
+  accelerate() {
+    this.speed += 20;
+    this.#charge--;
+    console.log(
+      `${this.make} going at ${this.speed}km/h, with a charge of ${
+        this.#charge
+      }%`
+    );
+    return this;
+  }
+}
+
+const rivian = new EvCl("Rivian", 120, 23);
+
+console.log(rivian);
+//console.log(rivian.#charge) //This #charge cannot be access because it is private
+
+// console.log(rivian.chargeBattery(40));
+
+rivian
+  .accelerate()
+  .accelerate()
+  .accelerate()
+  .brake()
+  .chargeBattery()
+  .accelerate();
+
+console.log(rivian.speedUs);
