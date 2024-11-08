@@ -3,14 +3,6 @@
 // prettier-ignore
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-const form = document.querySelector(".form");
-const containerWorkouts = document.querySelector(".workouts");
-const inputType = document.querySelector(".form__input--type");
-const inputDistance = document.querySelector(".form__input--distance");
-const inputDuration = document.querySelector(".form__input--duration");
-const inputCadence = document.querySelector(".form__input--cadence");
-const inputElevation = document.querySelector(".form__input--elevation");
-
 class Workout {
   date = new Date(); // New Date
   id = Date.now() + "".slice(-10); //Generating ID with date and last 10 numbers
@@ -23,6 +15,7 @@ class Workout {
 }
 
 class Running extends Workout {
+  type = "running";
   constructor(coords, distance, duration, cadence) {
     super(coords, distance, duration);
     this.cadence = cadence;
@@ -37,6 +30,7 @@ class Running extends Workout {
   }
 }
 class Cycling extends Workout {
+  type = "cycling";
   constructor(coords, distance, duration, elevationGain) {
     super(coords, distance, duration);
     this.elevationGain = elevationGain;
@@ -55,15 +49,24 @@ class Cycling extends Workout {
 // const run1 = new Running([39, -12], 5.2, 24, 178);
 // const cycling1 = new Cycling([39, -12], 27, 95, 528);
 
-console.log(run1, cycling1);
+// console.log(run1, cycling1);
 
 //////////////////////////////////////////////////////////////////////////////////////////////
 // APPLICATION ACHETECTURE
+
+const form = document.querySelector(".form");
+const containerWorkouts = document.querySelector(".workouts");
+const inputType = document.querySelector(".form__input--type");
+const inputDistance = document.querySelector(".form__input--distance");
+const inputDuration = document.querySelector(".form__input--duration");
+const inputCadence = document.querySelector(".form__input--cadence");
+const inputElevation = document.querySelector(".form__input--elevation");
 
 class App {
   #map;
 
   #mapEvent;
+  #workout = [];
   constructor() {
     this._getPosition(); //after creating the new app object, this is the first code to run to provide position
 
@@ -132,7 +135,65 @@ class App {
 
   // NEW WORKOUT METHOD
   _newWorkout(e) {
+    // CHECKING FOR NUMBERS.
+    const validInputs = (...inputs) =>
+      inputs.every((inp) => Number.isFinite(inp)); // This code will check if all values passed into it are numbers. remember that spread operator gives an array. so if you put three values for input, it will be an array of three values. if you put in two values, it will be an array of two values. to summerize, this function will return true if all values are numbers and false if one of them is not.
+
+    // CHECKING FOR POSITIVE VALUES FOR CADENCE. ELEVATION CAN HAVE A NEGATIVE VALUE.
+
+    const allPositive = (...inputs) => inputs.every((inp) => inp > 0);
     e.preventDefault();
+
+    // Get data from the form
+    const type = inputType.value;
+    const distance = +inputDistance.value; // the positive sign in front is to convert vales to numbers since they come as strings
+    const duration = +inputDuration.value;
+    const { lat, lng } = this.#mapEvent.latlng;
+    let workout;
+
+    // if workout is running, creating running object.
+
+    if (type === "running") {
+      const cadence = +inputCadence.value;
+      if (
+        // !Number.isFinite(distance) ||
+        // !Number.isFinite(duration) ||
+        // !Number.isFinite(cadence)
+
+        !validInputs(distance, duration, cadence) ||
+        !allPositive(distance, duration, cadence) // Here I am checking if the first three values are number or if the first three values are positive number, and if there is a porblem with any, in term of not being number or being a number less than Zero, an alert will pop up
+      )
+        //checking if value is a number
+        return alert(`Inputs have to be positive numbers!`);
+
+      workout = new Running([lat, lng], distance, duration, cadence);
+    }
+
+    // if workout is cycling, creating cycling object.
+    if (type === "cycling") {
+      const elevation = +inputElevation.value;
+      if (
+        // !Number.isFinite(distance) ||
+        // !Number.isFinite(duration) ||
+        // !Number.isFinite(elevation)
+
+        !validInputs(distance, duration, elevation) ||
+        !allPositive(distance, duration) // Here I am checking if the first three values are number or if the first two values are positive number, elevation can less than zero in cases when on is walking down the hill and if there is a porblem with any, in term of not being number or being a number less than Zero, an alert will pop up
+      )
+        //checking if value is a number
+        return alert(`Inputs have to be positive numbers!`);
+      workout = new Cycling([lat, lng], distance, duration, elevation);
+    }
+
+    // Add the new object to the workout array
+    this.#workout.push(workout);
+    // Render workout on map as a marker
+    console.log(this.#workout);
+
+    // render workout on the list
+    this.renderWorkoutMarker(workout);
+
+    // Hide the form + clear input fields
 
     // Clear Input fields
     inputDistance.value =
@@ -140,12 +201,11 @@ class App {
       inputCadence.value =
       inputElevation.value =
         "";
+  }
 
-    // Display the marker
-
-    const { lat, lng } = this.#mapEvent.latlng;
-    console.log(lat, lng);
-    L.marker([lat, lng])
+  renderWorkoutMarker(workout) {
+    console.log(workout.coords);
+    L.marker(workout.coords)
       .addTo(this.#map)
       .bindPopup(
         L.popup({
@@ -153,10 +213,10 @@ class App {
           minWidth: 100,
           autoClose: false,
           closeOnClick: false,
-          className: "running-popup",
+          className: `${workout.type}-popup`,
         })
       )
-      .setPopupContent("Workout")
+      .setPopupContent("workout")
       .openPopup();
   }
 }
