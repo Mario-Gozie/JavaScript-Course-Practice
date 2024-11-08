@@ -11,8 +11,54 @@ const inputDuration = document.querySelector(".form__input--duration");
 const inputCadence = document.querySelector(".form__input--cadence");
 const inputElevation = document.querySelector(".form__input--elevation");
 
-// Declaring 2 variables I want to easily have access to even if I declare them inside a code block.
-// let map, mapEvent;
+class Workout {
+  date = new Date(); // New Date
+  id = Date.now() + "".slice(-10); //Generating ID with date and last 10 numbers
+
+  constructor(coords, distance, duration) {
+    this.coords = coords; // [lat, lng]
+    this.distance = distance; // in km
+    this.duration = duration; // in min
+  }
+}
+
+class Running extends Workout {
+  constructor(coords, distance, duration, cadence) {
+    super(coords, distance, duration);
+    this.cadence = cadence;
+    this.calcPace();
+  }
+
+  // METHOD FOR PACE
+  calcPace() {
+    // min/km
+    this.pace = this.duration / this.distance;
+    return this.pace;
+  }
+}
+class Cycling extends Workout {
+  constructor(coords, distance, duration, elevationGain) {
+    super(coords, distance, duration);
+    this.elevationGain = elevationGain;
+  }
+
+  // METHOD FOR CALCULATING SPEED
+
+  calcSpeed() {
+    //km/h
+    this.speed = this.distance / (this.duration / 60); // converting from hours to minutes require dividing by 60;
+    return this.speed;
+  }
+}
+
+// /// Testing the new Objects
+// const run1 = new Running([39, -12], 5.2, 24, 178);
+// const cycling1 = new Cycling([39, -12], 27, 95, 528);
+
+console.log(run1, cycling1);
+
+//////////////////////////////////////////////////////////////////////////////////////////////
+// APPLICATION ACHETECTURE
 
 class App {
   #map;
