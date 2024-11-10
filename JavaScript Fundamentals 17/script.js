@@ -85,8 +85,12 @@ class App {
   #mapEvent;
   #workout = [];
   constructor() {
+    // GET USERS LOCATION
     this._getPosition(); //after creating the new app object, this is the first code to run to provide position
 
+    // GET DATA FROM LOCAL STORAGE
+
+    // ATTACH EVENT LISTENERS
     form.addEventListener("submit", this._newWorkout.bind(this)); // This keyword will always be the element it is attached to. so to set the this keyword to the app object created, you need to use bind.
 
     inputType.addEventListener("change", this._toggleElevationField);
@@ -230,6 +234,10 @@ class App {
 
     // calling the form hiding method
     this._hideForm();
+
+    //set local storage to all workout
+
+    this._setLocalStorage();
   }
 
   _renderWorkoutMarker(workout) {
@@ -321,6 +329,17 @@ class App {
     // Using the public interface
 
     workout.click();
+  }
+
+  // SETTING UP THE LOCAL STORAGE.
+
+  // How to use local storage
+
+  // the name will be workouts, then the next will be string value of what we want to store. This is more like a key value store, where the name is the first value and in this case, it is workout and the value is #workouts
+
+  // to convert javasript values to string, we can use JASON.stringify. Local storage is a very simple API and it should be used for small data. else, it will slow down your application.
+  _setLocalStorage() {
+    localStorage.setItem("workouts", JSON.stringify(this.#workout));
   }
 }
 
