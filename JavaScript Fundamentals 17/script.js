@@ -89,6 +89,7 @@ class App {
     this._getPosition(); //after creating the new app object, this is the first code to run to provide position
 
     // GET DATA FROM LOCAL STORAGE
+    this._getLocalStorage();
 
     // ATTACH EVENT LISTENERS
     form.addEventListener("submit", this._newWorkout.bind(this)); // This keyword will always be the element it is attached to. so to set the this keyword to the app object created, you need to use bind.
@@ -139,6 +140,10 @@ class App {
 
     // Handling Clicks on maps (Just to display form)
     this.#map.on("click", this._showForm.bind(this));
+
+    this.#workout.forEach((work) => {
+      this._renderWorkoutMarker(work);
+    });
   }
 
   // SHOW FORM METHOD
@@ -253,7 +258,9 @@ class App {
           className: `${workout.type}-popup`,
         })
       )
-      .setPopupContent("workout")
+      .setPopupContent(
+        `${workout.type === "running" ? "🏃‍♂️" : "🚴‍♀️"} ${workout.description}`
+      )
       .openPopup();
   }
 
@@ -311,7 +318,7 @@ class App {
 
   _moveToPopup(e) {
     const workoutEl = e.target.closest(".workout");
-    console.log(workoutEl);
+    // console.log(workoutEl);
 
     if (!workoutEl) return;
 
@@ -319,7 +326,7 @@ class App {
       (work) => work.id === workoutEl.dataset.id
     );
 
-    console.log(workout);
+    // console.log(workout);
 
     this.#map.setView(workout.coords, this.#mapZoomLevel, {
       animate: true,
@@ -328,7 +335,7 @@ class App {
 
     // Using the public interface
 
-    workout.click();
+    // workout.click();   This was disabled because it is not necessary.
   }
 
   // SETTING UP THE LOCAL STORAGE.
@@ -340,6 +347,30 @@ class App {
   // to convert javasript values to string, we can use JASON.stringify. Local storage is a very simple API and it should be used for small data. else, it will slow down your application.
   _setLocalStorage() {
     localStorage.setItem("workouts", JSON.stringify(this.#workout));
+  }
+
+  // getting Data from the local storage to appear on the webpage when we leave and come back.
+
+  _getLocalStorage() {
+    // PLEASE REMEMBER THAT DATA GOTTEN FROM A DATABASE WILL NOT CONTAIN FUNCTIONS OR INCLUDE FUNCTIONS
+    const data = JSON.parse(localStorage.getItem("workouts")); // Converting the data to objects from strings.
+    console.log(data);
+
+    if (!data) return; // if there is no value for data, return
+
+    this.#workout = data; // setting the data value into the #workout array. because in the begining, the #workout array will be empty and we need to store it with data for previous information to reflect
+
+    this.#workout.forEach((work) => {
+      this._renderWorkout(work);
+      // this._renderWorkoutMarker(work); //This would have worked here, but it wont work because it is a function that is supposed to run at the begining, but it has to do so after the map has loaded (which is where asynchronous would have been better. remember for the map to load, it needs to get the location, then use the coordinates to load the map.). Hence, I need to put the function where in  Place where it will run after the map has loaded. so I will put the code after the load map function. see above in load map function.
+    });
+  }
+
+  reset() {
+    //This code is not mandatory, but it can help to remove the content of the storage when you run app.reset() on the console. it will make all data in the browser storage to be wiped off on the next refresh.
+    localStorage.removeItem("workouts"); // remember that the key for the item we stored in the local storage of the browser is workouts. so we can use that key and the removeItem method to clear the data in the browsers local database.
+    location.reload(); // this part of the code will reload the page and the app will be empty when reloaded. location is an object that contains a  lot of methods and properties in a browser. and it has the ability to reload the page.
+    // let me go try app.reset() on my console.
   }
 }
 
