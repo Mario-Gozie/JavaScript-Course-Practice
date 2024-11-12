@@ -201,3 +201,32 @@ const getCountryAndNeighbour = function (country) {
 };
 
 getCountryAndNeighbour("Nigeria");
+
+// when you need an Asynchronous task to run in sequence, that is, you want a series of callback functions to run one after the other. in otherwords, having a series of nested callbacks running one after the other. The special name for this type of situation is CALLBACK HELL. This is a situtation when there are nested callbacks to carry out an asynchronous tasks which are handled by callbacks.
+
+// see example below
+
+// Example of Callback Hell.
+// Callback hell can be difficult to understand which is why promises are used. so now, we are going to use promises
+setTimeout(() => {
+  console.log(`1 second passed`);
+  setTimeout(() => {
+    console.log(`2 second passed`);
+    setTimeout(() => {
+      console.log(`3 second passed`);
+      setTimeout(() => {
+        console.log(`4 second passed`);
+      }, 1000);
+    }, 1000);
+  }, 1000);
+}, 1000);
+
+// PROMISES AND API
+// We will now replace the call back hell with Promises, then instead of the xmlHttpRequest (used earlier and commented below) in the last lecture, we can now use fetch keyword.
+
+// const request = new XMLHttpRequest();
+
+// request.open("GET", "https://restcountries.com/v3.1/name/portugal");
+// request.send();
+
+const fetchRequest = fetch("https://restcountries.com/v3.1/name/portugal"); // in other words, to make a get request, all we need is to pass the url into fetch and that is all.
