@@ -222,6 +222,7 @@ setTimeout(() => {
 }, 1000);
 
 // PROMISES AND API
+
 // We will now replace the call back hell with Promises, then instead of the xmlHttpRequest (used earlier and commented below) in the last lecture, we can now use fetch keyword.
 
 // const request = new XMLHttpRequest();
@@ -229,4 +230,35 @@ setTimeout(() => {
 // request.open("GET", "https://restcountries.com/v3.1/name/portugal");
 // request.send();
 
+// Using a Fetch API to build a promise.
 const fetchRequest = fetch("https://restcountries.com/v3.1/name/portugal"); // in other words, to make a get request, all we need is to pass the url into fetch and that is all.
+
+// when you log the fetch request to the console, you will get a promise. see below!
+
+console.log(fetchRequest);
+
+// Now, What is a promise and what can we do with it?
+
+// Initally, A promise is defined as a placeholder for the future result of an Asynchronous operation.
+
+// A promise is a container for an Asynchronous delivered value.
+
+// You can also say that a promis is a container for a future value and an example of this future value is the result of an asynchronous call.
+
+// ADVANTAGES OF USING A PROMISE.
+
+// 1) with a promise, we no longer rely on events and callbacks passed into asynchronous function to handle asynchronous results. Events and callback functions can sometimes cause an unpredictable results.
+
+// 2) instead of nesting callbacks, we can chain promises for a sequence of asynchronous operations: ESCAPING CALLBACK HELL🎉🎉
+
+// Promises is an ES6 feature, they becam available in 2015
+
+// Promises can be in different states. because they work with asynchronous operations, they are time sensitive. they change overtime. This is what is called the LIFECYCLE of a promise.
+
+// a) In the very begining, a promise is said to be pending. This is the time before value from an asychronous task is available. during this time, the Asynchronous task is still doing it's work in the background.
+
+// b) When the Task is finished, we say that the task is settled. There are two types of settled tasks it is either FULLFILLED or REJECTED. A fulfilled promise is one that has successfully gotten a value and it is now available to use, while a rejected one is one that there has been an error during the asynchronous tasks.  These stages are important to understand because while using promises, we will be able to control these stages.
+
+// One more thing to understand is that a promise is only settled once and from there the status will remain unchanged forever. so it is either fulfilled or rejected and it is impossible to change that state.
+
+// These steps are important when we use a promise to get a result which is also called to CONSUME A PROMISE. A promise can only be consumed when you have it already
