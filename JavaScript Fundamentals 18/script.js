@@ -141,9 +141,9 @@ getCountryData("Nigeria");
 
 // IMPLEMENTING AJAX CALL FOR COUNTRY IN SEQUENCE. IN OTHER WORDS, BASED ON NEIGHBOURING COUNTRIES. SO IF THE FIRS COUNTRY DOES NOT RUN, THE NEIGHBOURING WONT RUN
 
-const renderCountry = function (data) {
+const renderCountry = function (data, className = "") {
   const html = `
-    <article class="country">
+    <article class="country ${className}">
       <img class="country__img" src="${data.flags.svg}" alt="Flag of ${
     data.name.common
   }" />
@@ -176,7 +176,7 @@ const getCountryAndNeighbour = function (country) {
 
   request.addEventListener("load", function () {
     const [data] = JSON.parse(this.responseText);
-    console.log(data);
+    // console.log(data);
     // Render Country 1
     renderCountry(data);
 
@@ -193,7 +193,7 @@ const getCountryAndNeighbour = function (country) {
 
     request2.addEventListener("load", function () {
       const data2 = JSON.parse(this.responseText); // No need for destructuring here because we are accessing by country code and it is not an array jsut a value.
-      console.log(data2);
+      //   console.log(data2);
 
       renderCountry(data2);
     });
@@ -235,7 +235,7 @@ const fetchRequest = fetch("https://restcountries.com/v3.1/name/portugal"); // i
 
 // when you log the fetch request to the console, you will get a promise. see below!
 
-console.log(fetchRequest);
+// console.log(fetchRequest);
 
 // Now, What is a promise and what can we do with it?
 
@@ -262,3 +262,129 @@ console.log(fetchRequest);
 // One more thing to understand is that a promise is only settled once and from there the status will remain unchanged forever. so it is either fulfilled or rejected and it is impossible to change that state.
 
 // These steps are important when we use a promise to get a result which is also called to CONSUME A PROMISE. A promise can only be consumed when you have it already
+
+// CONSUMING A PROMISE
+
+// so what I did here basically is to create a function that will fetch then data. then I called the then method, which takes a value. it works after the data promise has settled. Maybe that is why it is called then. The function in the then method will take a parameter. here I called it response then I will call the JASON method on the response.
+
+// the jason method is an asynchronous method. so it will return a promise. so we need to return that promise so we can consume it.
+
+// A then method is always called on a promise to see its content.
+
+// THE MAIN CODE
+
+// const getCountryDataPromise = function (country) {
+//   fetch(`https://restcountries.com/v3.1/name/${country}`).then(function (
+//     response
+//   ) {
+//     console.log(response);
+//     return response.json().then(function (data) {
+//       console.log(data);
+//       renderCountry(data[0]);
+//     });
+//   });
+// };
+
+// getCountryDataPromise("portugal");
+
+// CODE SIMPLIFIED USING ARROW FUNCTIONS UNLIKE WHAT WE HAVE ABOVE.
+
+const getCountryDataPromise = function (country) {
+  fetch(`https://restcountries.com/v3.1/name/${country}`).then((response) => {
+    return response.json().then((data) => {
+      renderCountry(data[0]);
+    });
+  });
+};
+
+getCountryDataPromise("india");
+
+// HOW TO CHAIN PROMISES. chaining two sequential ajax calls.
+
+const getCountryAndNeighbourDataPromise = function (country) {
+  fetch(`https://restcountries.com/v3.1/name/${country}`).then((response) => {
+    return response
+      .json()
+      .then((data) => {
+        renderCountry(data[0]);
+        const neighbour = data[0].borders[0];
+
+        if (!neighbour) return;
+        // Country 2
+        return fetch(`https://restcountries.com/v3.1/name/${neighbour}`);
+      }) // Then methods always returns a promise
+      .then((response) => response.json()) // The response here is the neighboring country details.it is the returned promise above. because "then" method always return a promise, we need to change the result of that promise to a javascript object and then use the value gotten
+      .then((data) => renderCountry(data, "neigbour"));
+  });
+};
+
+getCountryAndNeighbourDataPromise("nigeria");
+
+// CHATGPT SECTION. I NEED TO REVIEW
+
+// "use strict";
+
+// const btn = document.querySelector(".btn-country");
+// const countriesContainer = document.querySelector(".countries");
+
+// // Function to render the country HTML
+// const renderCountry = function (data, className = "") {
+//   const html = `
+//     <article class="country ${className}">
+//       <img class="country__img" src="${data.flags.svg}" alt="Flag of ${
+//     data.name.common
+//   }" />
+//       <div class="country__data">
+//         <h3 class="country__name">${data.name.common}</h3>
+//         <h4 class="country__region">${data.region}</h4>
+//         <p class="country__row"><span>👫</span>${(
+//           data.population / 1_000_000
+//         ).toFixed(1)} million people</p>
+//         <p class="country__row"><span>🗣️</span>${
+//           Object.values(data.languages)[0]
+//         }</p>
+//         <p class="country__row"><span>💰</span>${
+//           Object.values(data.currencies)[0].name
+//         }</p>
+//       </div>
+//     </article>
+//   `;
+//   countriesContainer.insertAdjacentHTML("beforeend", html);
+//   countriesContainer.style.opacity = 1;
+// };
+
+// // Function to fetch country data by name
+// const getCountryData = function (country) {
+//   fetch(`https://restcountries.com/v3.1/name/${country}`)
+//     .then((response) => {
+//       if (!response.ok)
+//         throw new Error(`Country not found (${response.status})`);
+//       return response.json();
+//     })
+//     .then((data) => {
+//       renderCountry(data[0]);
+
+//       // Check if country has neighbors
+//       const neighbour = data[0].borders?.[0];
+//       if (!neighbour) throw new Error("No neighboring country found!");
+
+//       // Fetch neighbor country data
+//       return fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`);
+//     })
+//     .then((response) => {
+//       if (!response.ok)
+//         throw new Error(`Country not found (${response.status})`);
+//       return response.json();
+//     })
+//     .then((data) => renderCountry(data, "neighbour"))
+//     .catch((err) => {
+//       countriesContainer.insertAdjacentText(
+//         "beforeend",
+//         `Error: ${err.message}`
+//       );
+//       countriesContainer.style.opacity = 1;
+//     });
+// };
+
+// // Example usage
+// getCountryData("Nigeria");
