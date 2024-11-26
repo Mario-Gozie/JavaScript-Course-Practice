@@ -142,6 +142,8 @@ getCountryData("France");
 
 // IMPLEMENTING AJAX CALL FOR COUNTRY IN SEQUENCE. IN OTHER WORDS, BASED ON NEIGHBOURING COUNTRIES. SO IF THE FIRS COUNTRY DOES NOT RUN, THE NEIGHBOURING WONT RUN
 
+// ME AND ICHES PART ...///
+
 const renderCountry = function (data, className = "") {
   // console.log(data.flags.svg)
   if (className == "country") {
