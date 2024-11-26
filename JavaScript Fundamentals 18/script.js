@@ -2,6 +2,7 @@
 
 const btn = document.querySelector(".btn-country");
 const countriesContainer = document.querySelector(".countries");
+const borderContainer = document.querySelector(".border");
 
 ///////////////////////////////////////
 
@@ -99,7 +100,7 @@ request.addEventListener("load", function () {
   countriesContainer.style.opacity = 1;
 });
 
-// PUTTING THE WHOLE PROCESS ABOVE INTO A FUNCTION
+// // PUTTING THE WHOLE PROCESS ABOVE INTO A FUNCTION
 const getCountryData = function (country) {
   const request = new XMLHttpRequest();
 
@@ -136,25 +137,27 @@ const getCountryData = function (country) {
 };
 
 getCountryData("Nigeria");
-// getCountryData("Usa");
-// getCountryData("France");
+getCountryData("Usa");
+getCountryData("France");
 
 // IMPLEMENTING AJAX CALL FOR COUNTRY IN SEQUENCE. IN OTHER WORDS, BASED ON NEIGHBOURING COUNTRIES. SO IF THE FIRS COUNTRY DOES NOT RUN, THE NEIGHBOURING WONT RUN
 
 const renderCountry = function (data, className = "") {
-  const html = `
-    <article class="country ${className}">
-      <img class="country__img" src="${data.flags.svg}" alt="Flag of ${
-    data.name.common
-  }" />
+  // console.log(data.flags.svg)
+  if (className == "country") {
+    const html = `
+    <article class="${className}">
+      <img class="country__img" src="${data.flags?.png}" alt="Flag of ${
+      data.name?.common
+    }" />
       <div class="country__data">
-        <h3 class="country__name">${data.name.common}</h3>
+        <h3 class="country__name">${data.name?.common}</h3>
         <h4 class="country__region">${data.region}</h4>
         <p class="country__row"><span>👫</span>${(
           data.population / 1_000_000
         ).toFixed(1)} million people</p>
         <p class="country__row"><span>🗣️</span>${
-          Object.values(data.languages)[0]
+          Object.values(data.languages)[0] || ""
         }</p>
         <p class="country__row"><span>💰</span>${
           Object.values(data.currencies)[0].name
@@ -163,8 +166,38 @@ const renderCountry = function (data, className = "") {
     </article>
   `;
 
-  countriesContainer.insertAdjacentHTML("beforeend", html);
-  countriesContainer.style.opacity = 1;
+    // countriesContainer.insertAdjacentHTML("beforeend", html);
+    countriesContainer.innerHTML = html;
+    countriesContainer.style.opacity = 1;
+  }
+  if (className == "neighbour") {
+    console.log(data);
+    const html = `
+    <article class="${className}">
+      <img class="country__img" src="${data[0].flags?.png}" alt="Flag of ${
+      data[0].name?.common
+    }" />
+      <div class="country__data">
+        <h3 class="country__name">${data[0].name?.common}</h3>
+                <h4 class="country__region">${data[0].region}</h4>
+        <p class="country__row"><span>👫</span>${(
+          data[0].population / 1_000_000
+        ).toFixed(1)} million people</p>
+        <p class="country__row"><span>🗣️</span>${
+          Object.values(data[0].languages)[0] || ""
+        }</p>
+        <p class="country__row"><span>💰</span>${
+          Object.values(data[0].currencies)[0].name
+        }</p>
+      
+      </div>
+    </article>
+  `;
+
+    // countriesContainer.insertAdjacentHTML("beforeend", html);
+    borderContainer.innerHTML = html;
+    borderContainer.style.opacity = 1;
+  }
 };
 
 const getCountryAndNeighbour = function (country) {
@@ -178,10 +211,11 @@ const getCountryAndNeighbour = function (country) {
     const [data] = JSON.parse(this.responseText);
     // console.log(data);
     // Render Country 1
-    renderCountry(data);
+    renderCountry(data, "country");
 
     // Render Neighbouring country
     const [neighbour] = data.borders;
+    console.log(neighbour);
 
     if (!neighbour) return;
 
@@ -193,14 +227,14 @@ const getCountryAndNeighbour = function (country) {
 
     request2.addEventListener("load", function () {
       const data2 = JSON.parse(this.responseText); // No need for destructuring here because we are accessing by country code and it is not an array jsut a value.
-      //   console.log(data2);
+      console.log(data2);
 
-      renderCountry(data2);
+      renderCountry(data2, "neighbour");
     });
   });
 };
 
-getCountryAndNeighbour("Nigeria");
+getCountryAndNeighbour("portugal");
 
 // when you need an Asynchronous task to run in sequence, that is, you want a series of callback functions to run one after the other. in otherwords, having a series of nested callbacks running one after the other. The special name for this type of situation is CALLBACK HELL. This is a situtation when there are nested callbacks to carry out an asynchronous tasks which are handled by callbacks.
 
@@ -297,7 +331,7 @@ const getCountryDataPromise = function (country) {
   });
 };
 
-getCountryDataPromise("india");
+// getCountryDataPromise("india");
 
 // HOW TO CHAIN PROMISES. chaining two sequential ajax calls.
 
@@ -318,7 +352,7 @@ const getCountryAndNeighbourDataPromise = function (country) {
   });
 };
 
-getCountryAndNeighbourDataPromise("nigeria");
+// getCountryAndNeighbourDataPromise("nigeria");
 
 // CHATGPT SECTION. I NEED TO REVIEW
 
