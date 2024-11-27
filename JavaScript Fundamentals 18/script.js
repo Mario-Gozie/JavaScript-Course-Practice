@@ -340,7 +340,7 @@ const getCountryDataPromise = function (country) {
 const getCountryAndNeighbourDataPromise = function (country) {
   fetch(`https://restcountries.com/v3.1/name/${country}`).then((response) => {
     return response
-      .json()
+      .json() // jason method happens asynchronously so it needs to return a PROMISE. which we will call the then method on to access the data. remember that the json method converts response to jason so they can be accessible.
       .then((data) => {
         renderCountry(data[0]);
         const neighbour = data[0].borders[0];
@@ -354,7 +354,9 @@ const getCountryAndNeighbourDataPromise = function (country) {
   });
 };
 
-// getCountryAndNeighbourDataPromise("nigeria");
+btn.addEventListener("click", function () {
+  getCountryAndNeighbourDataPromise("nigeria");
+});
 
 // CHATGPT SECTION. I NEED TO REVIEW
 
