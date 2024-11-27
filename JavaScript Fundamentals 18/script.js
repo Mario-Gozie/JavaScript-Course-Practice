@@ -354,8 +354,33 @@ const getCountryAndNeighbourDataPromise = function (country) {
   });
 };
 
+getCountryAndNeighbourDataPromise("nigeria");
+
+// HANDLING REJECTIONS.
+
+// There are two ways to handle rejection. The first one is to add a function that will be called if there is a rejection in the "Then" Method. so the first callback function is always called when when the promise is fulfilled/successful. The second function is called when the promise is rejected.
+
+const getCountryAndNeighbourDataPromiseWithRejection = function (country) {
+  // Country 1
+  fetch(`https://restcountries.com/v3.1/name/${country}`)
+    .then(
+      (response) => response.json()
+      // (err) => alert(err)
+    ) // THIS IS WHERE THE ERROR IS HANDLED but it is better to handle errors with catch method
+    .then((data) => {
+      renderCountry(data[0]);
+      const neighbour = data[0].borders[0];
+
+      if (!neighbour) return;
+      // Country 2
+      return fetch(`https://restcountries.com/v3.1/name/${neighbour}`);
+    }) // Then methods always returns a promise
+    .then((response) => response.json()) // The response here is the neighboring country details.it is the returned promise above. because "then" method always return a promise, we need to change the result of that promise to a javascript object and then use the value gotten
+    .then((data) => renderCountry(data, "neigbour"));
+};
+
 btn.addEventListener("click", function () {
-  getCountryAndNeighbourDataPromise("nigeria");
+  getCountryAndNeighbourDataPromiseWithRejection("nigeria");
 });
 
 // CHATGPT SECTION. I NEED TO REVIEW
