@@ -136,9 +136,9 @@ const getCountryData = function (country) {
   });
 };
 
-getCountryData("Nigeria");
-getCountryData("Usa");
-getCountryData("France");
+// getCountryData("Nigeria");
+// getCountryData("Usa");
+// getCountryData("France");
 
 // IMPLEMENTING AJAX CALL FOR COUNTRY IN SEQUENCE. IN OTHER WORDS, BASED ON NEIGHBOURING COUNTRIES. SO IF THE FIRS COUNTRY DOES NOT RUN, THE NEIGHBOURING WONT RUN
 
@@ -236,7 +236,7 @@ const getCountryAndNeighbour = function (country) {
   });
 };
 
-getCountryAndNeighbour("portugal");
+// getCountryAndNeighbour("portugal");
 
 // when you need an Asynchronous task to run in sequence, that is, you want a series of callback functions to run one after the other. in otherwords, having a series of nested callbacks running one after the other. The special name for this type of situation is CALLBACK HELL. This is a situtation when there are nested callbacks to carry out an asynchronous tasks which are handled by callbacks.
 
@@ -354,7 +354,7 @@ const getCountryAndNeighbourDataPromise = function (country) {
   });
 };
 
-getCountryAndNeighbourDataPromise("nigeria");
+// getCountryAndNeighbourDataPromise("nigeria");
 
 // HANDLING REJECTIONS.
 
@@ -363,10 +363,10 @@ getCountryAndNeighbourDataPromise("nigeria");
 const getCountryAndNeighbourDataPromiseWithRejection = function (country) {
   // Country 1
   fetch(`https://restcountries.com/v3.1/name/${country}`)
-    .then(
-      (response) => response.json()
+    .then((response) => {
+      response.json();
       // (err) => alert(err)
-    ) // THIS IS WHERE THE ERROR IS HANDLED but it is better to handle errors with catch method
+    }) // THIS IS WHERE THE ERROR IS HANDLED but it is better to handle errors with catch method
     .then((data) => {
       renderCountry(data[0]);
       const neighbour = data[0].borders[0];
@@ -382,75 +382,8 @@ const getCountryAndNeighbourDataPromiseWithRejection = function (country) {
   // This catch method will handle all errors in in this software or function. so, errors will propagate down the chain until they are called.
 };
 
+// getCountryAndNeighbourDataPromiseWithRejection("nigeria");
+
 btn.addEventListener("click", function () {
   getCountryAndNeighbourDataPromiseWithRejection("nigeria");
 });
-
-// CHATGPT SECTION. I NEED TO REVIEW
-
-// "use strict";
-
-// const btn = document.querySelector(".btn-country");
-// const countriesContainer = document.querySelector(".countries");
-
-// // Function to render the country HTML
-// const renderCountry = function (data, className = "") {
-//   const html = `
-//     <article class="country ${className}">
-//       <img class="country__img" src="${data.flags.svg}" alt="Flag of ${
-//     data.name.common
-//   }" />
-//       <div class="country__data">
-//         <h3 class="country__name">${data.name.common}</h3>
-//         <h4 class="country__region">${data.region}</h4>
-//         <p class="country__row"><span>👫</span>${(
-//           data.population / 1_000_000
-//         ).toFixed(1)} million people</p>
-//         <p class="country__row"><span>🗣️</span>${
-//           Object.values(data.languages)[0]
-//         }</p>
-//         <p class="country__row"><span>💰</span>${
-//           Object.values(data.currencies)[0].name
-//         }</p>
-//       </div>
-//     </article>
-//   `;
-//   countriesContainer.insertAdjacentHTML("beforeend", html);
-//   countriesContainer.style.opacity = 1;
-// };
-
-// // Function to fetch country data by name
-// const getCountryData = function (country) {
-//   fetch(`https://restcountries.com/v3.1/name/${country}`)
-//     .then((response) => {
-//       if (!response.ok)
-//         throw new Error(`Country not found (${response.status})`);
-//       return response.json();
-//     })
-//     .then((data) => {
-//       renderCountry(data[0]);
-
-//       // Check if country has neighbors
-//       const neighbour = data[0].borders?.[0];
-//       if (!neighbour) throw new Error("No neighboring country found!");
-
-//       // Fetch neighbor country data
-//       return fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`);
-//     })
-//     .then((response) => {
-//       if (!response.ok)
-//         throw new Error(`Country not found (${response.status})`);
-//       return response.json();
-//     })
-//     .then((data) => renderCountry(data, "neighbour"))
-//     .catch((err) => {
-//       countriesContainer.insertAdjacentText(
-//         "beforeend",
-//         `Error: ${err.message}`
-//       );
-//       countriesContainer.style.opacity = 1;
-//     });
-// };
-
-// // Example usage
-// getCountryData("Nigeria");
