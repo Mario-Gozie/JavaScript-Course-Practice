@@ -376,7 +376,10 @@ const getCountryAndNeighbourDataPromiseWithRejection = function (country) {
       return fetch(`https://restcountries.com/v3.1/name/${neighbour}`);
     }) // Then methods always returns a promise
     .then((response) => response.json()) // The response here is the neighboring country details.it is the returned promise above. because "then" method always return a promise, we need to change the result of that promise to a javascript object and then use the value gotten
-    .then((data) => renderCountry(data, "neigbour"));
+    .then((data) => renderCountry(data, "neigbour"))
+    .catch((err) => console.log(`${err} 😒😒😒💥💥💥`));
+
+  // This catch method will handle all errors in in this software or function. so, errors will propagate down the chain until they are called.
 };
 
 btn.addEventListener("click", function () {
