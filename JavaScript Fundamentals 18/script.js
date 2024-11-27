@@ -67,38 +67,38 @@ const borderContainer = document.querySelector(".border");
 
 // METHOD USED BY CHATGPT. THIS IS THE LATEST WAY WHICH WORKED. MY TUTORS WAY DIDN'T WORK BECAUSE IT IS OUTDATED SO I USED THE METHOD I GOT FROM CHATGPT BUT THE CONCEPT IS SAME.
 
-const request = new XMLHttpRequest();
+// const request = new XMLHttpRequest();
 
-request.open("GET", "https://restcountries.com/v3.1/name/portugal");
-request.send();
+// request.open("GET", "https://restcountries.com/v3.1/name/portugal");
+// request.send();
 
-request.addEventListener("load", function () {
-  const [data] = JSON.parse(this.responseText);
+// request.addEventListener("load", function () {
+//   const [data] = JSON.parse(this.responseText);
 
-  const html = `
-    <article class="country">
-      <img class="country__img" src="${data.flags.svg}" alt="Flag of ${
-    data.name.common
-  }" />
-      <div class="country__data">
-        <h3 class="country__name">${data.name.common}</h3>
-        <h4 class="country__region">${data.region}</h4>
-        <p class="country__row"><span>👫</span>${(
-          data.population / 1_000_000
-        ).toFixed(1)} million people</p>
-        <p class="country__row"><span>🗣️</span>${
-          Object.values(data.languages)[0]
-        }</p>
-        <p class="country__row"><span>💰</span>${
-          Object.values(data.currencies)[0].name
-        }</p>
-      </div>
-    </article>
-  `;
+//   const html = `
+//     <article class="country">
+//       <img class="country__img" src="${data.flags.svg}" alt="Flag of ${
+//     data.name.common
+//   }" />
+//       <div class="country__data">
+//         <h3 class="country__name">${data.name.common}</h3>
+//         <h4 class="country__region">${data.region}</h4>
+//         <p class="country__row"><span>👫</span>${(
+//           data.population / 1_000_000
+//         ).toFixed(1)} million people</p>
+//         <p class="country__row"><span>🗣️</span>${
+//           Object.values(data.languages)[0]
+//         }</p>
+//         <p class="country__row"><span>💰</span>${
+//           Object.values(data.currencies)[0].name
+//         }</p>
+//       </div>
+//     </article>
+//   `;
 
-  countriesContainer.insertAdjacentHTML("beforeend", html);
-  countriesContainer.style.opacity = 1;
-});
+//   countriesContainer.insertAdjacentHTML("beforeend", html);
+//   countriesContainer.style.opacity = 1;
+// });
 
 // // PUTTING THE WHOLE PROCESS ABOVE INTO A FUNCTION
 const getCountryData = function (country) {
@@ -142,9 +142,69 @@ const getCountryData = function (country) {
 
 // IMPLEMENTING AJAX CALL FOR COUNTRY IN SEQUENCE. IN OTHER WORDS, BASED ON NEIGHBOURING COUNTRIES. SO IF THE FIRS COUNTRY DOES NOT RUN, THE NEIGHBOURING WONT RUN
 
-// ME AND ICHES PART ...///
-
 const renderCountry = function (data, className = "") {
+  const html = `
+  <article class="country ${className}">
+    <img class="country__img" src="${data.flags.png}" />
+    <div class="country__data">
+      <h3 class="country__name">${data.name.common}</h3>
+      <h4 class="country__region">${data.region}</h4>
+      <p class="country__row"><span>👫</span>${(
+        +data.population / 1_000_000
+      ).toFixed(1)} people</p>
+      <p class="country__row"><span>🗣️</span>${
+        Object.values(data.languages)[0]
+      }</p>
+      <p class="country__row"><span>💰</span>${
+        Object.values(data.currencies)[0].name
+      }</p>
+    </div>
+  </article>
+  `;
+
+  countriesContainer.insertAdjacentHTML("beforeend", html);
+  countriesContainer.style.opacity = 1;
+};
+
+const getCountryAndNeighbour = function (country) {
+  // AJAX call country 1
+  const request = new XMLHttpRequest();
+
+  request.open("GET", `https://restcountries.com/v3.1/name/${country}`);
+  request.send();
+
+  request.addEventListener("load", function () {
+    const [data] = JSON.parse(this.responseText);
+    console.log(data);
+    // Render Country 1
+    renderCountry(data);
+
+    // Render Neighbouring country
+    const [neighbour] = data.borders;
+    console.log(neighbour);
+
+    if (!neighbour) return;
+
+    //AJAX CALL COUNTRY 2
+    const request2 = new XMLHttpRequest();
+
+    request2.open("GET", `https://restcountries.com/v3.1/alpha/${neighbour}`); //searching by code because neighboring countries are stored by code and not name. so name in the url is replaced with alpha
+    request2.send();
+
+    request2.addEventListener("load", function () {
+      const data2 = JSON.parse(this.responseText); // No need for destructuring here because we are accessing by country code and it is not an array jsut a value.
+      console.log(data2);
+
+      renderCountry(data2, "neighbour");
+    });
+  });
+};
+
+getCountryAndNeighbour("portugal");
+
+// ME AND RICHES PART ...///
+
+const renderCountryRiches = function (data, className = "") {
   // console.log(data.flags.svg)
   if (className == "country") {
     const html = `
@@ -191,52 +251,16 @@ const renderCountry = function (data, className = "") {
         <p class="country__row"><span>💰</span>${
           Object.values(data[0].currencies)[0].name
         }</p>
-      
+
       </div>
     </article>
   `;
 
     // countriesContainer.insertAdjacentHTML("beforeend", html);
     borderContainer.innerHTML = html;
-    borderContainer.style.opacity = 1;
+    // borderContainer.style.opacity = 1;
   }
 };
-
-const getCountryAndNeighbour = function (country) {
-  // AJAX call country 1
-  const request = new XMLHttpRequest();
-
-  request.open("GET", `https://restcountries.com/v3.1/name/${country}`);
-  request.send();
-
-  request.addEventListener("load", function () {
-    const [data] = JSON.parse(this.responseText);
-    // console.log(data);
-    // Render Country 1
-    renderCountry(data, "country");
-
-    // Render Neighbouring country
-    const [neighbour] = data.borders;
-    console.log(neighbour);
-
-    if (!neighbour) return;
-
-    //AJAX CALL COUNTRY 2
-    const request2 = new XMLHttpRequest();
-
-    request2.open("GET", `https://restcountries.com/v3.1/alpha/${neighbour}`); //searching by code because neighboring countries are stored by code and not name. so name in the url is replaced with alpha
-    request2.send();
-
-    request2.addEventListener("load", function () {
-      const data2 = JSON.parse(this.responseText); // No need for destructuring here because we are accessing by country code and it is not an array jsut a value.
-      console.log(data2);
-
-      renderCountry(data2, "neighbour");
-    });
-  });
-};
-
-// getCountryAndNeighbour("portugal");
 
 // when you need an Asynchronous task to run in sequence, that is, you want a series of callback functions to run one after the other. in otherwords, having a series of nested callbacks running one after the other. The special name for this type of situation is CALLBACK HELL. This is a situtation when there are nested callbacks to carry out an asynchronous tasks which are handled by callbacks.
 
@@ -347,7 +371,7 @@ const getCountryAndNeighbourDataPromise = function (country) {
 
         if (!neighbour) return;
         // Country 2
-        return fetch(`https://restcountries.com/v3.1/name/${neighbour}`);
+        return fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`);
       }) // Then methods always returns a promise
       .then((response) => response.json()) // The response here is the neighboring country details.it is the returned promise above. because "then" method always return a promise, we need to change the result of that promise to a javascript object and then use the value gotten
       .then((data) => renderCountry(data, "neigbour"));
@@ -360,11 +384,20 @@ const getCountryAndNeighbourDataPromise = function (country) {
 
 // There are two ways to handle rejection. The first one is to add a function that will be called if there is a rejection in the "Then" Method. so the first callback function is always called when when the promise is fulfilled/successful. The second function is called when the promise is rejected.
 
+// Creatting a method that will create an error message if something goes wrong.
+
+const renderError = function (msg) {
+  countriesContainer.insertAdjacentHTML("beforeend", msg);
+  countriesContainer.style.opacity = 1;
+};
+
+// Please not that while doing this task, I had to off my network from the developer tool of google chrome to create a senerio where theree is no network so there could be an error if the data is not fetched. This was done after the page must have loaded for the first time. So that the button to be clicked will be displayed and when it is clcked, it will throw an error because there is no network.
+
 const getCountryAndNeighbourDataPromiseWithRejection = function (country) {
   // Country 1
   fetch(`https://restcountries.com/v3.1/name/${country}`)
     .then((response) => {
-      response.json();
+      return response.json();
       // (err) => alert(err)
     }) // THIS IS WHERE THE ERROR IS HANDLED but it is better to handle errors with catch method
     .then((data) => {
@@ -373,17 +406,69 @@ const getCountryAndNeighbourDataPromiseWithRejection = function (country) {
 
       if (!neighbour) return;
       // Country 2
-      return fetch(`https://restcountries.com/v3.1/name/${neighbour}`);
+      return fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`);
     }) // Then methods always returns a promise
     .then((response) => response.json()) // The response here is the neighboring country details.it is the returned promise above. because "then" method always return a promise, we need to change the result of that promise to a javascript object and then use the value gotten
     .then((data) => renderCountry(data, "neigbour"))
-    .catch((err) => console.log(`${err} 😒😒😒💥💥💥`));
+    .catch((err) => {
+      console.error(`${err} 😒😒😒💥💥💥`);
+      renderError(`Something went wrong 💥💥💥 ${err.message}. Try again`); // Every error object created in JavaScript has a message property that is why we had to do err.messag. so we can print the message of that error, not the whole error object.
+      // This catch method will handle all errors in in this software or function. so, errors will propagate down the chain until they are called.
+    })
+    .finally(() => {
+      borderContainer.style.opacity = 1;
+    }); // Finally method is always called whether there is a sucess or rejection. op good use of this is to hide loading spinner. which is what you see in applications while data fetching is loading, in other to hide it after the process.
 
-  // This catch method will handle all errors in in this software or function. so, errors will propagate down the chain until they are called.
+  // Here, whether the process was successful or not the opacity of the the border containter will have to show. that is why I had to put the process in the finally method.
+};
+
+// getCountryAndNeighbourDataPromiseWithRejection("nigeria");
+// getCountryAndNeighbourDataPromiseWithRejection("fjhdja");
+
+btn.addEventListener("click", function () {
+  getCountryAndNeighbourDataPromiseWithRejection("portugal");
+});
+
+// THROWING AN ERROR MANUALLY.
+// We will first do for a country that do not exist.
+
+const getCountryAndNeighbourDataPromiseWithRejectionCatchingErrors = function (
+  country
+) {
+  // Country 1
+  fetch(`https://restcountries.com/v3.1/name/${country}`)
+    .then((response) => {
+      console.log(response);
+      // when we log the response to the console, and we call a country that do not exist, we will see that the "ok" property is false, and the "status" property will be 404, which represents 404 error. Now we want to handle that 404 error such that when it comes, we will specifically know that the country was not found.
+
+      if (!response.ok) throw new Error(`country not found ${response.status}`); // so basically, I am saying here that when we try to fetch data, and the object returned does has its ok property to be false, it means the country is not found. in such situation too, the status will also be 404. so here we are saying in summary, if there response ok property of the response returned is false, plesa throw this error of "country not found the 404" (remember 404 is value of the status property.)
+      return response.json();
+      // (err) => alert(err)
+    }) // THIS IS WHERE THE ERROR IS HANDLED but it is better to handle errors with catch method
+    .then((data) => {
+      renderCountry(data[0]);
+      const neighbour = data[0].borders[0];
+
+      if (!neighbour) return;
+      // Country 2
+      return fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`);
+    }) // Then methods always returns a promise
+    .then((response) => response.json()) // The response here is the neighboring country details.it is the returned promise above. because "then" method always return a promise, we need to change the result of that promise to a javascript object and then use the value gotten
+    .then((data) => renderCountry(data, "neigbour"))
+    .catch((err) => {
+      console.error(`${err} 😒😒😒💥💥💥`);
+      renderError(`Something went wrong 💥💥💥 ${err.message}. Try again`); // Every error object created in JavaScript has a message property that is why we had to do err.messag. so we can print the message of that error, not the whole error object.
+      // This catch method will handle all errors in in this software or function. so, errors will propagate down the chain until they are called.
+    })
+    .finally(() => {
+      borderContainer.style.opacity = 1;
+    }); // Finally method is always called whether there is a sucess or rejection. op good use of this is to hide loading spinner. which is what you see in applications while data fetching is loading, in other to hide it after the process.
+
+  // Here, whether the process was successful or not the opacity of the the border containter will have to show. that is why I had to put the process in the finally method.
 };
 
 // getCountryAndNeighbourDataPromiseWithRejection("nigeria");
 
 btn.addEventListener("click", function () {
-  getCountryAndNeighbourDataPromiseWithRejection("nigeria");
+  getCountryAndNeighbourDataPromiseWithRejectionCatchingErrors("fjhdja");
 });
