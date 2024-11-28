@@ -195,7 +195,7 @@ const getCountryAndNeighbour = function (country) {
       const data2 = JSON.parse(this.responseText); // No need for destructuring here because we are accessing by country code and it is not an array jsut a value.
       console.log(data2);
 
-      renderCountry(data2, "neighbour");
+      renderCountry(data2[0], "neighbour");
     });
   });
 };
