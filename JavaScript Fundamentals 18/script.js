@@ -472,3 +472,100 @@ const getCountryAndNeighbourDataPromiseWithRejectionCatchingErrors = function (
 btn.addEventListener("click", function () {
   getCountryAndNeighbourDataPromiseWithRejectionCatchingErrors("fjhdja");
 });
+
+// TRYING TO THROW ERROR WITH THE SECOND OR NEIGHBOURING COUNTRY WHILE THE FIRST COUNTRY IS CORRECT.
+
+// const getCountryAndNeighbourDataPromiseWithRejectionCatchingErrorsWithHelperFunctionAndRejecionInSecondFetch =
+//   function (country) {
+//     // Country 1
+//     fetch(`https://restcountries.com/v3.1/name/${country}`)
+//       .then((response) => {
+//         console.log(response);
+//         // when we log the response to the console, and we call a country that do not exist, we will see that the "ok" property is false, and the "status" property will be 404, which represents 404 error. Now we want to handle that 404 error such that when it comes, we will specifically know that the country was not found.
+
+//         if (!response.ok)
+//           throw new Error(`country not found ${response.status}`); // so basically, I am saying here that when we try to fetch data, and the object returned does has its ok property to be false, it means the country is not found. in such situation too, the status will also be 404. so here we are saying in summary, if there response ok property of the response returned is false, plesa throw this error of "country not found the 404" (remember 404 is value of the status property.)
+//         return response.json();
+//         // (err) => alert(err)
+//       }) // THIS IS WHERE THE ERROR IS HANDLED but it is better to handle errors with catch method
+//       .then((data) => {
+//         renderCountry(data[0]);
+//         const neighbour = "kdkaljdi";
+
+//         if (!neighbour) return;
+//         // Country 2
+//         return fetch(`https://restcountries.com/v3.1/alpha/${neighbour}`);
+//       }) // Then methods always returns a promise
+//       .then((response) => {
+//         if (!response.ok)
+//           throw new Error(`country not found ${response.status}`);
+//         return response.json();
+//       }) // The response here is the neighboring country details.it is the returned promise above. because "then" method always return a promise, we need to change the result of that promise to a javascript object and then use the value gotten
+//       .then((data) => renderCountry(data, "neigbour"))
+//       .catch((err) => {
+//         console.error(`${err} 😒😒😒💥💥💥`);
+//         renderError(`Something went wrong 💥💥💥 ${err.message}. Try again`); // Every error object created in JavaScript has a message property that is why we had to do err.messag. so we can print the message of that error, not the whole error object.
+//         // This catch method will handle all errors in in this software or function. so, errors will propagate down the chain until they are called.
+//       })
+//       .finally(() => {
+//         borderContainer.style.opacity = 1;
+//       }); // Finally method is always called whether there is a sucess or rejection. op good use of this is to hide loading spinner. which is what you see in applications while data fetching is loading, in other to hide it after the process.
+
+//     // Here, whether the process was successful or not the opacity of the the border containter will have to show. that is why I had to put the process in the finally method.
+//   };
+
+// REFACTORING THE CODE ABOVE
+
+// There will be repeatation of codes while doing this so I will have to put everything into one nice function.
+
+const getJson = function (url, errorMessage = "Something went wrong") {
+  return fetch(url).then((response) => {
+    if (!response.ok) throw new Error(`${errorMessage} ${response.status}`);
+    return response.json();
+  });
+};
+
+// The Main function
+const getCountryAndNeighbourDataPromiseWithRejectionCatchingErrorsWithHelperFunctionAndRejecionInSecondFetch =
+  function (country) {
+    // Country 1
+
+    getJson(
+      `https://restcountries.com/v3.1/name/${country}`,
+      "country not found"
+    )
+      .then((data) => {
+        renderCountry(data[0]);
+        const neighbour = data[0].borders?.[0];
+
+        if (!neighbour) {
+          console.log(`No neighbours found`);
+          throw new Error("No Neighbour found!");
+        }
+
+        // Country 2
+        return getJson(
+          `https://restcountries.com/v3.1/alpha/${neighbour}`,
+          "country not found"
+        );
+      })
+      .then((data) => renderCountry(data, "neigbour"))
+      .catch((err) => {
+        console.error(`${err} 😒😒😒💥💥💥`);
+        renderError(`Something went wrong 💥💥💥 ${err.message}. Try again`); // Every error object created in JavaScript has a message property that is why we had to do err.messag. so we can print the message of that error, not the whole error object.
+        // This catch method will handle all errors in in this software or function. so, errors will propagate down the chain until they are called.
+      })
+      .finally(() => {
+        borderContainer.style.opacity = 1;
+      }); // Finally method is always called whether there is a sucess or rejection. op good use of this is to hide loading spinner. which is what you see in applications while data fetching is loading, in other to hide it after the process.
+
+    // Here, whether the process was successful or not the opacity of the the border containter will have to show. that is why I had to put the process in the finally method.
+  };
+
+btn.addEventListener("click", function () {
+  getCountryAndNeighbourDataPromiseWithRejectionCatchingErrorsWithHelperFunctionAndRejecionInSecondFetch(
+    "australia"
+  );
+});
+
+// REMEMBER THAT AUSTRALIA HAS NO NEIGHBOUR
