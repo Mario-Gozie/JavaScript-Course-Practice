@@ -78,10 +78,13 @@ const whrerAmI = function (lat, lng) {
       if (!response.ok) throw new Error(`country not found ${response.status}`);
       return response.json();
     })
-    .then((data) => renderCountry(data[0]))
+    .then((data) => {
+      console.log(data);
+      renderCountry(data[0]);
+    })
     .catch((err) => console.error(`${err.message} 💥💥💥`));
 };
 
 whrerAmI(52.508, 13.381);
-// whrerAmI(19.037, 72.873);
-// whrerAmI(-33.933, 18.474);
+whrerAmI(19.037, 72.873);
+whrerAmI(-33.933, 18.474);

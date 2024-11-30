@@ -569,3 +569,32 @@ btn.addEventListener("click", function () {
 });
 
 // REMEMBER THAT AUSTRALIA HAS NO NEIGHBOUR
+
+// EVENT LOOP PRACTICE
+// Checking order at which tasks will be executed
+
+// Important Thing to note here is that, The event loop controls tasks in JavaScript. and that There is a call-back which handles all call back function according to their order in the queue. Before the Call back queue is the Micro-Task queue. This is where all promises are handled. Now here is the thing, Micro-task queue handle promises and Micro tasks are considered or executed first before content of the call-back queue. in other words, promises are given priority for execution.
+
+console.log("Test start");
+setTimeout(() => console.log("0 second timer"), 0);
+// Promise.resolve helps us to create a promise that will resolve immediately. Then the "then" method is used to handle the resolved value.
+Promise.resolve("Resolve Promise 1").then((res) => console.log(res));
+console.log("Test end");
+
+// So in theses four tasks above, the Test start and Test End will run first, then the promise will run next before the setTimmer even though it is before the promise and is set at 0 seconds. this is because Promises are micro-tasks and are being put in the micro-task queue so they have to be executed first.
+
+// This Means that if a Micro task is delayed, then the timmer will be delayed and wont run after the specified time.
+
+// LETS CREATE THE SENERIO I TALKED ABOUT ABOVE AND KNOW HOW TO HANDLE IT.
+
+console.log("Test start");
+setTimeout(() => console.log("0 second timer"), 0);
+Promise.resolve("Resolve Promise 1").then((res) => console.log(res));
+Promise.resolve("Resolved Promise 2").then((res) => {
+  // The for loop here is to make the task last longer. You can make the 1000000 number longer so that the micro-task (for loop) can be longer
+  for (let i = 0; i < 1000000; i++) {}
+  console.log(res);
+});
+console.log("Test end");
+
+// When You ron the set of codes above, you will see that all callbacks will run after the promise micro-tasks (the for loop) has been executed. this delays even the setTimeout callback that is set at 0 seconds.
