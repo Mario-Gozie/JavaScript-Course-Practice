@@ -664,3 +664,22 @@ wait(2)
     return wait(1);
   })
   .then(() => console.log(`I waited for 1 second`)); //This will create a promise that would wait for 2 seconds and after 2 seconds, it will resolve. Now remember that nothind whas passed into the resolve function while creating the wait function. so there is no need to pass a parameter into the then method. hence I had to leave it empty and print that I waited for 2 seconds in the console. and after the two seconds task, I returned another promise for 1 second. which I consumeed with another then method.
+
+// MAKING MORE CHAINS OF PROMISES INSTEAD OF CALL BACK HELL
+// I created a chain of setTimeout earlier, let me now create with with a chain of promises which looks nicer.
+wait(1)
+  .then(() => {
+    console.log(`I waited for 1 seconds`);
+    return wait(1);
+  })
+  .then(() => {
+    console.log(`I waited for 2 second`);
+    return wait(1);
+  })
+  .then(() => {
+    console.log(`I waited for 3 second`);
+    return wait(1);
+  })
+  .then(() => {
+    console.log(`I waited for 4 second`);
+  });
