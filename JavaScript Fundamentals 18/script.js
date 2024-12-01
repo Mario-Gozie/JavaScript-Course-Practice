@@ -610,3 +610,13 @@ const lotteryPromise = new Promise(function (resolve, reject) {
     reject(`You lost your money 😒`);
   }
 });
+
+// Calling the then method on LotteryPromise
+
+lotteryPromise
+  .then((resp) => {
+    console.log(resp);
+  })
+  .catch((err) => {
+    console.error(err);
+  });
