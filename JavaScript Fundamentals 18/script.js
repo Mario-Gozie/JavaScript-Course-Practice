@@ -624,6 +624,7 @@ lotteryPromise
 // To make my New Promise Asynchronous, let me put the main task into a setTimeout so as to delay it a bit by two seconds and make it take time but I will print something to the console before that. I will also create a new error object with "new Error" in the rejection area instead of loging in a string to the console.
 
 const lotteryPromiseAsync = new Promise(function (resolve, reject) {
+  console.log(`lottery draw is happening ✋`);
   setTimeout(function () {
     if (Math.random() >= 0.5) {
       resolve(`You Win 🎉`);
