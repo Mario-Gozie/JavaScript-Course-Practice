@@ -620,3 +620,25 @@ lotteryPromise
   .catch((err) => {
     console.error(err);
   });
+
+// To make my New Promise Asynchronous, let me put the main task into a setTimeout so as to delay it a bit by two seconds and make it take time but I will print something to the console before that. I will also create a new error object with "new Error" in the rejection area instead of loging in a string to the console.
+
+const lotteryPromiseAsync = new Promise(function (resolve, reject) {
+  setTimeout(function () {
+    if (Math.random() >= 0.5) {
+      resolve(`You Win 🎉`);
+    } else {
+      reject(new Error(`You lost your money 😒`)); //Creating a New error Object
+    }
+  }, 2000); // Delaying by two seconds
+});
+
+// I am Calling the then method on LotteryPromiseAsync
+
+lotteryPromiseAsync
+  .then((resp) => {
+    console.log(resp);
+  })
+  .catch((err) => {
+    console.error(err);
+  });
