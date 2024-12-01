@@ -683,3 +683,12 @@ wait(1)
   .then(() => {
     console.log(`I waited for 4 second`);
   });
+
+// SHORTCUT FOR CREATING A RESOLVED (FULLFILLED) OR REJECTED PROMISE
+// This is actually a static method.
+
+// QUICIK RESOLVE PROMISE. This needs a then method to resolve the promise.
+Promise.resolve("abc").then((x) => console.log(x));
+
+// QUICK REJECT PROMISE. This does not need a then method but a catch because it is a rejection.
+Promise.reject(new Error(`problem!`)).catch((x) => console.error(x));
