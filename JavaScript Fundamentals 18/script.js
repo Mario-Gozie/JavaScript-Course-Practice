@@ -643,3 +643,24 @@ lotteryPromiseAsync
   .catch((err) => {
     console.error(err);
   });
+
+// PROMISIFYING A CALBACK FUNCTION. This is converting callback based Asynchronous behaviour to to promise based.
+
+// Promisifying a function is esentially what the fetch function does. its a function that returns a promise. here we are creating a function that will hold the promise. so the promise will be within the function.
+
+//Promisifying SetTimeout
+const wait = function (seconds) {
+  // in this promise, I didn't input the reject parmeter into the execution fuction for the promise. this is because it is practically imposible for the setTimeOut function to fail.
+  return new Promise(function (resolve) {
+    setTimeout(resolve, seconds * 1000); // it is not mandatory to put a task within the resolve method. we just want the code to work. so basicaly, the plan is to pass a number of seconds into the wait method which will produce a result after the product (multiplication) of the seconds and 1000 milisecond. also remember that you can make this shorter with arrow functions.
+  });
+};
+
+// Calling the wait function
+
+wait(2)
+  .then(() => {
+    console.log(`I waited for 2 seconds`);
+    return wait(1);
+  })
+  .then(() => console.log(`I waited for 1 second`)); //This will create a promise that would wait for 2 seconds and after 2 seconds, it will resolve. Now remember that nothind whas passed into the resolve function while creating the wait function. so there is no need to pass a parameter into the then method. hence I had to leave it empty and print that I waited for 2 seconds in the console. and after the two seconds task, I returned another promise for 1 second. which I consumeed with another then method.
