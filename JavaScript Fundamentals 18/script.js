@@ -598,3 +598,15 @@ Promise.resolve("Resolved Promise 2").then((res) => {
 console.log("Test end");
 
 // When You ron the set of codes above, you will see that all callbacks will run after the promise micro-tasks (the for loop) has been executed. this delays even the setTimeout callback that is set at 0 seconds.
+
+// BUILDING A SIMPLE PROMISE
+
+// New promise constructor which will take an execution function. This is because promise is a kind of special object in Javascript. The function will contain the Asynchronous behaviour we want to carry out with the promise. The promise will pass in the resolve and the reject functions as parameters.  Based on the condition met, the resolve function or reject function passed into the execution function will be called. Whatever that is the outcome of the promise (whether resolve, or reject) will be consumed by the "Then" method.
+
+const lotteryPromise = new Promise(function (resolve, reject) {
+  if (Math.random() >= 0.5) {
+    resolve(`You Win 🎉`);
+  } else {
+    reject(`You lost your money 😒`);
+  }
+});
