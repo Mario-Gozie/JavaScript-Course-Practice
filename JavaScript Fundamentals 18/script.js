@@ -703,3 +703,19 @@ navigator.geolocation.getCurrentPosition(
 );
 
 console.log("Getting position");
+
+// MAKING THE CODE ABOVE BETTER AND UNDERSTANDABLE
+
+const getPosition = function () {
+  return new Promise(function (resolve, reject) {
+    // navigator.geolocation.getCurrentPosition(
+    //   (position) => resolve(position),
+    //   (err) => reject(err)
+    // );
+
+    // Every thing commented just above here looks a bit complicated so let me make it simpler.
+    navigator.geolocation.getCurrentPosition(resolve, reject);
+  });
+};
+
+geoPosition().then((pos) => console.log(pos));
