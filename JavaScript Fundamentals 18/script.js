@@ -692,3 +692,14 @@ Promise.resolve("abc").then((x) => console.log(x));
 
 // QUICK REJECT PROMISE. This does not need a then method but a catch because it is a rejection.
 Promise.reject(new Error(`problem!`)).catch((x) => console.error(x));
+
+// PROMISIFYING THE GEOLOCATION API
+// we are getting the current position with navigator.geolocation.getCurrentPosition to get the location and the function will accept two callbacks, which one is for resolved promise. the other is for error, incase they dont user does not allow getting access to the current location.
+
+// This is an Asyncronous behavior because it does not block what is happening below it. for example, console.log('Getting position')
+navigator.geolocation.getCurrentPosition(
+  (position) => console.log(position),
+  (err) => console.error(err)
+);
+
+console.log("Getting position");
