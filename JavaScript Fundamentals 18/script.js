@@ -681,10 +681,11 @@ getPosition().then((pos) => console.log(pos));
 // Let use the resolved Geolocation date we have gotten to do something. Maybe put it into the WhereAmI function we created in the coding challenge we created earlier to log the infomation to the console.
 
 const whrerAmI = function () {
-  getPosition().then((pos) => {
-    console.log(pos.coords);
-  });
-  fetch(`http://geocode.xyz/${lat},${lng}?geoit=json`)
+  getPosition()
+    .then((pos) => {
+      const { latitude: lat, longitude: lng } = pos.coords; // Destructuring an object
+      return fetch(`http://geocode.xyz/${lat},${lng}?geoit=json`); // here we are basically returning to create a new promise and handled it outside with the then method.
+    })
     .then((response) => {
       console.log(response);
       if (!response.ok)
@@ -708,4 +709,4 @@ const whrerAmI = function () {
     .catch((err) => console.error(`${err.message} 💥💥💥`));
 };
 
-btn.addEventListener("click", whrerAmI);
+btn.addEventListener("click", whrerAmI); // we just had to put in the name of the function here because we don't have to pass in any arguement.
