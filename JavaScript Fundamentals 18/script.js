@@ -208,18 +208,18 @@ getCountryAndNeighbour("portugal");
 
 // Example of Callback Hell.
 // Callback hell can be difficult to understand which is why promises are used. so now, we are going to use promises
-setTimeout(() => {
-  console.log(`1 second passed`);
-  setTimeout(() => {
-    console.log(`2 second passed`);
-    setTimeout(() => {
-      console.log(`3 second passed`);
-      setTimeout(() => {
-        console.log(`4 second passed`);
-      }, 1000);
-    }, 1000);
-  }, 1000);
-}, 1000);
+// setTimeout(() => {
+//   console.log(`1 second passed`);
+//   setTimeout(() => {
+//     console.log(`2 second passed`);
+//     setTimeout(() => {
+//       console.log(`3 second passed`);
+//       setTimeout(() => {
+//         console.log(`4 second passed`);
+//       }, 1000);
+//     }, 1000);
+//   }, 1000);
+// }, 1000);
 
 // PROMISES AND API
 
@@ -607,6 +607,20 @@ wait(2)
 
 // MAKING MORE CHAINS OF PROMISES INSTEAD OF CALL BACK HELL
 // I created a chain of setTimeout earlier, let me now create with with a chain of promises which looks nicer.
+
+// setTimeout(() => {
+//   console.log(`1 second passed`);
+//   setTimeout(() => {
+//     console.log(`2 second passed`);
+//     setTimeout(() => {
+//       console.log(`3 second passed`);
+//       setTimeout(() => {
+//         console.log(`4 second passed`);
+//       }, 1000);
+//     }, 1000);
+//   }, 1000);
+// }, 1000);
+
 wait(1)
   .then(() => {
     console.log(`I waited for 1 seconds`);
