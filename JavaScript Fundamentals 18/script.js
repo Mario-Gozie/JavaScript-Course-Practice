@@ -101,40 +101,40 @@ const borderContainer = document.querySelector(".border");
 // });
 
 // // PUTTING THE WHOLE PROCESS ABOVE INTO A FUNCTION
-const getCountryData = function (country) {
-  const request = new XMLHttpRequest();
+// const getCountryData = function (country) {
+//   const request = new XMLHttpRequest();
 
-  request.open("GET", `https://restcountries.com/v3.1/name/${country}`);
-  request.send();
+//   request.open("GET", `https://restcountries.com/v3.1/name/${country}`);
+//   request.send();
 
-  request.addEventListener("load", function () {
-    const [data] = JSON.parse(this.responseText);
+//   request.addEventListener("load", function () {
+//     const [data] = JSON.parse(this.responseText);
 
-    const html = `
-    <article class="country">
-      <img class="country__img" src="${data.flags.svg}" alt="Flag of ${
-      data.name.common
-    }" />
-      <div class="country__data">
-        <h3 class="country__name">${data.name.common}</h3>
-        <h4 class="country__region">${data.region}</h4>
-        <p class="country__row"><span>👫</span>${(
-          data.population / 1_000_000
-        ).toFixed(1)} million people</p>
-        <p class="country__row"><span>🗣️</span>${
-          Object.values(data.languages)[0]
-        }</p>
-        <p class="country__row"><span>💰</span>${
-          Object.values(data.currencies)[0].name
-        }</p>
-      </div>
-    </article>
-  `;
+//     const html = `
+//     <article class="country">
+//       <img class="country__img" src="${data.flags.svg}" alt="Flag of ${
+//       data.name.common
+//     }" />
+//       <div class="country__data">
+//         <h3 class="country__name">${data.name.common}</h3>
+//         <h4 class="country__region">${data.region}</h4>
+//         <p class="country__row"><span>👫</span>${(
+//           data.population / 1_000_000
+//         ).toFixed(1)} million people</p>
+//         <p class="country__row"><span>🗣️</span>${
+//           Object.values(data.languages)[0]
+//         }</p>
+//         <p class="country__row"><span>💰</span>${
+//           Object.values(data.currencies)[0].name
+//         }</p>
+//       </div>
+//     </article>
+//   `;
 
-    countriesContainer.insertAdjacentHTML("beforeend", html);
-    countriesContainer.style.opacity = 1;
-  });
-};
+//     countriesContainer.insertAdjacentHTML("beforeend", html);
+//     countriesContainer.style.opacity = 1;
+//   });
+// };
 
 // getCountryData("Nigeria");
 // getCountryData("Usa");
@@ -201,66 +201,6 @@ const getCountryAndNeighbour = function (country) {
 };
 
 getCountryAndNeighbour("portugal");
-
-// ME AND RICHES PART ...///
-
-const renderCountryRiches = function (data, className = "") {
-  // console.log(data.flags.svg)
-  if (className == "country") {
-    const html = `
-    <article class="${className}">
-      <img class="country__img" src="${data.flags?.png}" alt="Flag of ${
-      data.name?.common
-    }" />
-      <div class="country__data">
-        <h3 class="country__name">${data.name?.common}</h3>
-        <h4 class="country__region">${data.region}</h4>
-        <p class="country__row"><span>👫</span>${(
-          data.population / 1_000_000
-        ).toFixed(1)} million people</p>
-        <p class="country__row"><span>🗣️</span>${
-          Object.values(data.languages)[0] || ""
-        }</p>
-        <p class="country__row"><span>💰</span>${
-          Object.values(data.currencies)[0].name
-        }</p>
-      </div>
-    </article>
-  `;
-
-    // countriesContainer.insertAdjacentHTML("beforeend", html);
-    countriesContainer.innerHTML = html;
-    countriesContainer.style.opacity = 1;
-  }
-  if (className == "neighbour") {
-    console.log(data);
-    const html = `
-    <article class="${className}">
-      <img class="country__img" src="${data[0].flags?.png}" alt="Flag of ${
-      data[0].name?.common
-    }" />
-      <div class="country__data">
-        <h3 class="country__name">${data[0].name?.common}</h3>
-                <h4 class="country__region">${data[0].region}</h4>
-        <p class="country__row"><span>👫</span>${(
-          data[0].population / 1_000_000
-        ).toFixed(1)} million people</p>
-        <p class="country__row"><span>🗣️</span>${
-          Object.values(data[0].languages)[0] || ""
-        }</p>
-        <p class="country__row"><span>💰</span>${
-          Object.values(data[0].currencies)[0].name
-        }</p>
-
-      </div>
-    </article>
-  `;
-
-    // countriesContainer.insertAdjacentHTML("beforeend", html);
-    borderContainer.innerHTML = html;
-    // borderContainer.style.opacity = 1;
-  }
-};
 
 // when you need an Asynchronous task to run in sequence, that is, you want a series of callback functions to run one after the other. in otherwords, having a series of nested callbacks running one after the other. The special name for this type of situation is CALLBACK HELL. This is a situtation when there are nested callbacks to carry out an asynchronous tasks which are handled by callbacks.
 
@@ -718,11 +658,14 @@ const getPosition = function () {
   });
 };
 
-geoPosition().then((pos) => console.log(pos));
+getPosition().then((pos) => console.log(pos));
 
 // Let use the resolved Geolocation date we have gotten to do something. Maybe put it into the WhereAmI function we created in the coding challenge we created earlier to log the infomation to the console.
 
-const whrerAmI = function (lat, lng) {
+const whrerAmI = function () {
+  getPosition().then((pos) => {
+    console.log(pos.coords);
+  });
   fetch(`http://geocode.xyz/${lat},${lng}?geoit=json`)
     .then((response) => {
       console.log(response);
@@ -746,3 +689,5 @@ const whrerAmI = function (lat, lng) {
     })
     .catch((err) => console.error(`${err.message} 💥💥💥`));
 };
+
+btn.addEventListener("click", whrerAmI);
