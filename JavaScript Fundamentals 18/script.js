@@ -719,3 +719,30 @@ const getPosition = function () {
 };
 
 geoPosition().then((pos) => console.log(pos));
+
+// Let use the resolved Geolocation date we have gotten to do something. Maybe put it into the WhereAmI function we created in the coding challenge we created earlier to log the infomation to the console.
+
+const whrerAmI = function (lat, lng) {
+  fetch(`http://geocode.xyz/${lat},${lng}?geoit=json`)
+    .then((response) => {
+      console.log(response);
+      if (!response.ok)
+        throw new Error(`Problem with geocode ${response.status}`);
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+      console.log(`You are in ${data.city}, ${data.country}`);
+
+      return fetch(`https://restcountries.com/v3.1/name/${data.country}`);
+    })
+    .then((response) => {
+      if (!response.ok) throw new Error(`country not found ${response.status}`);
+      return response.json();
+    })
+    .then((data) => {
+      console.log(data);
+      renderCountry(data[0]);
+    })
+    .catch((err) => console.error(`${err.message} 💥💥💥`));
+};
