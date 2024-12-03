@@ -200,7 +200,7 @@ const getCountryAndNeighbour = function (country) {
   });
 };
 
-getCountryAndNeighbour("portugal");
+// getCountryAndNeighbour("portugal");
 
 // when you need an Asynchronous task to run in sequence, that is, you want a series of callback functions to run one after the other. in otherwords, having a series of nested callbacks running one after the other. The special name for this type of situation is CALLBACK HELL. This is a situtation when there are nested callbacks to carry out an asynchronous tasks which are handled by callbacks.
 
@@ -365,9 +365,10 @@ const getCountryAndNeighbourDataPromiseWithRejection = function (country) {
 // getCountryAndNeighbourDataPromiseWithRejection("nigeria");
 // getCountryAndNeighbourDataPromiseWithRejection("fjhdja");
 
-btn.addEventListener("click", function () {
-  getCountryAndNeighbourDataPromiseWithRejection("portugal");
-});
+// // Testing function with an event listener on button
+// btn.addEventListener("click", function () {
+//   getCountryAndNeighbourDataPromiseWithRejection("portugal");
+// });
 
 // THROWING AN ERROR MANUALLY.
 // We will first do for a country that do not exist.
@@ -409,9 +410,11 @@ const getCountryAndNeighbourDataPromiseWithRejectionCatchingErrors = function (
 
 // getCountryAndNeighbourDataPromiseWithRejection("nigeria");
 
-btn.addEventListener("click", function () {
-  getCountryAndNeighbourDataPromiseWithRejectionCatchingErrors("fjhdja");
-});
+// // Inputing a country that doesnt exit below
+
+// btn.addEventListener("click", function () {
+//   getCountryAndNeighbourDataPromiseWithRejectionCatchingErrors("fjhdja");
+// });
 
 // TRYING TO THROW ERROR WITH THE SECOND OR NEIGHBOURING COUNTRY WHILE THE FIRST COUNTRY IS CORRECT.
 
@@ -502,11 +505,12 @@ const getCountryAndNeighbourDataPromiseWithRejectionCatchingErrorsWithHelperFunc
     // Here, whether the process was successful or not the opacity of the the border containter will have to show. that is why I had to put the process in the finally method.
   };
 
-btn.addEventListener("click", function () {
-  getCountryAndNeighbourDataPromiseWithRejectionCatchingErrorsWithHelperFunctionAndRejecionInSecondFetch(
-    "australia"
-  );
-});
+// // Testing a country that don't have a neigbour
+// btn.addEventListener("click", function () {
+//   getCountryAndNeighbourDataPromiseWithRejectionCatchingErrorsWithHelperFunctionAndRejecionInSecondFetch(
+//     "australia"
+//   );
+// });
 
 // REMEMBER THAT AUSTRALIA HAS NO NEIGHBOUR
 
