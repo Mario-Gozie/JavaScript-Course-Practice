@@ -22,6 +22,14 @@ TEST DATA: Images in the img folder. Test the error handler by passing a wrong i
 
 GOODLUCK */
 
+//Promisifying SetTimeout
+const wait = function (seconds) {
+  // in this promise, I didn't input the reject parmeter into the execution fuction for the promise. this is because it is practically imposible for the setTimeOut function to fail.
+  return new Promise(function (resolve) {
+    setTimeout(resolve, seconds * 1000); // it is not mandatory to put a task within the resolve method. we just want the code to work. so basicaly, the plan is to pass a number of seconds into the wait method which will produce a result after the product (multiplication) of the seconds and 1000 milisecond. also remember that you can make this shorter with arrow functions.
+  });
+};
+
 const imgContainer = document.querySelector(".images");
 
 const createImage = function (imgPath) {
@@ -41,8 +49,24 @@ const createImage = function (imgPath) {
   }); // Promisifying something.
 };
 
+let currentImg;
+
 createImage("img/img-1.jpg")
   .then((img) => {
+    currentImg = img;
     console.log("Image 1 loaded");
+    return wait(2);
   })
-  .catch((err) => console.err(err));
+  .then(() => {
+    currentImg.style.display = "none";
+    return createImage("img/img-2.jpg");
+  })
+  .then((img) => {
+    currentImg = img;
+    console.log("Image 2 loaded");
+    return wait(2);
+  })
+  .then(() => {
+    currentImg.style.display = "none";
+  })
+  .catch((err) => console.error(err));
