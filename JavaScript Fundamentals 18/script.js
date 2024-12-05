@@ -710,3 +710,20 @@ const whrerAmI = function () {
 };
 
 btn.addEventListener("click", whrerAmI); // we just had to put in the name of the function here because we don't have to pass in any arguement.
+
+// CONSUMMING PROMISE WITH ASYNC/AWAIT
+
+// RECREATING THE WHEREAMI FUNCTION I CREATED EARLIER
+// This is a function that will run in the background without disturbing the whole code. it will now return result after it has finished its job.
+
+const whereAmINow = async function (country) {
+  // fetch(`https://restcountries.com/v3.1/name/${country}`).then((res)=>console.log(res));
+
+  // Below here we are just doing the same thin we do in consuming promise with then method using async await method.
+
+  const res = await fetch(`https://restcountries.com/v3.1/name/${country}`); // await would return the result of a promise. remember that the fetch method returns a RESOLVED promise. await will stop code execution at this point until promise is fulfilled. in other words, until the data has been fetched. This stopping won't affect the code because it is within an async function. which is not a problem.
+  console.log(res);
+};
+
+whereAmINow("portugal");
+console.log("First");
