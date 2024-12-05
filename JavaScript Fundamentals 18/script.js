@@ -741,6 +741,9 @@ const whereAmINow = async function (country) {
     // Revers geocoding
     const resGeo = await fetch(`http://geocode.xyz/${lat},${lng}?geoit=json`);
 
+    // Throwing a new error around here will make the catch property catch the exact error if it is from here. if not it will throw more like a general error.
+    if (!resGeo.ok) throw new Error(`Problem getting location Data`);
+
     const dataGeo = await resGeo.json();
     console.log(dataGeo);
 
@@ -752,14 +755,20 @@ const whereAmINow = async function (country) {
       `https://restcountries.com/v3.1/name/${dataGeo.country}`
     ); // await would return the result of a promise. remember that the fetch method returns a RESOLVED promise. await will stop code execution at this point until promise is fulfilled. in other words, until the data has been fetched. This stopping won't affect the code because it is within an async function. which is not a problem.
 
+    // Throwing a new error around here will make the catch property catch the exact error if it is from here. if not it will throw more like a general error.
+    if (!res.ok) throw new Error(`Problem getting country`);
+
     // Awaiting the data and
     const data = await res.json();
 
     renderCountry(data[0]);
   } catch (err) {
-    renderError(`something went wrong 😒 ${err.message}`);
+    console.log(`${err.message} 💥💥💥`);
+    renderError(`😒 ${err.message}`);
   }
 };
+
+// PLEASE ALWAYS TRY TO HANDLE ERRORS. IT IS VERY IMPORTANT. ESPECIALLY IN AN ASYNCHRONOUS CODE LIKE THIS.
 
 whereAmINow();
 console.log("First");
