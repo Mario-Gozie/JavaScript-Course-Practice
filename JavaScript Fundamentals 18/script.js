@@ -717,6 +717,8 @@ btn.addEventListener("click", whrerAmI); // we just had to put in the name of th
 // RECREATING THE WHEREAMI FUNCTION I CREATED EARLIER
 // This is a function that will run in the background without disturbing the whole code. it will now return result after it has finished its job.
 
+// IT IS IMPORTANT TO NOTE THAT IN USING ASYNC AWAIT, WE USE THE TRY CATCH STATMENT INSTEAD OF CATCH. IT IS ALSO IMPLEMENTED HERE.
+
 const getPositionAsyncAwait = function () {
   return new Promise(function (resolve, reject) {
     // navigator.geolocation.getCurrentPosition(
@@ -756,3 +758,15 @@ const whereAmINow = async function (country) {
 
 whereAmINow();
 console.log("First");
+
+// CHECKING HOW TRY CATCH WORKS.
+// Here I am basically trying to reasign a constant variable which is wrong and imposible. since this is the case. I caught the error message and sent it as an alert.
+
+try {
+  let y = 1;
+  const x = 2;
+
+  x = 3;
+} catch (err) {
+  alert(err.message);
+}
