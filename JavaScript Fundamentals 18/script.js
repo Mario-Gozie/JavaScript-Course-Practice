@@ -732,28 +732,33 @@ const getPositionAsyncAwait = function () {
 };
 
 const whereAmINow = async function (country) {
-  // Geolocation
-  const pos = await getPositionAsyncAwait();
-  const { latitude: lat, longitude: lng } = pos.coords;
+  // we will wrap the entire code into a try block. so we can catch the error.
+  try {
+    // Geolocation
+    const pos = await getPositionAsyncAwait();
+    const { latitude: lat, longitude: lng } = pos.coords;
 
-  // Revers geocoding
-  const resGeo = await fetch(`http://geocode.xyz/${lat},${lng}?geoit=json`);
+    // Revers geocoding
+    const resGeo = await fetch(`http://geocode.xyz/${lat},${lng}?geoit=json`);
 
-  const dataGeo = await resGeo.json();
-  console.log(dataGeo);
+    const dataGeo = await resGeo.json();
+    console.log(dataGeo);
 
-  // fetch(`https://restcountries.com/v3.1/name/${country}`).then((res)=>console.log(res));
+    // fetch(`https://restcountries.com/v3.1/name/${country}`).then((res)=>console.log(res));
 
-  // Below here we are just doing the same thin we do in consuming promise with then method using async await method.
+    // Below here we are just doing the same thin we do in consuming promise with then method using async await method.
 
-  const res = await fetch(
-    `https://restcountries.com/v3.1/name/${dataGeo.country}`
-  ); // await would return the result of a promise. remember that the fetch method returns a RESOLVED promise. await will stop code execution at this point until promise is fulfilled. in other words, until the data has been fetched. This stopping won't affect the code because it is within an async function. which is not a problem.
+    const res = await fetch(
+      `https://restcountries.com/v3.1/name/${dataGeo.country}`
+    ); // await would return the result of a promise. remember that the fetch method returns a RESOLVED promise. await will stop code execution at this point until promise is fulfilled. in other words, until the data has been fetched. This stopping won't affect the code because it is within an async function. which is not a problem.
 
-  // Awaiting the data and
-  const data = await res.json();
+    // Awaiting the data and
+    const data = await res.json();
 
-  renderCountry(data[0]);
+    renderCountry(data[0]);
+  } catch (err) {
+    renderError(`something went wrong 😒 ${err.message}`);
+  }
 };
 
 whereAmINow();
@@ -762,11 +767,11 @@ console.log("First");
 // CHECKING HOW TRY CATCH WORKS.
 // Here I am basically trying to reasign a constant variable which is wrong and imposible. since this is the case. I caught the error message and sent it as an alert.
 
-try {
-  let y = 1;
-  const x = 2;
+// try {
+//   let y = 1;
+//   const x = 2;
 
-  x = 3;
-} catch (err) {
-  alert(err.message);
-}
+//   x = 3;
+// } catch (err) {
+//   alert(err.message);
+// }
