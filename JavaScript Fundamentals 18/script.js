@@ -722,7 +722,11 @@ const whereAmINow = async function (country) {
   // Below here we are just doing the same thin we do in consuming promise with then method using async await method.
 
   const res = await fetch(`https://restcountries.com/v3.1/name/${country}`); // await would return the result of a promise. remember that the fetch method returns a RESOLVED promise. await will stop code execution at this point until promise is fulfilled. in other words, until the data has been fetched. This stopping won't affect the code because it is within an async function. which is not a problem.
-  console.log(res);
+
+  // Awaiting the data and
+  const data = await res.json();
+
+  renderCountry(data[0]);
 };
 
 whereAmINow("portugal");
