@@ -848,3 +848,16 @@ const get3Countries = async function (c1, c2, c3) {
 };
 
 get3Countries("portugal", "canada", "tanzania");
+
+// Working with other Promise Combinators: Race, allSettled and any
+
+(async function () {
+  // with the race method, items in the array will race and whichever that wins will be the fullfilled promise. so you will get only one result and that is the quickest.
+  const res = await Promise.race([
+    getJson(`https://restcountries.com/v3.1/name/italy`),
+    getJson(`https://restcountries.com/v3.1/name/egypt`),
+    getJson(`https://restcountries.com/v3.1/name/mexico`),
+  ]);
+
+  console.log(res[0]);
+})();
