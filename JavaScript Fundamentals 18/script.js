@@ -861,3 +861,21 @@ get3Countries("portugal", "canada", "tanzania");
 
   console.log(res[0]);
 })();
+
+// so here, I am creating a timeout promise that after 1 second it will throw a rejection. I don't want it be fullfilled so there is no resolve function in it.
+
+const timeout = function (sec) {
+  return new Promise(function (_, reject) {
+    setTimeout(function () {
+      reject(new Errror(`Reject took too long!`));
+    }, sec * 1000);
+  });
+};
+
+// Here, I am using the Promise.race to compare getting data for tanzania and the time out function I created to return a promise. now I Passed in 1 second to the function. remember it has only rejection., if the content of the Promise.race combinator compete and tanzania data is not gotten within 1 second, I the timeout promise will run. and it will give a rejection, which is what is given to it.
+Promise.race([
+  getJson(`https://restcountries.com/v3.1/name/tanzania`),
+  timeout(1),
+])
+  .then((res) => console.log(res[0]))
+  .catch((err) => console.error(err));
