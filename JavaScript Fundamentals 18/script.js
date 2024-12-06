@@ -762,6 +762,8 @@ const whereAmINow = async function (country) {
     const data = await res.json();
 
     renderCountry(data[0]);
+
+    return `You are in ${dataGeo.city}, ${dataGeo.country}`; // Just trying to return a value to the function. but this will return a promise because Async await always return a
   } catch (err) {
     console.log(`${err.message} 💥💥💥`);
     renderError(`😒 ${err.message}`);
@@ -770,8 +772,15 @@ const whereAmINow = async function (country) {
 
 // PLEASE ALWAYS TRY TO HANDLE ERRORS. IT IS VERY IMPORTANT. ESPECIALLY IN AN ASYNCHRONOUS CODE LIKE THIS.
 
-whereAmINow();
-console.log("First");
+console.log(`1: Will get location`);
+// whereAmINow();
+
+//BECAUSE ASYNC AWAIT ALWAYS RETURN A PROMISE, YOU CANT YOU HAVE TO USE THE THEN METHOD ON IT TO GET WHAT IT RETURNS.
+// const city = whereAmINow(); // Trying to see the value returned in the WhereAmINow function.
+// console.log(city);
+
+whereAmINow().then((city) => console.log(city));
+console.log("3: Finished getting location");
 
 // CHECKING HOW TRY CATCH WORKS.
 // Here I am basically trying to reasign a constant variable which is wrong and imposible. since this is the case. I caught the error message and sent it as an alert.
