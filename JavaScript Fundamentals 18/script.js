@@ -815,3 +815,23 @@ console.log(`1: Will get location`);
 // } catch (err) {
 //   alert(err.message);
 // }
+
+// RETURNING PROMISES IN PARALLEL WITH AN ASYNC AWAIT
+
+const get3Countries = async function (c1, c2, c3) {
+  try {
+    const [data1] = await getJson(`https://restcountries.com/v3.1/name/${c1}`);
+    const [data2] = await getJson(`https://restcountries.com/v3.1/name/${c2}`);
+    const [data3] = await getJson(`https://restcountries.com/v3.1/name/${c3}`);
+
+    // The act of getting three data shown above within this try block will work. but each has to wait for the previous ones before it runs.
+
+    // TO MAKE THE ACT OF GETTING THE THREE DATA RUN PARALLEL OF THE OTHER. IN OTHER WORDS, WITHOUT WAITING FOR EACH OTHER, WE WILL USE THE PROMISE ALL METHOD. This will help save time. The codes above will take 3 seconds to fetch the 3 data but with Promise All, it will tak a second most likely.
+
+    console.log([data1.capital, data2.capital, data3.capital]);
+  } catch (err) {
+    console.error(`${err.message}`);
+  }
+};
+
+get3Countries("portugal", "canada", "tanzania");
