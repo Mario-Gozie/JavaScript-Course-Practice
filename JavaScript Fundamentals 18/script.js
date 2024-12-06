@@ -763,10 +763,13 @@ const whereAmINow = async function (country) {
 
     renderCountry(data[0]);
 
-    return `You are in ${dataGeo.city}, ${dataGeo.country}`; // Just trying to return a value to the function. but this will return a promise because Async await always return a
+    return `You are in ${dataGeo.city}, ${dataGeo.country}`; // Just trying to return a value to the function. but this will return a promise because Async await always return a promise.
   } catch (err) {
     console.log(`${err.message} 💥💥💥`);
     renderError(`😒 ${err.message}`);
+
+    // Rejecting promise if there was an error in the promise returned by the function.
+    throw err;
   }
 };
 
@@ -779,8 +782,27 @@ console.log(`1: Will get location`);
 // const city = whereAmINow(); // Trying to see the value returned in the WhereAmINow function.
 // console.log(city);
 
-whereAmINow().then((city) => console.log(city));
-console.log("3: Finished getting location");
+// Here, we use catch method here because we are basically returning a promise from that async function above. you can see the return keyword towards the end of the async function. so to catch an error as a result of that particular new promise, we need to use the catch method on it seperately which we did here to get specifically what was the problem. but we need to throw the error inside the async function to help specificity.
+
+// whereAmINow()
+//   .then((city) => console.log(`2: ${city}`))
+//   .catch((err) => console.log(`2: ${err.message} 😒😒😒`))
+//   .finally(() => console.log("3: Finished getting location"));
+
+// Remember that finally must be executted no matter whether there is an error or not. This is another way of also making a code execute after an asynchronous task must have been executed.
+
+// ALL WE HAVE IN THE COMMENTED CODE ABOVE, WHICH INVOLVED THEN AND FINALLY, WE NOW HAD TO DO IT WITH ASYNC AND AWAIT WHILE THE FINALLY WAS KEPT WITHIN THE FUCTION SO IT CAN RUN ON ITS OWN AFTERWARDS. REMEMEMBER THAT ALL STATEMENT INSIDE THE FINALLY METHOD WILL RUN WHETHER WE HAD A SUCCEESSFUL PROMISE OR NOT.
+
+// The task is continnued with IIFE (IMMIDIATELY INVOKED FUNCTION EXPRESSION) function which usually does not come with a function name and it is called immidiately.
+(async function () {
+  try {
+    const city = await whereAmINow();
+    console.log(`2: ${city}`);
+  } catch (err) {
+    console.log(`2: ${err.message} 😒😒😒`);
+  }
+  console.log("3: Finished getting location");
+})();
 
 // CHECKING HOW TRY CATCH WORKS.
 // Here I am basically trying to reasign a constant variable which is wrong and imposible. since this is the case. I caught the error message and sent it as an alert.
