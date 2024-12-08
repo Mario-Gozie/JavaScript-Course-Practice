@@ -94,13 +94,34 @@ const loadNPause = async function () {
 loadNPause();
 
 // PART 2
+// TEACHERS PART WHICH DIDN'T WORK WELL FOR ME.
+
+// const loadAll = async function (imgArr) {
+//   try {
+//     const imgs = imgArr.map(async (img) => {
+//       await createImage(img); // the createImage function would return an array. so we need to first make the function within the map an async function, before using the await
+//     });
+//     console.log(imgs);
+//     const imgsEl = await Promise.all(imgs);
+//     console.log(imgsEl);
+//   } catch (err) {
+//     console.log(err);
+//   }
+// };
 
 const loadAll = async function (imgArr) {
   try {
-    const imgs = imgArr.map(async (img) => {
-      await createImage(img); // the createImage function would return an array. so we need to first make the function within the map an async function, before using the await
-    });
+    const imgs = imgArr.map(async (img) => await createImage(img)); // Directly use createImage returning and array of promises.
+
+    // Viewing the Promises.
     console.log(imgs);
+    const imgsEl = await Promise.all(imgs); // resolving the array of promises to get array of images
+    console.log(imgsEl);
+
+    // looping over the array and adding parallel class to it
+
+    // Looping over the array of images and adding the parallel class.
+    imgsEl.forEach((imgEl) => imgEl.classList.add("parallel"));
   } catch (err) {
     console.log(err);
   }
