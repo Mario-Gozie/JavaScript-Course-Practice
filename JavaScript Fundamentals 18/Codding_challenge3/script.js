@@ -92,3 +92,18 @@ const loadNPause = async function () {
 };
 
 loadNPause();
+
+// PART 2
+
+const loadAll = async function (imgArr) {
+  try {
+    const imgs = imgArr.map(async (img) => {
+      await createImage(img); // the createImage function would return an array. so we need to first make the function within the map an async function, before using the await
+    });
+    console.log(imgs);
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+loadAll(["img/img-1.jpg", "img/img-2.jpg", "img/img-3.jpg"]);
