@@ -900,3 +900,14 @@ Promise.all([
 ])
   .then((res) => console.log(res))
   .catch((err) => console.error(err));
+
+// Promise.any [ES2021]
+// This Returns the first fulfiled Promise and ignore rejected promises. So its result will always be a fulfilled promise.
+
+Promise.any([
+  Promise.resolve("Success"),
+  Promise.reject("Error"),
+  Promise.resolve("Another success"),
+])
+  .then((res) => console.log(res))
+  .catch((err) => console.error(err));
