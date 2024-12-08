@@ -890,3 +890,13 @@ Promise.allSettled([
 ])
   .then((res) => console.log(res))
   .catch((err) => console.error(err));
+
+// Promise.all will return values only when all promises are resolved. but Once one error is rejected, there will be an error
+
+Promise.all([
+  Promise.resolve("Success"),
+  Promise.reject("Error"),
+  Promise.resolve("Another success"),
+])
+  .then((res) => console.log(res))
+  .catch((err) => console.error(err));
