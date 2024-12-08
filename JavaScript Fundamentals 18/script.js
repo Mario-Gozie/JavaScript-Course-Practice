@@ -867,7 +867,7 @@ get3Countries("portugal", "canada", "tanzania");
 const timeout = function (sec) {
   return new Promise(function (_, reject) {
     setTimeout(function () {
-      reject(new Errror(`Reject took too long!`));
+      reject(new Error(`Reject took too long!`));
     }, sec * 1000);
   });
 };
@@ -878,4 +878,15 @@ Promise.race([
   timeout(1),
 ])
   .then((res) => console.log(res[0]))
+  .catch((err) => console.error(err));
+
+// Promise.allSettled
+// This takes an array of promisses and return all settled promise
+// This will take care/ return all promises, whether there is an error or not.
+Promise.allSettled([
+  Promise.resolve("Success"),
+  Promise.reject("Error"),
+  Promise.resolve("Another success"),
+])
+  .then((res) => console.log(res))
   .catch((err) => console.error(err));
