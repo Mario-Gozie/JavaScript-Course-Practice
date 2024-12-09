@@ -1,5 +1,5 @@
 // IMPORTING MODULE
-import { addToCart } from './shopingCart.js';
+import { addToCart, totalPrice, totalQuantity } from './shopingCart.js';
 
 console.log('Importing module');
 
@@ -7,3 +7,5 @@ console.log('Importing module');
 // console.log(shippingCost);
 
 addToCart('bread', 5); // when you run this imported function, it will run perfetly and print what you want on the console because it was exported.
+
+console.log(totalPrice, totalQuantity);
