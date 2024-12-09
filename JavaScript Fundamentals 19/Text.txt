@@ -27,3 +27,7 @@ ORGANIZED CODE: MODULES NATURALLY LEAD TO AN ORGANIZED CODEBASE
 
 
 Modules are stored in files, exacty one module per file. variables are private to a module unlike that of a script that is global and to be able to use a vaiable that are in a module, you need to export it. this is to prevent name class between module that is why ES6 included such implementation. ES6 modules are always executed in strict mode. while script variables are executed in sloppy mode by default. with modules, there is no need to declare strict mode. the this keyword is always undefied in the module while in script, it points to the window. in practice importing values is always the first thing to do in a module. to link moodle to a Html file, we need to use the strict tag with the type set to module instead of a plane script tag. Downloading the module happens automatically in an asynchronous way, while scripts are downloaded in a synchronous way.
+
+How modules import other modules behind the scenes.
+
+when you import a module, the the codes and variables in the imported module will be parsed first before the main code of the importer is executed. in other words, the code of the imported file will be read before the code of the non imported file.  it is necessary for the importing of module to happen asynchronously so that what is not needed won't be imported while importation would happen synchronously.
