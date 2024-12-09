@@ -14,3 +14,4 @@ console.log('Importing module');
 import * as shoppingCart from './shoppingCart.js'; // This process is more like creating an object during the importation process which we called shoppingCart. so before we use anything in the imported module, we have to attach the object to it.
 
 shoppingCart.addToCart('bread', 5);
+console.log(shoppingCart.totalPrice);
