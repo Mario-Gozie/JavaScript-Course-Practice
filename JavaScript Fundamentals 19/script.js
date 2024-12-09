@@ -18,6 +18,9 @@ console.log(shoppingCart.totalPrice);
 
 // Importing Default export in the export module.
 
-import add, { addToCart, totalPrice as price, tq } from './shoppingCart.js';
+import add, { cart } from './shoppingCart.js';
 add('pizza', 2); // that function I made default export in the export module, I now called it add here and used it.
-console.log(price);
+add('bread', 5);
+add('apples', 4);
+
+console.log(cart);
