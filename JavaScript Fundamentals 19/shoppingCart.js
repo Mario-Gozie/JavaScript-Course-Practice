@@ -1,6 +1,12 @@
 // EXPORTING MODULE
 console.log('Exporting module');
 
+// Blocking Code
+
+// console.log(`Start fetching users`);
+// const res = await fetch('https://jsonplaceholder.typicode.com/albums'); // This await code will block execution in any module importing this module. This is because Exported module must finish execution before the module importing it.
+// console.log('Finish fetching users');
+
 const shippingCost = 10;
 export const cart = [];
 
