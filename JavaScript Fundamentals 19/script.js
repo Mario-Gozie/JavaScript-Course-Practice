@@ -55,3 +55,37 @@ lastPost.then((last) => console.log(last));
 // Thi is where top level Await makes sense.
 const lastPost2 = await lastPost;
 console.log(lastPost2);
+
+// OLD MODULE PATTERN USED BEFORE NOW
+
+const shoppingCart2 = (function () {
+  const cart = [];
+  const shippingCost = 10;
+  const totalPrice = 237;
+  const totalQuantity = 23;
+
+  const addToCart = function (product, quantity) {
+    cart.push({ product, quantity });
+    console.log(`${quantity} ${product} added to cart`);
+  };
+
+  const orderStock = function (product, quantity) {
+    cart.push({ product, quantity });
+    console.log(
+      `${quantity} ${product} ordered from supplier (shipping cost is ${shippingCost})`
+    );
+  };
+
+  return {
+    // Every thing we want to make public. or accessible from outside, we have to return it. Here we are returning it as an object.
+    addToCart,
+    cart,
+    totalPrice,
+    totalQuantity,
+  };
+})();
+
+// Remember a function will always have access to all the variables in its birth place.
+console.log(shoppingCart2.addToCart('apple', 4));
+console.log(shoppingCart2.addToCart('pizza', 2));
+console.log(shoppingCart2);
