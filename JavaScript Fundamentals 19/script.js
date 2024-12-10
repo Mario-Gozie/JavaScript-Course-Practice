@@ -26,9 +26,32 @@ add('apples', 4);
 console.log(cart);
 
 // TOP  LEVEL AWAIT
-// This is the process of using the await keyword, oustside of the async function. (TOP LEVEL AWAIT)
+// This is the process of using the await keyword, oustside of the async function. (TOP LEVEL AWAIT). However it can slow down the code because it runs synchronously. especially task that takes time.
 
-const res = await fetch('https://jsonplaceholder.typicode.com/albums');
+// const res = await fetch('https://jsonplaceholder.typicode.com/albums');
 
-const data = await res.json();
-console.log(data);
+// const data = await res.json();
+// console.log(data);
+
+// console.log('Something');
+
+// The best way to use an await keyword is after the Async function.
+const getLastPost = async function () {
+  const res = await fetch('https://jsonplaceholder.typicode.com/albums');
+  const data = await res.json();
+  console.log(data);
+
+  return { title: data.at(-1).title, text: data.at(-1).id }; // This will return a promise. remember that whatever returned within an async function will always be a promise.
+};
+
+const lastPost = getLastPost();
+
+console.log(lastPost);
+
+// Not very clean with then  so let us use await
+lastPost.then((last) => console.log(last));
+
+// Using await to resolve what is returned by getLastPost async function
+// Thi is where top level Await makes sense.
+const lastPost2 = await lastPost;
+console.log(lastPost2);
