@@ -24,3 +24,11 @@ add('bread', 5);
 add('apples', 4);
 
 console.log(cart);
+
+// TOP  LEVEL AWAIT
+// This is the process of using the await keyword, oustside of the async function. (TOP LEVEL AWAIT)
+
+const res = await fetch('https://jsonplaceholder.typicode.com/albums');
+
+const data = await res.json();
+console.log(data);
