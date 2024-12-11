@@ -95,3 +95,31 @@ console.log(shoppingCart2);
 // Initializing npm file is done with npm init and clicking enter till the end where you will be asked is this Ok? and you will say, Yes. This wiil finally create a package file.
 
 // it is in the package.json file that all configuration of our project is stored.
+
+// let us install the leaflet library using npm. (npm install leaflet)
+// installing the leaflet library, just like installing any other library created a new property/field which is called dependencies. it is there that all the external libraries I use will be stored. it also created a folder called node modules. and it contains the leaflet libraries.
+
+// Yes we have installed the leaflet library, but we can't use it without module bondler
+
+// let us now import one of the most popular JavaScript library, which is loadash. it contains useful functions for arrays, objects, etc. but we need to use the Es version which does not require an bondler in cases of Old Javascript.
+
+// we can also see that in the packages, the loadash is one of the dependencies there. we can also find the lodash-es folder in the node module folder.
+
+// LET ME USE ONE OF THE METHODS IN LODASH TO FIND CLONE AN OBJECT.
+
+// This is known as CLONEDEEP it is used for cloning object perfectly instead of using object.assign(). Remember that if you just copy an object that is not a primitive object, when you change anything in the parent object, it will also change in the child vice versa. this is because they are pointing to the same memory. so but if you use object.asign() it doesn't work perfectly for deep objects.
+
+import cloneDeep from './node_modules/lodash-es/cloneDeep.js';
+
+const state = {
+  cart: [
+    { product: 'bread', quantity: 5 },
+    { product: 'pizza', quantity: 5 },
+  ],
+  user: { loggedIn: true },
+};
+
+const stateClone = Object.assign({}, state);
+
+state.user.loggedIn = false;
+console.log(stateClone);
