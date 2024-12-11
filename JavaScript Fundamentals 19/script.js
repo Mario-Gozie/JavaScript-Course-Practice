@@ -89,3 +89,9 @@ const shoppingCart2 = (function () {
 console.log(shoppingCart2.addToCart('apple', 4));
 console.log(shoppingCart2.addToCart('pizza', 2));
 console.log(shoppingCart2);
+
+// Understanding NPM
+// NPM  stands for node package manager and it is both a software on our computer and a package repository
+// Initializing npm file is done with npm init and clicking enter till the end where you will be asked is this Ok? and you will say, Yes. This wiil finally create a package file.
+
+// it is in the package.json file that all configuration of our project is stored.
