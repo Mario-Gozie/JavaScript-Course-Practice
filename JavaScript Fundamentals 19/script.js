@@ -120,6 +120,13 @@ const state = {
 };
 
 const stateClone = Object.assign({}, state);
+const stateDeepClone = cloneDeep(state);
 
+// Assigning false to the original object property
 state.user.loggedIn = false;
+
+// Checking the two objects to see if Deepclode did the job better than Object.assign
+
 console.log(stateClone);
+
+console.log(stateDeepClone);
