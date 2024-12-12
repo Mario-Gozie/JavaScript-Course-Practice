@@ -1,3 +1,5 @@
+'strict mode';
+
 const budget = [
   { value: 250, description: 'Sold old TV 📺', user: 'jonas' },
   { value: -45, description: 'Groceries 🥑', user: 'jonas' },
@@ -9,10 +11,12 @@ const budget = [
   { value: -1800, description: 'New Laptop 💻', user: 'jonas' },
 ];
 
-const spendingLimits = {
+const spendingLimits = Object.freeze({
   jonas: 1500,
   matilda: 100,
-};
+}); // Using Object.freeze will make an object immutable in JavaScript.
+
+spendingLimits.jay = 200;
 
 const getLimit = (user) => spendingLimits?.[user] ?? 0;
 
@@ -75,3 +79,5 @@ const logBigExpenses = function (bigLimit) {
 
 console.log(budget);
 logBigExpenses(100);
+
+// MAKING OUR CODE CLEANER WITH FUNCTIONAL PROGRAMING
