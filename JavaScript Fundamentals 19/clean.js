@@ -14,6 +14,8 @@ const spendingLimits = {
   matilda: 100,
 };
 
+const getLimit = (user) => spendingLimits?.[user] ?? 0;
+
 const addExpense = function (value, description, user = 'jonas') {
   //   if (!user) user = 'jonas';
   user = user.toLowerCase();
@@ -26,7 +28,9 @@ const addExpense = function (value, description, user = 'jonas') {
   //   }
 
   //   const limit = spendingLimits[user] ? spendingLimits[user] : 0;
-  const limit = spendingLimits?.[user] ?? 0; // what we commented above is same as this.
+  //   const limit = spendingLimits?.[user] ?? 0; // what we commented above is same as this.
+
+  const limit = getLimit(user);
 
   if (value <= limit) {
     budget.push({ value: -value, description, user }); // you dont need to do description: description or user : user if the parameter and variable name are the same for an object. just use one.
@@ -48,7 +52,7 @@ const checkExpenses = function () {
 
     const limit = spendingLimits?.[entry.user] ?? 0;
 
-    if (entry.value < -limit) {
+    if (entry.value < -getLimit(entry.user)) {
       entry.flag = 'limit';
     }
   }
