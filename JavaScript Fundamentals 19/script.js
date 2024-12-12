@@ -163,3 +163,14 @@ console.log(cart.find((item) => item.quantity >= 2));
 Promise.resolve('Test').then((x) => console.log(x));
 
 // Because of Promises and some new ES6 codes, that Bable cannot convert to ES5, we need to download a new library to do that.
+
+// The process of converting those most recent ES features is polifiling which and it is done with core package. while the other are done with bable an the process is called transpiling.
+
+// This is for poly filling Array functions
+import 'core-js/stable';
+
+// This is for polifiling Async functions.
+
+import 'regenerator-runtime/runtime.js';
+
+// FIXING BAD CODES
