@@ -1,6 +1,6 @@
 'strict mode';
 
-const budget = [
+const budget = Object.freeze([
   { value: 250, description: 'Sold old TV 📺', user: 'jonas' },
   { value: -45, description: 'Groceries 🥑', user: 'jonas' },
   { value: 3500, description: 'Monthly salary 👩‍💻', user: 'jonas' },
@@ -9,14 +9,18 @@ const budget = [
   { value: -20, description: 'Candy 🍭', user: 'matilda' },
   { value: -125, description: 'Toys 🚂', user: 'matilda' },
   { value: -1800, description: 'New Laptop 💻', user: 'jonas' },
-];
+]);
+
+// Object.freeze is only effective for first level data. Deep ones can be mutated.
+
+budget[0].value = 1000;
 
 const spendingLimits = Object.freeze({
   jonas: 1500,
   matilda: 100,
 }); // Using Object.freeze will make an object immutable in JavaScript.
 
-spendingLimits.jay = 200;
+// spendingLimits.jay = 200;
 
 const getLimit = (user) => spendingLimits?.[user] ?? 0;
 
@@ -40,9 +44,9 @@ const addExpense = function (value, description, user = 'jonas') {
     budget.push({ value: -value, description, user }); // you dont need to do description: description or user : user if the parameter and variable name are the same for an object. just use one.
   }
 };
-addExpense(10, 'Pizza 🍕');
-addExpense(100, 'Going to movies 🍿', 'Matilda');
-addExpense(200, 'Stuff', 'Jay');
+// addExpense(10, 'Pizza 🍕');
+// addExpense(100, 'Going to movies 🍿', 'Matilda');
+// addExpense(200, 'Stuff', 'Jay');
 
 const checkExpenses = function () {
   for (const entry of budget) {
