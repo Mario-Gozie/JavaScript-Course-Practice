@@ -110,6 +110,7 @@ console.log(shoppingCart2);
 // This is known as CLONEDEEP it is used for cloning object perfectly instead of using object.assign(). Remember that if you just copy an object that is not a primitive object, when you change anything in the parent object, it will also change in the child vice versa. this is because they are pointing to the same memory. so but if you use object.asign() it doesn't work perfectly for deep objects.
 
 import cloneDeep from './node_modules/lodash-es/cloneDeep.js';
+// import cloneDeep from 'lodash-es';
 
 const state = {
   cart: [
@@ -130,3 +131,35 @@ state.user.loggedIn = false;
 console.log(stateClone);
 
 console.log(stateDeepClone);
+
+// NOTE when you want to send your work to another developer, do not send the node moodle. it is a lot of data and would take a lot of time.You jut need to send other files alongside with the package file. if the other developer recieves it, all he needs to do is to install npm on his system and because of the dependencies in the package file already, hw will get all the node_modules file and all the libraries dependent on the project. I deleted my node_modules folder and intalled npm again and all the dependecies/libraries came back.
+
+// the code is "npm install" dont put any package name. it will figure out packages needed for the dependencies object within the package.json file.
+
+// How to use Parcel in for bundling (Parcel can be found as Npm Package)
+// to download parcel, we use npm install parce --save-dev because parcel is a dev dependency which is needed for our application but not directly for our code. that is whay it has "--save-dev" when this is downloaded, it appear
+
+// to run parcel, we use  npx parcel index.html we used index.html because that is where we included our script file.
+
+// The goal of using parcel is to bundle modules together.
+
+// BABEL AND POLYFILLING
+// This is used to convert files to ES5
+
+class Person {
+  #greeting = 'Hey';
+  constructor(name) {
+    this.name = name;
+    console.log(`${this.#greeting}, ${this.name}`);
+  }
+}
+
+const jonas = new Person('Jonas');
+
+console.log('Jonas' ?? null);
+
+console.log(cart.find((item) => item.quantity >= 2));
+
+Promise.resolve('Test').then((x) => console.log(x));
+
+// Because of Promises and some new ES6 codes, that Bable cannot convert to ES5, we need to download a new library to do that.
