@@ -174,3 +174,19 @@ import 'core-js/stable';
 import 'regenerator-runtime/runtime.js';
 
 // FIXING BAD CODES
+
+/* FUNCTIONAL PROGRAMMING. 
+in functional programing, do declarative programing instead of imperative programming. we tell the computer what to do insted of giving it step by step of what to do. 
+
+we also write functions that do not mutate variables oustside the function scope. This functions are called pure functions. they do not have a side effect.
+
+Immutability: State(data) is never modified! instead, state is copied and the copy is mutated and returned. This helps to reduce bugs. This concepts of functional programming is the basics for React and Redux. always try to use built in methods like .map(), .filter() and .reduce() These methods prevent mutation.
+
+In order to use Deckarative syntax, 
+* Use arrays and objects in destructuring
+* use spread operator(...)
+* use the tenary (conditional) operator
+* use template literals
+
+
+*/
