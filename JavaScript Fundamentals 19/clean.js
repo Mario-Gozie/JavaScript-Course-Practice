@@ -39,7 +39,6 @@ const addExpense = function (value, description, user = 'jonas') {
 addExpense(10, 'Pizza 🍕');
 addExpense(100, 'Going to movies 🍿', 'Matilda');
 addExpense(200, 'Stuff', 'Jay');
-console.log(budget);
 
 const checkExpenses = function () {
   for (const entry of budget) {
@@ -59,17 +58,20 @@ const checkExpenses = function () {
 };
 checkExpenses();
 
-console.log(budget);
-
-const bigExpenses = function (limit) {
+const logBigExpenses = function (bigLimit) {
   let output = '';
   for (const el of budget) {
-    if (el.value <= -limit) {
-      output += el.description.slice(-2) + ' / '; // Emojis are 2 chars
-    }
+    output +=
+      el.value <= -bigLimit
+        ? (output += `${el.description.slice(-2)} +  / ;`)
+        : '';
+    // if (el.value <= -bigLimit) {
+    //   output += `${el.description.slice(-2)} +  / ;`; // Emojis are 2 chars
+    // }
   }
   output = output.slice(0, -2); // Remove last '/ '
   console.log(output);
 };
 
-bigExpenses(1000);
+console.log(budget);
+logBigExpenses(100);
