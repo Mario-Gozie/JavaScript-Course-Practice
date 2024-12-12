@@ -29,7 +29,7 @@ const addExpense = function (value, description, user = 'jonas') {
   const limit = spendingLimits?.[user] ?? 0; // what we commented above is same as this.
 
   if (value <= limit) {
-    budget.push({ value: -value, description: description, user: user });
+    budget.push({ value: -value, description, user }); // you dont need to do description: description or user : user if the parameter and variable name are the same for an object. just use one.
   }
 };
 addExpense(10, 'Pizza 🍕');
