@@ -24,9 +24,16 @@ const spendingLimits = Object.freeze({
 
 const getLimit = (user) => spendingLimits?.[user] ?? 0;
 
-const addExpense = function (value, description, user = 'jonas') {
+// Pure Function :D
+const addExpense = function (
+  state,
+  limits,
+  value,
+  description,
+  user = 'jonas'
+) {
   //   if (!user) user = 'jonas';
-  user = user.toLowerCase();
+  const cleanUser = user.toLowerCase();
 
   //   let lim;
   //   if (spendingLimits[user]) {
@@ -38,25 +45,23 @@ const addExpense = function (value, description, user = 'jonas') {
   //   const limit = spendingLimits[user] ? spendingLimits[user] : 0;
   //   const limit = spendingLimits?.[user] ?? 0; // what we commented above is same as this.
 
-  const limit = getLimit(user);
-
-  if (value <= limit) {
-    budget.push({ value: -value, description, user }); // you dont need to do description: description or user : user if the parameter and variable name are the same for an object. just use one.
-  }
+  return value <= getLimit(cleanUser)
+    ? [...state, { value: -value, description, user: cleanUser }]
+    : state;
 };
-// addExpense(10, 'Pizza 🍕');
-// addExpense(100, 'Going to movies 🍿', 'Matilda');
-// addExpense(200, 'Stuff', 'Jay');
+const newBudget1 = addExpense(budget, spendingLimits, 10000, 'Pizza 🍕');
+console.log(newBudget1);
+const newBudget2 = addExpense(
+  newBudget1,
+  spendingLimits,
+  100,
+  'Going to movies 🍿',
+  'Matilda'
+);
+const newBudget3 = addExpense(newBudget2, spendingLimits, 200, 'Stuff', 'Jay');
 
 const checkExpenses = function () {
   for (const entry of budget) {
-    // let lim;
-    // if (spendingLimits[entry.user]) {
-    //   lim = spendingLimits[entry.user];
-    // } else {
-    //   lim = 0;
-    // }
-
     const limit = spendingLimits?.[entry.user] ?? 0;
 
     if (entry.value < -getLimit(entry.user)) {
