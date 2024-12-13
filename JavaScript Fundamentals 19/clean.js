@@ -84,18 +84,12 @@ const finalBudget = checkExpenses(newBudget3, spendingLimits);
 console.log(finalBudget);
 
 const logBigExpenses = function (state, bigLimit) {
-  // let output = '';
-  // for (const el of budget) {
-  //   output +=
-  //     el.value <= -bigLimit
-  //       ? (output += `${el.description.slice(-2)} +  / ;`)
-  //       : '';
-  //   // if (el.value <= -bigLimit) {
-  //   //   output += `${el.description.slice(-2)} +  / ;`; // Emojis are 2 chars
-  //   // }
-  // }
-  // output = output.slice(0, -2); // Remove last '/ '
-  // console.log(output);
+  const bigExpenses = state
+    .filter((entry) => entry.value <= -bigLimit)
+    .map((entry) => entry.description.slice(-2))
+    .join('/');
+
+  // .reduce((str, cur) => `${str} / ${cur.description.slice(-2)}`, '');
 };
 
 logBigExpenses(finalBudget, 100);
