@@ -22,7 +22,7 @@ const spendingLimits = Object.freeze({
 
 // spendingLimits.jay = 200;
 
-const getLimit = (user) => spendingLimits?.[user] ?? 0;
+const getLimit = (limits, user) => limits?.[user] ?? 0;
 
 // Pure Function :D
 const addExpense = function (
@@ -45,12 +45,12 @@ const addExpense = function (
   //   const limit = spendingLimits[user] ? spendingLimits[user] : 0;
   //   const limit = spendingLimits?.[user] ?? 0; // what we commented above is same as this.
 
-  return value <= getLimit(cleanUser)
+  return value <= getLimit(limits, cleanUser)
     ? [...state, { value: -value, description, user: cleanUser }]
     : state;
 };
 const newBudget1 = addExpense(budget, spendingLimits, 10000, 'Pizza 🍕');
-console.log(newBudget1);
+
 const newBudget2 = addExpense(
   newBudget1,
   spendingLimits,
@@ -60,33 +60,44 @@ const newBudget2 = addExpense(
 );
 const newBudget3 = addExpense(newBudget2, spendingLimits, 200, 'Stuff', 'Jay');
 
-const checkExpenses = function () {
-  for (const entry of budget) {
-    const limit = spendingLimits?.[entry.user] ?? 0;
+// const checkExpenses2 = function (state, limits) {
+//   return state.map((entry) => {
+//     return entry.value < -getLimit(limits, entry.user)
+//       ? { ...entry, flag: 'limit' }
+//       : entry;
+//   });
+//   // for (const entry of newBudget3) {
+//   //   if (entry.value < -getLimit(limits, entry.user)) {
+//   //     entry.flag = 'limit';
+//   //   }
+//   // }
+// };
+const checkExpenses = (state, limits) =>
+  state.map((entry) =>
+    entry.value < -getLimit(limits, entry.user)
+      ? { ...entry, flag: 'limit' }
+      : entry
+  );
 
-    if (entry.value < -getLimit(entry.user)) {
-      entry.flag = 'limit';
-    }
-  }
+const finalBudget = checkExpenses(newBudget3, spendingLimits);
+
+console.log(finalBudget);
+
+const logBigExpenses = function (state, bigLimit) {
+  // let output = '';
+  // for (const el of budget) {
+  //   output +=
+  //     el.value <= -bigLimit
+  //       ? (output += `${el.description.slice(-2)} +  / ;`)
+  //       : '';
+  //   // if (el.value <= -bigLimit) {
+  //   //   output += `${el.description.slice(-2)} +  / ;`; // Emojis are 2 chars
+  //   // }
+  // }
+  // output = output.slice(0, -2); // Remove last '/ '
+  // console.log(output);
 };
-checkExpenses();
 
-const logBigExpenses = function (bigLimit) {
-  let output = '';
-  for (const el of budget) {
-    output +=
-      el.value <= -bigLimit
-        ? (output += `${el.description.slice(-2)} +  / ;`)
-        : '';
-    // if (el.value <= -bigLimit) {
-    //   output += `${el.description.slice(-2)} +  / ;`; // Emojis are 2 chars
-    // }
-  }
-  output = output.slice(0, -2); // Remove last '/ '
-  console.log(output);
-};
-
-console.log(budget);
-logBigExpenses(100);
+logBigExpenses(finalBudget, 100);
 
 // MAKING OUR CODE CLEANER WITH FUNCTIONAL PROGRAMING
